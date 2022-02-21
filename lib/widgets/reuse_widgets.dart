@@ -128,11 +128,76 @@ class _PasswordInputState extends State<PasswordInput> {
   }
 }
 
+class VerifyInput extends StatefulWidget {
+  final TextEditingController? textEditingController;
+
+  const VerifyInput({required this.textEditingController, Key? key})
+      : super(key: key);
+
+  @override
+  State<VerifyInput> createState() => _VerifyInputState();
+}
+
+class _VerifyInputState extends State<VerifyInput> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      child: TextFormField(
+        controller: widget.textEditingController,
+        obscureText: true,
+        decoration: InputDecoration(
+          label: const Text("Verify"),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+          labelStyle: const TextStyle(color: Colors.grey),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.grey,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.grey,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+        ),
+        validator: (val) {
+          if (val!.isEmpty) {
+            return 'Required';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+}
+
 // =============================== Social Media Button ===============================
 class GoogleBtn extends StatelessWidget {
   final Function()? onPressed;
+  final String? title;
   const GoogleBtn({
     this.onPressed,
+    this.title,
     Key? key,
   }) : super(key: key);
 
@@ -157,8 +222,8 @@ class GoogleBtn extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Text("Login with Google",
-                  style: TextStyle(color: Colors.black, fontSize: 16)),
+              Text(title!,
+                  style: const TextStyle(color: Colors.black, fontSize: 16)),
             ],
           ),
           onPressed: onPressed,
@@ -168,8 +233,10 @@ class GoogleBtn extends StatelessWidget {
 
 class FacebookBtn extends StatelessWidget {
   final Function()? onPressed;
+  final String? title;
   const FacebookBtn({
     this.onPressed,
+    this.title,
     Key? key,
   }) : super(key: key);
 
@@ -194,8 +261,8 @@ class FacebookBtn extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Text("Login with META",
-                  style: TextStyle(color: Colors.black, fontSize: 16)),
+              Text(title!,
+                  style: const TextStyle(color: Colors.black, fontSize: 16)),
             ],
           ),
           onPressed: onPressed,

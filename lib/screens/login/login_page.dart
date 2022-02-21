@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/routes/routes.dart' as route;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -57,8 +58,12 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.w400,
                           color: Colors.grey)),
                   const SizedBox(height: 20),
-                  const GoogleBtn(),
-                  const FacebookBtn(),
+                  const GoogleBtn(
+                    title: 'Login with Google',
+                  ),
+                  const FacebookBtn(
+                    title: 'Login with META',
+                  ),
                   divider('or Login with Email'),
                   EmailInput(textEditingController: _emailInputController),
                   PasswordInput(
@@ -108,7 +113,13 @@ class _LoginPageState extends State<LoginPage> {
                                   fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black)),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterPage()),
+                            );
+                          },
                         )
                       ],
                     ),
