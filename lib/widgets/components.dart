@@ -1,7 +1,55 @@
-// =============================== Input Button ===============================
-
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+
+
+class PhraseInput extends StatelessWidget {
+  final TextEditingController? textEditingController;
+  const PhraseInput({Key? key, required this.textEditingController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            offset: const Offset(12, 26),
+            blurRadius: 8,
+            spreadRadius: 0,
+            color: Colors.grey.withOpacity(.1)),
+      ]),
+      child: TextField(
+        controller: textEditingController,
+        onChanged: (value) {
+          //Do something wi
+        },
+        style: const TextStyle(fontSize: 14, color: Colors.black),
+        decoration: InputDecoration(
+          fillColor: Colors.white, 
+          filled: true,
+          contentPadding: const EdgeInsets.symmetric(vertical: 40),
+          labelStyle: const TextStyle(color: Colors.grey),
+          hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class EmailInput extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -321,30 +369,29 @@ class EditButton extends StatelessWidget {
 
     const double borderRadius = 50;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width / 5,
-        child: DecoratedBox(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadius),
-                color: primaryColor),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0),
-                  alignment: Alignment.center,
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.transparent),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(borderRadius)),
-                  )),
-              onPressed: onPressed,
-              child: Text(
-                text!,
-                style: const TextStyle(color: accentColor, fontSize: 16),
-              ),
-            )),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 5,
+      height: MediaQuery.of(context).size.height / 20,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadius),
+          color: primaryColor,
+        ),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0),
+            alignment: Alignment.center,
+            backgroundColor: MaterialStateProperty.all(Colors.transparent),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
+            ),
+          ),
+          onPressed: onPressed,
+          child: Text(
+            text!,
+            style: const TextStyle(color: accentColor, fontSize: 14),
+          ),
+        ),
       ),
     );
   }
