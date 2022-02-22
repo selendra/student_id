@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: const DashboardPage(),
+      home: const StoragesPage(),
     );
   }
 }

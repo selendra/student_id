@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+class AccountPage extends StatefulWidget {
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  _AccountPageState createState() => _AccountPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             _profileWidget(context),
             const DashboardOptions(),
-            const PersonlInfo()
+            const LinkedAccountInfo()
           ],
         ),
       ),

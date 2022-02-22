@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+class StoragesPage extends StatefulWidget {
+  const StoragesPage({Key? key}) : super(key: key);
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  _StoragesPageState createState() => _StoragesPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _StoragesPageState extends State<StoragesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _profileWidget(context),
-            const DashboardOptions(),
-            const PersonlInfo()
-          ],
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _profileWidget(context),
+              const DashboardOptions(),
+              const StoragesInfo(),
+              AddAssetButton(text: 'Add Services', onPressed: () {}),
+            ],
+          ),
         ),
       ),
     );
