@@ -31,14 +31,16 @@ class _DashboardPageState extends State<DashboardPage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            profileWidget(context),
-            const DashboardOptions(),
-            const PersonlInfo()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              profileWidget(context),
+              const DashboardOptions(),
+              const PersonlInfo()
+            ],
+          ),
         ),
       ),
     );

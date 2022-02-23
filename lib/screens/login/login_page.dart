@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
-import 'package:student_id/routes/routes.dart' as route;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -97,7 +96,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SubmitButton(
                     text: 'Submit',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, navbarRoute);
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -114,11 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black)),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const RegisterPage()),
-                            );
+                            Navigator.pushNamed(context, registerRoute);
                           },
                         )
                       ],

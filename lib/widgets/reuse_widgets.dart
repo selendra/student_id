@@ -8,13 +8,10 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#EDEDED'),
-        content: Container(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        content: SizedBox(
           width: MediaQuery.of(context).size.width / 1.3,
           height: MediaQuery.of(context).size.height / 2.2,
-          decoration: const BoxDecoration(
-            color: Color(0x00ffffff),
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +32,7 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
               ),
               const SizedBox(height: 10),
               PhraseInput(textEditingController: phraseKey),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 3,
                 child: DecoratedBox(
@@ -54,7 +51,9 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
                           )),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
                       child: const Text(
                         'Submit',
                         style: TextStyle(color: Colors.white, fontSize: 14),
@@ -69,6 +68,71 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
   );
 }
 
+
+void qrCodeAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        backgroundColor: HexColor('#EDEDED'),
+        content: SizedBox(
+          width: MediaQuery.of(context).size.width / 1.3,
+          height: MediaQuery.of(context).size.height / 2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'My QR Code',
+                style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 20),
+              QrImage(
+                data: 'This QR code has an embedded image as well',
+                version: QrVersions.auto,
+                size: 250,
+                gapless: false,
+                embeddedImage: const AssetImage('assets/logos/telegram_logo.png'),
+                embeddedImageStyle: QrEmbeddedImageStyle(
+                  size: const Size(80, 80),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: primaryColor),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          alignment: Alignment.center,
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.only(top: 15, bottom: 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                          )),
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'OK',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
 
 Widget selLogo(BuildContext context) {
   return Image.asset('assets/logos/sel.png', width: 100, height: 100);

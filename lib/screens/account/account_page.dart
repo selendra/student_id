@@ -14,14 +14,16 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            profileWidget(context),
-            const DashboardOptions(),
-            const LinkedAccountInfo()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              profileWidget(context),
+              const DashboardOptions(),
+              const LinkedAccountInfo()
+            ],
+          ),
         ),
       ),
     );

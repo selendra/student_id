@@ -19,3 +19,11 @@ export 'package:student_id/widgets/components.dart';
 export 'package:student_id/screens/cryptos/cryptos_page.dart';
 
 export 'package:student_id/screens/storages/storages_page.dart';
+
+export 'package:qr_flutter/qr_flutter.dart';
+
+export 'package:student_id/tools/tools_page.dart';
+
+export 'package:student_id/widgets/navbar.dart';
+
+export 'package:student_id/routes/route_generator.dart';

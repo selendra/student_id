@@ -424,7 +424,9 @@ class DashboardOptions extends StatelessWidget {
           Column(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  qrCodeAlertDialog(context);
+                },
                 icon: const Icon(Icons.qr_code_2_outlined),
                 iconSize: 40,
                 color: greyColor,

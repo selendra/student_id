@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
-import 'package:student_id/routes/routes.dart' as route;
+
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
