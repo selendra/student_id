@@ -1,252 +1,132 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 
+// =============================== Reuse Widget ===============================
+void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: HexColor('#EDEDED'),
+        content: Container(
+          width: MediaQuery.of(context).size.width / 1.3,
+          height: MediaQuery.of(context).size.height / 2.2,
+          decoration: const BoxDecoration(
+            color: Color(0x00ffffff),
+            borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                "Social Wallets",
+                style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Generate Private/Public Key with close friends’ contacts; phone numbers and/or email addresses and/or names.\nA secure key to everything yours, make sure you save or remember it well",
+                style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "12 words* separated by space",
+                style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(height: 10),
+              PhraseInput(textEditingController: phraseKey),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 3,
+                child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: primaryColor),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          alignment: Alignment.center,
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.only(top: 15, bottom: 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                          )),
+                      onPressed: (){},
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+
 Widget selLogo(BuildContext context) {
   return Image.asset('assets/logos/sel.png', width: 100, height: 100);
 }
 
-// =============================== Input Button ===============================
-
-class EmailInput extends StatelessWidget {
-  final TextEditingController? textEditingController;
-  const EmailInput({Key? key, required this.textEditingController})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  offset: const Offset(12, 26),
-                  blurRadius: 50,
-                  spreadRadius: 0,
-                  color: Colors.grey.withOpacity(.1)),
-            ]),
-            child: TextField(
-              controller: textEditingController,
-              onChanged: (value) {
-                //Do something wi
-              },
-              keyboardType: TextInputType.emailAddress,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-              decoration: InputDecoration(
-                label: const Text("Email"),
-                labelStyle: const TextStyle(color: Colors.grey),
-                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PasswordInput extends StatefulWidget {
-  final TextEditingController? textEditingController;
-
-  const PasswordInput({required this.textEditingController, Key? key})
-      : super(key: key);
-
-  @override
-  State<PasswordInput> createState() => _PasswordInputState();
-}
-
-class _PasswordInputState extends State<PasswordInput> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      child: TextFormField(
-        controller: widget.textEditingController,
-        obscureText: true,
-        decoration: InputDecoration(
-          label: const Text("Password"),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-          labelStyle: const TextStyle(color: Colors.grey),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-        ),
-        validator: (val) {
-          if (val!.isEmpty) {
-            return 'Required';
-          }
-          return null;
-        },
-      ),
-    );
-  }
-}
-
-// =============================== Social Media Button ===============================
-class GoogleBtn extends StatelessWidget {
-  final Function()? onPressed;
-  const GoogleBtn({
-    this.onPressed,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 54,
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.white,
-        ),
-        child: TextButton(
-          style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(50)))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logos/google-icon.png', width: 20),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text("Login with Google",
-                  style: TextStyle(color: Colors.black, fontSize: 16)),
-            ],
-          ),
-          onPressed: onPressed,
-        ));
-  }
-}
-
-class FacebookBtn extends StatelessWidget {
-  final Function()? onPressed;
-  const FacebookBtn({
-    this.onPressed,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 54,
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.white,
-        ),
-        child: TextButton(
-          style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(50)))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logos/meta-icon.png', width: 20),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text("Login with META",
-                  style: TextStyle(color: Colors.black, fontSize: 16)),
-            ],
-          ),
-          onPressed: onPressed,
-        ));
-  }
-}
-
-class SubmitButton extends StatelessWidget {
-  final String? text;
-  final Function()? onPressed;
-  const SubmitButton({this.text, this.onPressed, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    HexColor primaryColor = HexColor('#00AAFF');
-    const accentColor = Color(0xffffffff);
-
-    const double borderRadius = 50;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SizedBox(
+Widget profileWidget(BuildContext context) {
+  return Stack(
+    children: <Widget>[
+      Image.network(
+        'https://picsum.photos/250?image=9',
         width: MediaQuery.of(context).size.width,
-        child: DecoratedBox(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadius),
-                color: primaryColor),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0),
-                  alignment: Alignment.center,
-                  padding: MaterialStateProperty.all(
-                      const EdgeInsets.only(top: 15, bottom: 15)),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.transparent),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(borderRadius)),
-                  )),
-              onPressed: onPressed,
-              child: Text(
-                text!,
-                style: const TextStyle(color: accentColor, fontSize: 16),
-              ),
-            )),
+        height: MediaQuery.of(context).size.height / 3,
+        fit: BoxFit.cover,
       ),
-    );
-  }
+      SizedBox(
+        width: (MediaQuery.of(context).size.width),
+        height: MediaQuery.of(context).size.height / 3,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.white,
+              child: ClipOval(
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1597466765990-64ad1c35dafc',
+                  height: 110,
+                  width: 110,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 10, bottom: 10),
+              child: const Text(
+                'Selena',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+      
+      Positioned(
+        right: 10,
+        top: 10,
+        child: EditButton(
+          text: 'Edit',
+          onPressed: () {},
+        )
+      )
+    ],
+  );
 }
-
-// =============================== Reuse Widget ===============================
 
 Widget divider(String title) {
   return Container(
@@ -270,5 +150,45 @@ Widget divider(String title) {
             )),
       ),
     ]),
+  );
+}
+
+Widget titleDashboard(String title, BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
+    width: MediaQuery.of(context).size.width,
+    color: greyBackgroundColor,
+    child: Text(title,
+        style: TextStyle(color: greyColor, fontWeight: FontWeight.w700)),
+  );
+}
+
+Widget getBalanceBox(
+    String title, TextEditingController? data, BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 20, left: 70, right: 70),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,
+            style: TextStyle(color: greyColor, fontWeight: FontWeight.w700)),
+        Container(
+          color: greyBackgroundColor,
+          child: TextField(
+            readOnly: true,
+            enabled: false,
+            controller: data!,
+            style: const TextStyle(fontWeight: FontWeight.w700),
+            decoration: const InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
   );
 }

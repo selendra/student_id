@@ -24,7 +24,6 @@ import 'package:polkawallet_sdk/utils/localStorage.dart';
 
 class ApiProvider with ChangeNotifier {
   
-  
   WalletSDK _sdk = WalletSDK();
 
   Keyring _keyring = Keyring();
