@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
-import 'package:student_id/routes/routes.dart' as route;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -63,11 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   SubmitButton(
                     text: 'Submit',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const VerifyPage()),
-                      );
+                      Navigator.pushNamed(context, verifyRoute);
                     },
                   ),
                   Padding(
@@ -85,11 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black)),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
-                            );
+                            Navigator.pushNamed(context, loginRoute);
                           },
                         )
                       ],

@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/components_c.dart';
+import 'package:student_id/components/image_edit_c.dart';
+import 'package:student_id/models/dashboard_m.dart';
 
 // =============================== Reuse Widget ===============================
 void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
@@ -8,13 +13,10 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#EDEDED'),
-        content: Container(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        content: SizedBox(
           width: MediaQuery.of(context).size.width / 1.3,
           height: MediaQuery.of(context).size.height / 2.2,
-          decoration: const BoxDecoration(
-            color: Color(0x00ffffff),
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +37,7 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
               ),
               const SizedBox(height: 10),
               PhraseInput(textEditingController: phraseKey),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 3,
                 child: DecoratedBox(
@@ -54,7 +56,9 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
                           )),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
                       child: const Text(
                         'Submit',
                         style: TextStyle(color: Colors.white, fontSize: 14),
@@ -70,18 +74,101 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
 }
 
 
+void qrCodeAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        backgroundColor: HexColor('#EDEDED'),
+        content: SizedBox(
+          width: MediaQuery.of(context).size.width / 1.3,
+          height: MediaQuery.of(context).size.height / 2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'My QR Code',
+                style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 20),
+              QrImage(
+                data: 'This QR code has an embedded image as well',
+                version: QrVersions.auto,
+                size: 250,
+                gapless: false,
+                embeddedImage: const AssetImage('assets/logos/telegram_logo.png'),
+                embeddedImageStyle: QrEmbeddedImageStyle(
+                  size: const Size(80, 80),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: primaryColor),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          alignment: Alignment.center,
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.only(top: 15, bottom: 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                          )),
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'OK',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
 Widget selLogo(BuildContext context) {
   return Image.asset('assets/logos/sel.png', width: 100, height: 100);
 }
 
-Widget profileWidget(BuildContext context) {
+Widget profileWidget(BuildContext context, { @required DashBoardModel? model, @required Function? pickImage}) {
   return Stack(
     children: <Widget>[
-      Image.network(
-        'https://picsum.photos/250?image=9',
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 3,
-        fit: BoxFit.cover,
+
+      ImageEditComponent(
+        image: model!.cover.contains("https") 
+        ? Image.network(
+          model.cover,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 3,
+          fit: BoxFit.cover,
+        ) 
+        : Image.file(
+          File(model.cover),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 3,
+          fit: BoxFit.cover,
+        ),
+        action: () async {
+          print("Cover");
+          await Components().imageOption(
+            context: context, 
+            getImage: pickImage,
+            label: "cover"
+          );
+        },
       ),
       SizedBox(
         width: (MediaQuery.of(context).size.width),
@@ -89,17 +176,34 @@ Widget profileWidget(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.white,
-              child: ClipOval(
-                child: Image.network(
-                  'https://images.unsplash.com/photo-1597466765990-64ad1c35dafc',
-                  height: 110,
-                  width: 110,
-                  fit: BoxFit.fill,
+
+            ImageEditComponent(
+              image: CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.white,
+                child: ClipOval(
+                  child: model.profile.contains("https") 
+                  ? Image.network(
+                    model.profile,
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.fill,
+                  ) 
+                  : Image.file(
+                    File(model.profile),
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.fill,
+                  )
                 ),
               ),
+              action: () async {
+                await Components().imageOption(
+                  context: context, 
+                  getImage: pickImage,
+                  label: "profile"
+                );
+              },
             ),
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -115,15 +219,6 @@ Widget profileWidget(BuildContext context) {
           ],
         ),
       ),
-      
-      Positioned(
-        right: 10,
-        top: 10,
-        child: EditButton(
-          text: 'Edit',
-          onPressed: () {},
-        )
-      )
     ],
   );
 }
