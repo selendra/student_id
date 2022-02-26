@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/column_info_c.dart';
+import 'package:student_id/models/dashboard_m.dart';
+import 'package:student_id/screens/dashboard/edit_info.dart';
 
 
 class PhraseInput extends StatelessWidget {
@@ -458,20 +461,25 @@ class DashboardOptions extends StatelessWidget {
 }
 
 class PersonlInfo extends StatelessWidget {
-  const PersonlInfo({Key? key}) : super(key: key);
+
+  final DashBoardModel? model;
+  final Function? edit;
+  
+  PersonlInfo({Key? key, this.model, this.edit}) : super(key: key);
 
   Widget _nameInfo(String? text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Name', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Name', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
@@ -479,14 +487,15 @@ class PersonlInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Email', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Email', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
@@ -494,14 +503,15 @@ class PersonlInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Country', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Country', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
@@ -509,30 +519,44 @@ class PersonlInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Phone Number', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Phone Number', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        titleDashboard('Personal', context),
-        _nameInfo('Rithy Thul'),
-        _emailInfo('rithythul@gmail.com'),
-        _countryInfo('Cambodia'),
-        _phoneNumberInfo('+855-77-202-202')
+        Expanded(
+          child: Info(model: model,)
+        ), 
+        IconButton(
+          onPressed: (){
+            edit!();
+          }, 
+          icon: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey[300]
+            ),
+            padding: EdgeInsets.all(5),
+            child: model!.isEditing ? Icon(Icons.edit_off_outlined) : Icon(Icons.edit_outlined) ,
+          )
+        )
+
       ],
-    );
+    )
+    ;
   }
 }
 

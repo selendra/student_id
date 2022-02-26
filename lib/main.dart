@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: const LoginPage(),
+      home: const Navbar(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

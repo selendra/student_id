@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/components_c.dart';
+import 'package:student_id/components/image_edit_c.dart';
+import 'package:student_id/models/dashboard_m.dart';
 
 // =============================== Reuse Widget ===============================
 void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
@@ -138,14 +143,32 @@ Widget selLogo(BuildContext context) {
   return Image.asset('assets/logos/sel.png', width: 100, height: 100);
 }
 
-Widget profileWidget(BuildContext context) {
+Widget profileWidget(BuildContext context, { @required DashBoardModel? model, @required Function? pickImage}) {
   return Stack(
     children: <Widget>[
-      Image.network(
-        'https://picsum.photos/250?image=9',
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 3,
-        fit: BoxFit.cover,
+
+      ImageEditComponent(
+        image: model!.cover.contains("https") 
+        ? Image.network(
+          model.cover,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 3,
+          fit: BoxFit.cover,
+        ) 
+        : Image.file(
+          File(model.cover),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 3,
+          fit: BoxFit.cover,
+        ),
+        action: () async {
+          print("Cover");
+          await Components().imageOption(
+            context: context, 
+            getImage: pickImage,
+            label: "cover"
+          );
+        },
       ),
       SizedBox(
         width: (MediaQuery.of(context).size.width),
@@ -153,17 +176,34 @@ Widget profileWidget(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.white,
-              child: ClipOval(
-                child: Image.network(
-                  'https://images.unsplash.com/photo-1597466765990-64ad1c35dafc',
-                  height: 110,
-                  width: 110,
-                  fit: BoxFit.fill,
+
+            ImageEditComponent(
+              image: CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.white,
+                child: ClipOval(
+                  child: model.profile.contains("https") 
+                  ? Image.network(
+                    model.profile,
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.fill,
+                  ) 
+                  : Image.file(
+                    File(model.profile),
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.fill,
+                  )
                 ),
               ),
+              action: () async {
+                await Components().imageOption(
+                  context: context, 
+                  getImage: pickImage,
+                  label: "profile"
+                );
+              },
             ),
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -179,15 +219,6 @@ Widget profileWidget(BuildContext context) {
           ],
         ),
       ),
-      
-      Positioned(
-        right: 10,
-        top: 10,
-        child: EditButton(
-          text: 'Edit',
-          onPressed: () {},
-        )
-      )
     ],
   );
 }

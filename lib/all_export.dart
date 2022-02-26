@@ -1,3 +1,5 @@
+export 'package:flutter/material.dart';
+
 export 'package:student_id/screens/login/login_page.dart';
 
 export 'package:student_id/widgets/reuse_widgets.dart';
