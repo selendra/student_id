@@ -10,7 +10,17 @@ class VerifyPage extends StatefulWidget {
 }
 
 class _VerifyPageState extends State<VerifyPage> {
-  TextEditingController? _verifyInputController;
+  final TextEditingController verifyInputController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
+
+  void validator() {
+    final form = formKey.currentState!;
+
+    if (form.validate()) {
+      Navigator.pushReplacementNamed(context, navbarRoute);
+    }
+  }
 
   @override
   void initState() {
@@ -24,42 +34,10 @@ class _VerifyPageState extends State<VerifyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whiteColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: SizedBox(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  const SizedBox(height: 20),
-                  selLogo(context),
-                  const SizedBox(height: 20),
-                  const Text('Verify',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 15),
-                  const Text(
-                      'One account. One place to manage it all.\n Welcome to you account dashboard.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey)),
-                  const SizedBox(height: 20),
-                  VerifyInput(textEditingController: _verifyInputController),
-                  SubmitButton(
-                    text: 'Verify',
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+    return VerifyPageBody(
+      verifyInputController: verifyInputController,
+      formKey: formKey,
+      validator: validator
     );
   }
 }
