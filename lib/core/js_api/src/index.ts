@@ -1,6 +1,8 @@
 import "@babel/polyfill";
-import { WsProvider, ApiPromise } from "@polkadot/api";
+import { WsProvider, ApiPromise, Keyring } from "@polkadot/api";
+import { hexToU8a, u8aToHex, isHex, stringToHex } from "@polkadot/util";
 import { subscribeMessage, getNetworkConst, getNetworkProperties } from "./service/setting";
+import { KeyringPair, KeyringPair$Json } from "@polkadot/keyring/types";
 import keyring from "./service/keyring";
 import account from "./service/account";
 //import staking from "./service/staking";
@@ -12,6 +14,7 @@ import metadata from "./metadata.json";
 import ametadata from "./meta/metadata.json";
 import { ethers, Wallet } from 'ethers';
 import { resolveModuleName } from "typescript";
+// let keyrings = new Keyring({ ss58Format: 42, type: "sr25519" });
 
 let url = 'https://bsc-dataseed.binance.org/';
 
@@ -36,7 +39,7 @@ async function connect(nodes: string[]) {
   return new Promise(async (resolve, reject) => {
     const wsProvider = new WsProvider(nodes);
     try {
-      
+      console.log("connect", nodes);
       const types = {
         EvmAddress: "H160",
         EthereumTxHash: "H256",
@@ -292,7 +295,11 @@ async function allowance(apiContract: ContractPromise, owner: string, spender: s
     }
   });
 }
-
+async function queryAddr(api: ApiPromise, addr: string){
+  return api.query.system.account(addr, ({nonce, data: balance}) => {
+    console.log(`free balance is ${balance.free} with ${balance.reserved} reserved and a nonce of ${nonce}`);
+  });
+}
 
 
 const test = async () => {
@@ -323,7 +330,7 @@ const settings = {
   getNetworkConst,
   getNetworkProperties,
   // generate external links to polkascan/subscan/polkassembly...
-  genLinks
+  genLinks,
 };
 
 (<any>window).settings = settings;

@@ -20,6 +20,8 @@ import 'package:http/http.dart' as http;
 import 'package:polkawallet_sdk/storage/types/keyPairData.dart';
 import 'package:polkawallet_sdk/api/apiKeyring.dart';
 import 'package:polkawallet_sdk/utils/localStorage.dart';
+import 'package:provider/provider.dart';
+import 'package:student_id/services/apiKeyring.dart';
 // import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 
 class ApiProvider with ChangeNotifier {
@@ -27,13 +29,15 @@ class ApiProvider with ChangeNotifier {
   WalletSDK _sdk = WalletSDK();
 
   Keyring _keyring = Keyring();
+  MyApiKeyring? _apiKeyring;
+
+  Keyring get getKeyring => _keyring;
+  WalletSDK get getSdk => _sdk;
+  MyApiKeyring get apiKeyring => _apiKeyring!;
 
   // KeyringStorage _keyringStorage = KeyringStorage();
   // LocalStorage _storageOld = LocalStorage();
   // KeyringStorage _storage = KeyringStorage();
-
-  Keyring get getKeyring => _keyring;
-  WalletSDK get getSdk => _sdk;
 
   static const int bitcoinDigit = 8;
 
@@ -92,6 +96,7 @@ class ApiProvider with ChangeNotifier {
       });
       await _keyring.init([42]);
       await _sdk.init(_keyring, jsCode: _jsCode);
+      _apiKeyring = MyApiKeyring(_sdk.api, _sdk.api.keyring.service!);
       await connectNode(context: context);
 
     // } catch (e) {
@@ -366,11 +371,16 @@ class ApiProvider with ChangeNotifier {
 
       final node = NetworkParams();
 
-      node.name = 'Indranet hosted By Seslendra';
-      node.endpoint = 'wss://10.1.1.117:9944';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
+      // node.name = 'Indranet hosted By Seslendra';
+      node.endpoint = 'wss://indra-testnet.selendra.org';//'wss://10.1.1.117:9944';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
       node.ss58 = 42;//isMainnet ? AppConfig.networkList[0].ss58MN : AppConfig.networkList[0].ss58;
 
-      final res = await _sdk.api.connectNode(_keyring, [node]);
+      // node.endpoint = 'wss://rpc1-mainnet.selendra.org/';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
+      // node.ss58 = 972;//isMainnet ? AppConfig.networkList[0].ss58MN : AppConfig.networkList[0].ss58;
+
+      final res = await _sdk.api.connectNode(_keyring, [node]).then((value) async {
+        await addAcc(context: context);
+      });
 
       // final res = await _sdk.webView!.evalJavascript("settings.connect(${jsonEncode([node].map((e) => e.endpoint).toList())})");
 
@@ -385,21 +395,55 @@ class ApiProvider with ChangeNotifier {
     return null;
   }
 
+  Future<void> addAcc({@required BuildContext? context}) async {
+    print("addAcc");
+    dynamic json = await apiKeyring.importAccount(
+      _keyring,
+      keyType: KeyType.mnemonic,
+      key: 'donate slogan wear furnace idle canal raw senior pink frame truck beyond',
+      name: "Daveat",
+      password: "Condaveat0975973667",
+    );
+
+    print("json $json");
+
+    // For encryptSeed
+    // await _api.addAccount(
+    //   _api.getKeyring,
+    //   keyType: KeyType.mnemonic,
+    //   acc: json!,
+    //   password: _userInfoM.confirmPasswordCon.text,
+    // );
+
+    await apiKeyring.addAccount(// _api.getSdk.api.keyring.addAccount(
+      _keyring,
+      keyType: KeyType.mnemonic,
+      acc: json,
+      password: "Condaveat0975973667",
+    ).then((value) async {
+      await getChainDecimal(context: context);
+    });
+  }
+
   // Connect SEL Chain
-  Future<void> getSelNativeChainDecimal({@required BuildContext? context}) async {
-    // print("getSelNativeChainDecimal");
-    // try {
+  Future<void> getChainDecimal({@required BuildContext? context}) async {
+    print("getChainDecimal");
+    print("_keyring.current.pubKey ${_keyring.current.pubKey}");
+    try {
       
-    //   final contract = Provider.of<ContractProvider>(context!, listen: false);
 
-    //   final res = await _sdk.api.service.webView!.evalJavascript('settings.getChainDecimal(api)');
-    //   contract.listContract[selNativeIndex].chainDecimal = res[0].toString();
-    //   await subSELNativeBalance(context: context);
+      final res = await _sdk.api.service.webView!.evalJavascript('settings.getChainDecimal(api)');
+      print("res $res");
+      await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "pojih13049@ishop2k.com","12345", "${_keyring.current.pubKey}")').then((value) {
+        print("registerSel11 $value");
+      });
+      // contract.listContract[selNativeIndex].chainDecimal = res[0].toString();
+      // await subSELNativeBalance(context: context);
 
-    //   notifyListeners();
-    // } catch (e) {
-    //   // print("Error getChainDecimal $e");
-    // }
+      notifyListeners();
+    } catch (e) {
+      // print("Error getChainDecimal $e");
+    }
   }
 
   Future<void> subSELNativeBalance({@required BuildContext? context}) async {

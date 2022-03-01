@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
 import 'package:student_id/models/dashboard_m.dart';
+import 'package:student_id/provider/api_provider.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -49,6 +51,11 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
+  void btn()async {
+
+    await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context);
+  }
+
   @override
   void initState() {
     dashBoardM.name = "Rithy THUL";
@@ -60,6 +67,7 @@ class _DashboardPageState extends State<DashboardPage> {
     dashBoardM.emailController.text = "rithythul@gmail.com";
     dashBoardM.nationalityController.text = "Cambodia";
     dashBoardM.phoneNumController.text = "+855-77-202-202";
+    ApiProvider().initApi(context: context);
     super.initState();
   }
 

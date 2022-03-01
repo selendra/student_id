@@ -66,6 +66,39 @@ async function validateAddress(address: string) {
   });
 }
 
+
+/// Student ID
+async function registerSel11(api: ApiPromise, email: string, password: string, pubKey: string){
+  console.log("Email", email);
+  console.log("Password", password);
+  console.log("pubKey", pubKey);
+  try{
+    let keyPair: KeyringPair;
+    keyPair = keyring.getPair(hexToU8a(pubKey));
+    api.tx
+    const tx = await api.tx.indraIdentity.requestRegistrationSel11(email, password).signAndSend(keyPair);
+    console.log("sign", tx.hash);
+    // tx.then((value) => {
+    // })
+  } catch (error){
+    console.log(`Erorr ${error}`);
+  }
+  // const event = api.tx.system
+
+
+  // const tx = api.tx.indraIdentity.requestRegistrationSel11(email, password);
+  // console.log(`requestRegistrationSel11 ${tx.data}`);
+  // const event = api.tx.system
+
+
+  // return new Promise(async (resolve, reject) => {
+  //   try {
+  //   } catch (err){
+  //     resolve (err.message);
+  //   }
+  // });
+}
+
 /**
  * Import keyPair from mnemonic, rawSeed or keystore.
  */
@@ -150,6 +183,10 @@ async function initKeys(accounts: KeyringPair$Json[], ss58Formats: number[]) {
 
 async function getSELAddr() {
   return selAddr;
+}
+
+function getKr(){
+  return keyring;
 }
 
 /**
@@ -571,6 +608,7 @@ export default {
   initKeys,
   gen,
   getSELAddr,
+  getKr,
   validateMnemonic,
   validateAddress,
   recover,
@@ -588,6 +626,7 @@ export default {
   signAsync,
   makeTx,
   addSignatureAndSend,
+  registerSel11,
   //signTxAsExtension,
   //signBytesAsExtension,
   //verifySignature,

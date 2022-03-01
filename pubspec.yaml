@@ -39,6 +39,7 @@ dependencies:
   qr_flutter:
   image_picker: 
   hexcolor:
+  provider: 
   
 dependency_overrides:
     # git:
@@ -75,6 +76,8 @@ flutter:
     # - assets/images/
     - assets/logos/
     - assets/icons/
+    - lib/core/js_api/
+    - lib/core/js_api/dist/main.js
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
