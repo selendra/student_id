@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 
 const String loginRoute = '/';
-const String registerRoute = 'feed';
 const String navbarRoute = 'navbar';
 const String verifyRoute = 'verify';
 
@@ -12,8 +11,6 @@ class RouteGenerator {
     switch (settings.name) {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginPage());
-      case registerRoute:
-        return MaterialPageRoute(builder: (_) => const RegisterPage());
       case navbarRoute:
         return MaterialPageRoute(builder: (_) => const Navbar());
       case verifyRoute:

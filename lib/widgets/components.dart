@@ -3,7 +3,7 @@ import 'package:student_id/all_export.dart';
 import 'package:student_id/components/column_info_c.dart';
 import 'package:student_id/models/dashboard_m.dart';
 import 'package:student_id/screens/dashboard/edit_info.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PhraseInput extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -56,6 +56,7 @@ class PhraseInput extends StatelessWidget {
 
 class EmailInput extends StatelessWidget {
   final TextEditingController? textEditingController;
+
   const EmailInput({Key? key, required this.textEditingController})
       : super(key: key);
 
@@ -74,10 +75,24 @@ class EmailInput extends StatelessWidget {
                   spreadRadius: 0,
                   color: Colors.grey.withOpacity(.1)),
             ]),
-            child: TextField(
+            child: TextFormField(
               controller: textEditingController,
               onChanged: (value) {
                 //Do something wi
+              },
+              validator: (value) {
+                // Check if this field is empty
+                if (value == null || value.isEmpty) {
+                  return 'This field is required';
+                }
+
+                // using regular expression
+                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                  return "Please enter a valid email address";
+                }
+
+                // the email is valid
+                return null;
               },
               keyboardType: TextInputType.emailAddress,
               style: const TextStyle(fontSize: 14, color: Colors.black),
@@ -107,69 +122,6 @@ class EmailInput extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class PasswordInput extends StatefulWidget {
-  final TextEditingController? textEditingController;
-
-  const PasswordInput({required this.textEditingController, Key? key})
-      : super(key: key);
-
-  @override
-  State<PasswordInput> createState() => _PasswordInputState();
-}
-
-class _PasswordInputState extends State<PasswordInput> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      child: TextFormField(
-        controller: widget.textEditingController,
-        obscureText: true,
-        decoration: InputDecoration(
-          label: const Text("Password"),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-          labelStyle: const TextStyle(color: Colors.grey),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-        ),
-        validator: (val) {
-          if (val!.isEmpty) {
-            return 'Required';
-          }
-          return null;
-        },
       ),
     );
   }
@@ -227,10 +179,18 @@ class _VerifyInputState extends State<VerifyInput> {
             borderRadius: BorderRadius.circular(50.0),
           ),
         ),
-        validator: (val) {
-          if (val!.isEmpty) {
-            return 'Required';
+        validator: (value) {
+          // Check if this field is empty
+          if (value == null || value.isEmpty) {
+            return 'This field is required';
           }
+
+          // validate verify code under 6 characters
+          if (value.length < 6) {
+            return "Please enter 6-digit code";
+          }
+
+          // the verify code is valid
           return null;
         },
       ),
@@ -251,30 +211,74 @@ class GoogleBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 54,
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.white,
+      height: 54,
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colors.white,
+      ),
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.circular(50))
+          )
         ),
-        child: TextButton(
-          style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(50)))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logos/google-icon.png', width: 20),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(title!,
-                  style: const TextStyle(color: Colors.black, fontSize: 16)),
-            ],
-          ),
-          onPressed: onPressed,
-        ));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/logos/google-icon.png', width: 20),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(title!, style: const TextStyle(color: Colors.black, fontSize: 16)),
+          ],
+        ),
+        onPressed: onPressed,
+      )
+    );
+  }
+}
+class CustomBtn extends StatelessWidget {
+  final Function()? onPressed;
+  final String? title;
+  final String? icon;
+  const CustomBtn({
+    this.onPressed,
+    this.title,
+    required this.icon,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 54,
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colors.white,
+      ),
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.circular(50))
+          )
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset('assets/logos/$icon', width: 20),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(title!, style: const TextStyle(color: Colors.black, fontSize: 16)),
+          ],
+        ),
+        onPressed: onPressed,
+      )
+    );
   }
 }
 
