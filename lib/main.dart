@@ -3,8 +3,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:student_id/all_export.dart';
 
-
-
 void main() {
   FlutterNativeSplash.removeAfter(initialization);
   runApp(const MyApp());
@@ -15,6 +13,7 @@ void initialization(BuildContext context) async {
   // the splash screen is displayed.
 }
 
+double paddingSize = 20;
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: const LoginPage(),//const Navbar(),
+      home: const Navbar(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

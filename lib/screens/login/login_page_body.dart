@@ -73,7 +73,11 @@ class LoginPageBody extends StatelessWidget {
                     divider('or Login with Email'),
                     EmailInput(
                       textEditingController: emailInputController, 
+                      onFieldSubmitted: (){
+                        validator!();
+                      },
                     ),
+                    const SizedBox(height: 20),
                     SubmitButton(
                       text: 'Submit',
                       onPressed: () {

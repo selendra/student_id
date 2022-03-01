@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
+import 'package:student_id/main.dart';
 import 'package:student_id/models/dashboard_m.dart';
 import 'package:student_id/provider/api_provider.dart';
 
@@ -89,8 +90,16 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               profileWidget(context, model: dashBoardM, pickImage: pickImage),
               const DashboardOptions(),
-              titleDashboard('Personal', context),
+              titleDashboard('Personal', context, title2: "Identities"),
               PersonlInfo(model: dashBoardM, edit: edit),
+              
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: paddingSize),
+                  child: Divider(
+                  height: 1,
+                  color: Colors.grey
+                )
+              ),
 
               dashBoardM.isEditing == true ? Align(
                 alignment: Alignment.center,

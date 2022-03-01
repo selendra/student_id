@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/components_c.dart';
 import 'package:student_id/components/image_edit_c.dart';
+import 'package:student_id/components/text_c.dart';
 import 'package:student_id/models/dashboard_m.dart';
 
 // =============================== Reuse Widget ===============================
@@ -248,13 +249,18 @@ Widget divider(String title) {
   );
 }
 
-Widget titleDashboard(String title, BuildContext context) {
+Widget titleDashboard(String title, BuildContext context, {String? title2}) {
   return Container(
     padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
     width: MediaQuery.of(context).size.width,
     color: greyBackgroundColor,
-    child: Text(title,
-        style: TextStyle(color: greyColor, fontWeight: FontWeight.w700)),
+    child: Row(
+      children: [
+        MyText(text: title, color2: greyColor, fontWeight: FontWeight.w700, right: 5, fontSize: 16,),
+        title2 != null ? Container(height: 20, child: VerticalDivider(width: 5, thickness: 1, color: Colors.grey, indent: 2,)) : Container(),
+        title2 != null ? MyText(left: 5, text: title2, color2: Colors.blue, fontWeight: FontWeight.w700, fontSize: 16) : Container()
+      ],
+    ),
   );
 }
 

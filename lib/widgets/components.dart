@@ -55,10 +55,11 @@ class PhraseInput extends StatelessWidget {
 }
 
 class EmailInput extends StatelessWidget {
-  final TextEditingController? textEditingController;
 
-  const EmailInput({Key? key, required this.textEditingController})
-      : super(key: key);
+  final TextEditingController? textEditingController;
+  final Function()? onFieldSubmitted;
+
+  const EmailInput({Key? key, required this.textEditingController, this.onFieldSubmitted}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +71,11 @@ class EmailInput extends StatelessWidget {
           Container(
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
-                  offset: const Offset(12, 26),
-                  blurRadius: 50,
-                  spreadRadius: 0,
-                  color: Colors.grey.withOpacity(.1)),
+                offset: const Offset(12, 26),
+                blurRadius: 50,
+                spreadRadius: 0,
+                color: Colors.grey.withOpacity(.1)
+              ),
             ]),
             child: TextFormField(
               controller: textEditingController,
@@ -94,14 +96,16 @@ class EmailInput extends StatelessWidget {
                 // the email is valid
                 return null;
               },
+              onFieldSubmitted: (String value){
+                onFieldSubmitted!();
+              },
               keyboardType: TextInputType.emailAddress,
               style: const TextStyle(fontSize: 14, color: Colors.black),
               decoration: InputDecoration(
                 label: const Text("Email"),
                 labelStyle: const TextStyle(color: Colors.grey),
                 hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
                 border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(50.0)),
@@ -144,7 +148,7 @@ class _VerifyInputState extends State<VerifyInput> {
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: TextFormField(
         controller: widget.textEditingController,
-        obscureText: true,
+        // obscureText: true,
         decoration: InputDecoration(
           label: const Text("Verify"),
           contentPadding:

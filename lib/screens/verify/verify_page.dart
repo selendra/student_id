@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/alert_dialog_c.dart';
 
 
 class VerifyPage extends StatefulWidget {
@@ -14,11 +15,18 @@ class _VerifyPageState extends State<VerifyPage> {
 
   final formKey = GlobalKey<FormState>();
 
-  void validator() {
+  void validator() async {
     final form = formKey.currentState!;
 
+    // Show Loading
+    MyDialog().dialogLoading(context);
+
     if (form.validate()) {
-      Navigator.pushReplacementNamed(context, navbarRoute);
+      await Future.delayed(const Duration(seconds: 1), () async {
+        await MyDialog().customDialog(context, "Message", "Successfully login");
+        
+        Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
+      });
     }
   }
 
