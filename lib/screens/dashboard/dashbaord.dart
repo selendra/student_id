@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
+import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/models/dashboard_m.dart';
+import 'package:student_id/models/identifier_m.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/screens/dashboard/body_dashboard.dart';
+import 'package:student_id/services/storage.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -18,6 +25,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   TextEditingController phraseKey = TextEditingController();
   DashBoardModel dashBoardM = DashBoardModel();
+  IdentifierModel _identifierModel = IdentifierModel();
 
   Future pickImage(ImageSource source, String? label) async {
 
@@ -68,8 +76,33 @@ class _DashboardPageState extends State<DashboardPage> {
     dashBoardM.emailController.text = "rithythul@gmail.com";
     dashBoardM.nationalityController.text = "Cambodia";
     dashBoardM.phoneNumController.text = "+855-77-202-202";
-    ApiProvider().initApi(context: context);
+    // ApiProvider().initApi(context: context);
+    StorageServices.removeKey(DbKey.idKey);
+    initId();
     super.initState();
+  }
+
+  initId() async {
+    await StorageServices.fetchData(DbKey.idKey).then((value) {
+      if (value != null){
+        _identifierModel = IdentifierModel().fromDb(value);
+        Provider.of<IdentifierProvider>(context, listen: false).setSetup = true;
+        setState(() {
+        });
+      }
+    });
+  }
+
+  void submitEdit(){
+    dashBoardM.name = dashBoardM.nameController.text;
+    dashBoardM.email = dashBoardM.emailController.text;
+    dashBoardM.nationality = dashBoardM.nationalityController.text;
+    dashBoardM.phoneNum = dashBoardM.phoneNumController.text;
+    dashBoardM.isEditing = false;
+
+    setState(() {
+      
+    });
   }
 
   @override
@@ -79,50 +112,6 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: whiteColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              profileWidget(context, model: dashBoardM, pickImage: pickImage),
-              const DashboardOptions(),
-              titleDashboard('Personal', context, title2: "Identities"),
-              PersonlInfo(model: dashBoardM, edit: edit),
-              
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: paddingSize),
-                  child: Divider(
-                  height: 1,
-                  color: Colors.grey
-                )
-              ),
-
-              dashBoardM.isEditing == true ? Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: (){
-                    dashBoardM.name = dashBoardM.nameController.text;
-                    dashBoardM.email = dashBoardM.emailController.text;
-                    dashBoardM.nationality = dashBoardM.nationalityController.text;
-                    dashBoardM.phoneNum = dashBoardM.phoneNumController.text;
-                    dashBoardM.isEditing = false;
-
-                    setState(() {
-                      
-                    });
-                  }, 
-                  child: MyText(text: "Submit", color2: Colors.white, width: MediaQuery.of(context).size.width / 2,)
-                ),
-              )
-              : Container()
-            ],
-          ),
-        ),
-      ),
-    );
+    return DashBoardBody(dashModel: dashBoardM, idModel: _identifierModel, edit: edit, pickImage: pickImage, submitEdit: submitEdit);
   }
 }

@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:student_id/all_export.dart';
+import 'package:provider/provider.dart';
+import 'package:student_id/provider/identifier_p.dart';
 
 void main() {
   FlutterNativeSplash.removeAfter(initialization);
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<IdentifierProvider>(
+          create: (context) => IdentifierProvider(),
+        )
+      ],
+      child: MyApp()
+    )
+  );
 }
 
 void initialization(BuildContext context) async {
@@ -47,7 +58,7 @@ class MyApp extends StatelessWidget {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: const Navbar(),
+      home: const LoginPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

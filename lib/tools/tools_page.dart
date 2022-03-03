@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/models/dashboard_m.dart';
 
 class ToolsPage extends StatefulWidget {
   const ToolsPage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _ToolsPageState extends State<ToolsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              profileWidget(context),
+              profileWidget(context, pickImage: (){}, model: DashBoardModel()),
               const DashboardOptions(),
               const ToolsInfo(),
               AddAssetButton(text: 'Add Services', onPressed: () {}),

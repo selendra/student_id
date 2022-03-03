@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/models/dashboard_m.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _AccountPageState extends State<AccountPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              profileWidget(context),
+              profileWidget(context, pickImage: (){}, model: DashBoardModel()),
               const DashboardOptions(),
               const LinkedAccountInfo()
             ],

@@ -21,7 +21,7 @@ class MyText extends StatelessWidget{
   final TextOverflow? overflow;
 
   MyText({
-    this.text, 
+    required this.text, 
     this.color = "#000000",
     this.color2,
     this.fontSize = 18, this.fontWeight = FontWeight.normal,

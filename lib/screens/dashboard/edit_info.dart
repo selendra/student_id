@@ -14,7 +14,7 @@ class Info extends StatefulWidget{
 
 class InfoState extends State<Info>{
   
-
+  @override
   Widget build(BuildContext context) {
 
     return Form(

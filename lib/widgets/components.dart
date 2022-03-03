@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/column_info_c.dart';
 import 'package:student_id/models/dashboard_m.dart';
+import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/screens/dashboard/edit_info.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -418,19 +420,35 @@ class DashboardOptions extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Column(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.people_alt_outlined),
-                iconSize: 40,
-                color: greyColor,
-              ),
-              Text(
-                'Verify',
-                style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-              )
-            ],
+          Consumer<IdentifierProvider>(
+            builder: (context, provider, widget){
+              return Column(
+                children: [
+                  Stack(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.people_alt_outlined),
+                        iconSize: 40,
+                        color: provider.alreadySetup! ? Colors.blue : greyColor,
+                      ),
+
+                      provider.alreadySetup! 
+                      ? Positioned(
+                        child: Icon(Icons.check, size: 20, color: Colors.blue),
+                        right: 0,
+                        bottom: 0,
+                      ) 
+                      : Container()
+                    ],
+                  ),
+                  Text(
+                    'Verify',
+                    style: TextStyle(color: provider.alreadySetup! ? Colors.blue : greyColor, fontWeight: FontWeight.w600),
+                  )
+                ],
+              );
+            },
           ),
           Column(
             children: [
