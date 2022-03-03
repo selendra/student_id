@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:student_id/all_export.dart';
 
 // =============================== Reuse Widget ===============================
@@ -255,4 +256,31 @@ Widget getBalanceBox(
       ],
     ),
   );
+}
+
+class SetupProgressIndicator extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+  final int step;
+
+  SetupProgressIndicator(
+    this.step, {
+    Key? key,
+  })  : preferredSize = const Size.fromHeight(50.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: MediaQuery.of(context).padding,
+      color: whiteColor,
+      child: StepProgressIndicator(
+        totalSteps: 2,
+        currentStep: step,
+        selectedColor: primaryColor,
+        unselectedColor: greyColor,
+        roundedEdges: const Radius.circular(90),
+        size: 8,
+      ),
+    );
+  }
 }

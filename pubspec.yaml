@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  bip39: ^1.0.6
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
@@ -34,6 +35,8 @@ dependencies:
   hexcolor: ^2.0.6
   qr_flutter: ^4.0.0
   responsive_framework: ^0.1.7
+  share: ^2.0.4
+  step_progress_indicator: ^1.0.2
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -50,7 +53,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
+    # - assets/images/
     - assets/logos/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -18,7 +18,7 @@ class _VerifyPageState extends State<VerifyPage> {
     final form = formKey.currentState!;
 
     if (form.validate()) {
-      Navigator.pushReplacementNamed(context, navbarRoute);
+      Navigator.pushReplacementNamed(context, setupRoute);
     }
   }
 
