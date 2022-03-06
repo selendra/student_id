@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/column_info_c.dart';
+import 'package:student_id/models/dashboard_m.dart';
+import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/screens/dashboard/edit_info.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PhraseInput extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -110,10 +115,11 @@ class VerifyPassphraseInput extends StatelessWidget {
 }
 
 class EmailInput extends StatelessWidget {
-  final TextEditingController? textEditingController;
 
-  const EmailInput({Key? key, required this.textEditingController})
-      : super(key: key);
+  final TextEditingController? textEditingController;
+  final Function()? onFieldSubmitted;
+
+  const EmailInput({Key? key, required this.textEditingController, this.onFieldSubmitted}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +131,11 @@ class EmailInput extends StatelessWidget {
           Container(
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
-                  offset: const Offset(12, 26),
-                  blurRadius: 50,
-                  spreadRadius: 0,
-                  color: Colors.grey.withOpacity(.1)),
+                offset: const Offset(12, 26),
+                blurRadius: 50,
+                spreadRadius: 0,
+                color: Colors.grey.withOpacity(.1)
+              ),
             ]),
             child: TextFormField(
               controller: textEditingController,
@@ -149,14 +156,16 @@ class EmailInput extends StatelessWidget {
                 // the email is valid
                 return null;
               },
+              onFieldSubmitted: (String value){
+                onFieldSubmitted!();
+              },
               keyboardType: TextInputType.emailAddress,
               style: const TextStyle(fontSize: 14, color: Colors.black),
               decoration: InputDecoration(
                 label: const Text("Email"),
                 labelStyle: const TextStyle(color: Colors.grey),
                 hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
                 border: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(50.0)),
@@ -199,10 +208,7 @@ class _VerifyInputState extends State<VerifyInput> {
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: TextFormField(
         controller: widget.textEditingController,
-        keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly
-        ], // Only n
+        // obscureText: true,
         decoration: InputDecoration(
           label: const Text("Verify"),
           contentPadding:
@@ -274,30 +280,74 @@ class GoogleBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 54,
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.white,
+      height: 54,
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colors.white,
+      ),
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.circular(50))
+          )
         ),
-        child: TextButton(
-          style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(50)))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logos/google-icon.png', width: 20),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(title!,
-                  style: const TextStyle(color: Colors.black, fontSize: 16)),
-            ],
-          ),
-          onPressed: onPressed,
-        ));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/logos/google-icon.png', width: 20),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(title!, style: const TextStyle(color: Colors.black, fontSize: 16)),
+          ],
+        ),
+        onPressed: onPressed,
+      )
+    );
+  }
+}
+class CustomBtn extends StatelessWidget {
+  final Function()? onPressed;
+  final String? title;
+  final String? icon;
+  const CustomBtn({
+    this.onPressed,
+    this.title,
+    required this.icon,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 54,
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colors.white,
+      ),
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.circular(50))
+          )
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset('assets/logos/$icon', width: 20),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(title!, style: const TextStyle(color: Colors.black, fontSize: 16)),
+          ],
+        ),
+        onPressed: onPressed,
+      )
+    );
   }
 }
 
@@ -526,19 +576,35 @@ class DashboardOptions extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Column(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.people_alt_outlined),
-                iconSize: 40,
-                color: greyColor,
-              ),
-              Text(
-                'Verify',
-                style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-              )
-            ],
+          Consumer<IdentifierProvider>(
+            builder: (context, provider, widget){
+              return Column(
+                children: [
+                  Stack(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.people_alt_outlined),
+                        iconSize: 40,
+                        color: provider.alreadySetup! ? Colors.blue : greyColor,
+                      ),
+
+                      provider.alreadySetup! 
+                      ? Positioned(
+                        child: Icon(Icons.check, size: 20, color: Colors.blue),
+                        right: 0,
+                        bottom: 0,
+                      ) 
+                      : Container()
+                    ],
+                  ),
+                  Text(
+                    'Verify',
+                    style: TextStyle(color: provider.alreadySetup! ? Colors.blue : greyColor, fontWeight: FontWeight.w600),
+                  )
+                ],
+              );
+            },
           ),
           Column(
             children: [
@@ -577,20 +643,25 @@ class DashboardOptions extends StatelessWidget {
 }
 
 class PersonlInfo extends StatelessWidget {
-  const PersonlInfo({Key? key}) : super(key: key);
+
+  final DashBoardModel? model;
+  final Function? edit;
+  
+  PersonlInfo({Key? key, this.model, this.edit}) : super(key: key);
 
   Widget _nameInfo(String? text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Name', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Name', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
@@ -598,14 +669,15 @@ class PersonlInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Email', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Email', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
@@ -613,14 +685,15 @@ class PersonlInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Country', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Country', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
@@ -628,30 +701,44 @@ class PersonlInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text('Phone Number', style: TextStyle(color: greyColor)),
-            Text(text!,
-                style:
-                    TextStyle(color: blackColor, fontWeight: FontWeight.w700)),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Phone Number', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        titleDashboard('Personal', context),
-        _nameInfo('Rithy Thul'),
-        _emailInfo('rithythul@gmail.com'),
-        _countryInfo('Cambodia'),
-        _phoneNumberInfo('+855-77-202-202')
+        Expanded(
+          child: Info(model: model,)
+        ), 
+        IconButton(
+          onPressed: (){
+            edit!();
+          }, 
+          icon: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey[300]
+            ),
+            padding: EdgeInsets.all(5),
+            child: model!.isEditing ? Icon(Icons.edit_off_outlined) : Icon(Icons.edit_outlined) ,
+          )
+        )
+
       ],
-    );
+    )
+    ;
   }
 }
 
