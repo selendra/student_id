@@ -31,12 +31,46 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  connectivity:
+  connectivity_wrapper:
+  qr_flutter:
+  image_picker: 
+  camera:
+  hexcolor:
+  provider: 
+  flutter_launcher_icons:
+  path_provider:
+  path:
+
+  shared_preferences: 
+  
+dependency_overrides:
+    # git:
+    #   url: https://github.com/polkawallet-io/ui.git
+    #   ref: 485a9cde97f2446d74a1aeb6d8d63e33683461a5
+    
+  polkawallet_sdk:
+  flutter_svg:
+  charts_flutter:
+     git:
+       url: https://github.com/google/charts
+       path: charts_flutter
+  permission_handler: ^8.3.0
+  # get_storage:
+  # flutter_aes_ecb_pkcs5
   flutter_native_splash: ^2.0.4
-  hexcolor: ^2.0.6
-  qr_flutter: ^4.0.0
   responsive_framework: ^0.1.7
   share: ^2.0.4
   step_progress_indicator: ^1.0.2
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logos/id_card.jpeg"
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -55,6 +89,10 @@ flutter:
   assets:
     # - assets/images/
     - assets/logos/
+    - assets/icons/
+    - assets/illustration/
+    - lib/core/js_api/
+    - lib/core/js_api/dist/main.js
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

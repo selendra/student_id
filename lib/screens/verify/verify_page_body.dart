@@ -22,7 +22,7 @@ class VerifyPageBody extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Form(
             key: formKey,
-            autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: SizedBox(
               child: Center(
                 child: Column(
@@ -32,16 +32,18 @@ class VerifyPageBody extends StatelessWidget {
                     selLogo(context),
                     const SizedBox(height: 20),
                     const Text('Verify',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                    ),
                     const SizedBox(height: 15),
                     const Text(
-                        'One account. One place to manage it all.\n Welcome to you account dashboard.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey)),
+                      'One account. One place to manage it all.\n Welcome to you account dashboard.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey
+                      )
+                    ),
                     const SizedBox(height: 20),
                     VerifyInput(textEditingController: verifyInputController),
                     const SizedBox(height: 25),
