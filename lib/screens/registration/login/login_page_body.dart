@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
 
@@ -31,7 +30,7 @@ class LoginPageBody extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Form(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            autovalidateMode: AutovalidateMode.always,
             key: formKey,
             child: SizedBox(
               child: Center(
@@ -42,18 +41,16 @@ class LoginPageBody extends StatelessWidget {
                     selLogo(context),
                     const SizedBox(height: 20),
                     const Text('Login',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                    ),
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 15),
                     const Text(
-                      'One account. One place to manage it all.\n Welcome to you account dashboard.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey
-                      )
-                    ),
+                        'One account. One place to manage it all.\n Welcome to you account dashboard.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey)),
                     const SizedBox(height: 20),
                     const GoogleBtn(
                       title: 'Login with Google',
@@ -90,7 +87,6 @@ class LoginPageBody extends StatelessWidget {
                         // validator!();
                       },
                     ),
-                    const SizedBox(height: 20),
                     SubmitButton(
                       text: 'Submit',
                       onPressed: () async {
