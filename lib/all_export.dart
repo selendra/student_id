@@ -1,3 +1,5 @@
+export 'package:flutter/material.dart';
+
 export 'package:student_id/screens/login/login_page.dart';
 export 'package:student_id/screens/login/login_page_body.dart';
 
@@ -9,7 +11,6 @@ export 'package:student_id/screens/verify/verify_page.dart';
 export 'package:student_id/screens/verify/verify_page_body.dart';
 
 export 'package:student_id/screens/dashboard/dashbaord_page.dart';
-export 'package:student_id/screens/dashboard/dashboard_page_body.dart';
 
 export 'package:student_id/widgets/constants.dart';
 
