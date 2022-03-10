@@ -6,6 +6,8 @@ import 'package:student_id/models/dashboard_m.dart';
 import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/screens/dashboard/edit_info.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+import 'package:student_id/all_export.dart';
 
 class PhraseInput extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -29,7 +31,7 @@ class PhraseInput extends StatelessWidget {
         },
         style: const TextStyle(fontSize: 14, color: Colors.black),
         decoration: InputDecoration(
-          fillColor: Colors.white, 
+          fillColor: Colors.white,
           filled: true,
           contentPadding: const EdgeInsets.symmetric(vertical: 40),
           labelStyle: const TextStyle(color: Colors.grey),
@@ -51,6 +53,64 @@ class PhraseInput extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class VerifyPassphraseInput extends StatelessWidget {
+  final TextEditingController? textEditingController;
+
+  const VerifyPassphraseInput({Key? key, required this.textEditingController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  offset: const Offset(12, 26),
+                  blurRadius: 50,
+                  spreadRadius: 0,
+                  color: Colors.grey.withOpacity(.1)),
+            ]),
+            child: TextFormField(
+              controller: textEditingController,
+              onChanged: (value) {
+                //Do something wi
+              },
+              style: const TextStyle(fontSize: 14, color: Colors.black),
+              decoration: InputDecoration(
+                label: const Text("Verify Passphrase"),
+                labelStyle: const TextStyle(color: Colors.grey),
+                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -133,6 +193,151 @@ class EmailInput extends StatelessWidget {
   }
 }
 
+class PassInput extends StatelessWidget {
+
+  final TextEditingController? textEditingController;
+  final Function()? onFieldSubmitted;
+
+  const PassInput({Key? key, required this.textEditingController, this.onFieldSubmitted}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                offset: const Offset(12, 26),
+                blurRadius: 50,
+                spreadRadius: 0,
+                color: Colors.grey.withOpacity(.1)
+              ),
+            ]),
+            child: TextFormField(
+              controller: textEditingController,
+              onChanged: (value) {
+                //Do something wi
+              },
+              validator: (value) {
+                // Check if this field is empty
+                if (value == null || value.isEmpty) {
+                  return 'This field is required';
+                }
+
+                // using regular expression
+                if ( value.length < 6) {
+                  return "Password less than 6 digit";
+                }
+
+                // the email is valid
+                return null;
+              },
+              onFieldSubmitted: (String value){
+                onFieldSubmitted!();
+              },
+              keyboardType: TextInputType.emailAddress,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
+              decoration: InputDecoration(
+                label: const Text("Password"),
+                labelStyle: const TextStyle(color: Colors.grey),
+                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MyInput extends StatelessWidget {
+
+  final String? label;
+  final TextEditingController? textEditingController;
+  final Function()? onFieldSubmitted;
+  final Function? validator;
+
+  const MyInput({Key? key, required this.label, required this.textEditingController, this.onFieldSubmitted, required this.validator}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                offset: const Offset(12, 26),
+                blurRadius: 50,
+                spreadRadius: 0,
+                color: Colors.grey.withOpacity(.1)
+              ),
+            ]),
+            child: TextFormField(
+              controller: textEditingController,
+              onChanged: (value) {
+                //Do something wi
+              },
+              validator: (value) {
+                return validator!(value);
+              },
+              onFieldSubmitted: (String value){
+                onFieldSubmitted!();
+              },
+              keyboardType: TextInputType.emailAddress,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
+              decoration: InputDecoration(
+                label: Text("$label"),
+                labelStyle: const TextStyle(color: Colors.grey),
+                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class VerifyInput extends StatefulWidget {
   final TextEditingController? textEditingController;
 
@@ -150,7 +355,10 @@ class _VerifyInputState extends State<VerifyInput> {
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: TextFormField(
         controller: widget.textEditingController,
-        // obscureText: true,
+        keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ], // Only n
         decoration: InputDecoration(
           label: const Text("Verify"),
           contentPadding:
@@ -193,6 +401,11 @@ class _VerifyInputState extends State<VerifyInput> {
 
           // validate verify code under 6 characters
           if (value.length < 6) {
+            return "Please enter 6-digit code";
+          }
+
+          // validate verify code more than 6 characters
+          if (value.length > 6) {
             return "Please enter 6-digit code";
           }
 
@@ -248,11 +461,11 @@ class GoogleBtn extends StatelessWidget {
 class CustomBtn extends StatelessWidget {
   final Function()? onPressed;
   final String? title;
-  final String? icon;
+  final String? logo;
   const CustomBtn({
     this.onPressed,
     this.title,
-    required this.icon,
+    required this.logo,
     Key? key,
   }) : super(key: key);
 
@@ -275,7 +488,7 @@ class CustomBtn extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/logos/$icon', width: 20),
+            SvgPicture.asset('assets/logos/$logo', width: 20),
             const SizedBox(
               width: 10,
             ),
@@ -370,6 +583,98 @@ class SubmitButton extends StatelessWidget {
   }
 }
 
+class CustomButton extends StatelessWidget {
+  final String? text;
+  final Function()? onPressed;
+  final Color? colorBtn;
+  final Color? colorText;
+  const CustomButton(
+      {this.text, this.colorBtn, this.colorText, this.onPressed, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const double borderRadius = 50;
+
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: DecoratedBox(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius),
+              color: colorBtn),
+          child: ElevatedButton(
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                alignment: Alignment.center,
+                padding: MaterialStateProperty.all(
+                    const EdgeInsets.only(top: 15, bottom: 15)),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.transparent),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(borderRadius),
+                      side: BorderSide(color: primaryColor)),
+                )),
+            onPressed: onPressed,
+            child: Text(
+              text!,
+              style: TextStyle(color: colorText, fontSize: 16),
+            ),
+          )),
+    );
+  }
+}
+
+class CustomButtonIcon extends StatelessWidget {
+  final String? text;
+  final Function()? onPressed;
+  final Color? colorBtn;
+  final Color? colorText;
+  final Icon? icon;
+  const CustomButtonIcon(
+      {this.text, 
+      this.colorBtn, 
+      this.colorText, 
+      this.onPressed, 
+      this.icon,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const double borderRadius = 50;
+
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 2.75,
+      child: DecoratedBox(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius),
+              color: colorBtn),
+          child: ElevatedButton(
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                alignment: Alignment.center,
+                padding: MaterialStateProperty.all(
+                    const EdgeInsets.only(top: 10, bottom: 10)),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.transparent),
+              ),
+            onPressed: onPressed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                icon!,
+                Text(
+                  text!,
+                  style: TextStyle(color: colorText, fontSize: 14),
+                ),
+              ],
+            ),
+          )),
+    );
+  }
+}
+
 class EditButton extends StatelessWidget {
   final String? text;
   final Function()? onPressed;
@@ -396,7 +701,8 @@ class EditButton extends StatelessWidget {
             alignment: Alignment.center,
             backgroundColor: MaterialStateProperty.all(Colors.transparent),
             shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius)),
             ),
           ),
           onPressed: onPressed,
@@ -789,6 +1095,19 @@ class AddAssetButton extends StatelessWidget {
               ),
             )),
       ),
+    );
+  }
+}
+
+class PeerProgress extends StatelessWidget {
+  final int num;
+  const PeerProgress(this.num, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
+      child: SetupProgressIndicator(num),
     );
   }
 }

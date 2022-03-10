@@ -49,6 +49,8 @@ class ApiProvider with ChangeNotifier {
 
   String btcAdd = '';
 
+  String _seed = 'f';
+
   // ContractProvider? contractProvider;
 
   // AccountM accountM = AccountM();
@@ -86,7 +88,7 @@ class ApiProvider with ChangeNotifier {
   // }
 
   Future<void> initApi({@required BuildContext? context}) async {
-
+    print("hello initApi");
     // contractProvider = Provider.of<ContractProvider>(context!, listen: false);
 
     // try {
@@ -400,9 +402,9 @@ class ApiProvider with ChangeNotifier {
     dynamic json = await apiKeyring.importAccount(
       _keyring,
       keyType: KeyType.mnemonic,
-      key: 'donate slogan wear furnace idle canal raw senior pink frame truck beyond',
+      key: _seed,
       name: "Daveat",
-      password: "Condaveat0975973667",
+      password: "radabo6114@ketchet.com",
     );
 
     print("json $json");
@@ -434,9 +436,9 @@ class ApiProvider with ChangeNotifier {
 
       final res = await _sdk.api.service.webView!.evalJavascript('settings.getChainDecimal(api)');
       print("res $res");
-      await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "pojih13049@ishop2k.com","12345", "${_keyring.current.pubKey}")').then((value) {
-        print("registerSel11 $value");
-      });
+      // await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "pojih13049@ishop2k.com","12345", "${_keyring.current.pubKey}")').then((value) {
+      //   print("change Password Sel13 $value");
+      // });
       // contract.listContract[selNativeIndex].chainDecimal = res[0].toString();
       // await subSELNativeBalance(context: context);
 
@@ -444,6 +446,31 @@ class ApiProvider with ChangeNotifier {
     } catch (e) {
       // print("Error getChainDecimal $e");
     }
+  }
+
+  Future<bool> loginSELNetwork({required String? email, required String? password}) async {
+    try {
+
+      return await _sdk.api.service.webView!.evalJavascript('keyring.loginAccessSel12(api, "$email","$password", "$_seed")');
+
+    } catch (e){
+      print("Error registerSELNetwork ${e}");
+    }
+    return false;
+  }
+
+  Future<bool> registerSELNetwork({required String? email, required String? password}) async {
+    try {
+
+      return await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "$email","$password", "$_seed")').then((value) {
+        print("registerSELNetwork $value");
+        return value;
+      });
+
+    } catch (e){
+      print("Error registerSELNetwork ${e}");
+    }
+    return false;
   }
 
   Future<void> subSELNativeBalance({@required BuildContext? context}) async {

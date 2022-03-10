@@ -22,12 +22,14 @@ class InfoState extends State<Info>{
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Column(
           children: [
+
             Padding(
               padding: EdgeInsets.only(bottom: 5),
 
               child: TextFormField(
+                style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
-                  label: MyText(text: "Name",),
+                  label: MyText(text: "Name", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
                   //Style
@@ -43,8 +45,9 @@ class InfoState extends State<Info>{
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: TextFormField(
+                style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
-                  label: MyText(text: "Email",),
+                  label: MyText(text: "Email", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
                   //Style
@@ -60,8 +63,9 @@ class InfoState extends State<Info>{
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: TextFormField(
+                style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
-                  label: MyText(text: "Nationality",),
+                  label: MyText(text: "Nationality", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
                   //Style
@@ -71,14 +75,15 @@ class InfoState extends State<Info>{
 
                   enabled: widget.model!.isEditing,
                 ),
-                controller: widget.model!.nameController,
+                controller: widget.model!.nationalityController,
               )
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: TextFormField(
+                style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
-                  label: MyText(text: "Phone Number",),
+                  label: MyText(text: "Phone Number", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
                   //Style

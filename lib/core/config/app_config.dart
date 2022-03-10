@@ -7,4 +7,6 @@ class AppConfig {
 class DbKey {
   
   static String idKey = "id";
+  static String login = "login";
+  static String token = "token";
 }

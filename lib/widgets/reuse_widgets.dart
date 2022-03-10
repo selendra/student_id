@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/components_c.dart';
 import 'package:student_id/components/image_edit_c.dart';
@@ -208,8 +209,8 @@ Widget profileWidget(BuildContext context, { @required DashBoardModel? model, @r
             ),
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
-              child: const Text(
-                'Selena',
+              child: Text(
+                model.name,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -292,4 +293,31 @@ Widget getBalanceBox(
       ],
     ),
   );
+}
+
+class SetupProgressIndicator extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+  final int step;
+
+  SetupProgressIndicator(
+    this.step, {
+    Key? key,
+  })  : preferredSize = const Size.fromHeight(50.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: MediaQuery.of(context).padding,
+      color: whiteColor,
+      child: StepProgressIndicator(
+        totalSteps: 2,
+        currentStep: step,
+        selectedColor: primaryColor,
+        unselectedColor: greyColor,
+        roundedEdges: const Radius.circular(90),
+        size: 8,
+      ),
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:student_id/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/identifier_p.dart';
 
 void main() {
@@ -12,6 +13,9 @@ void main() {
       providers: [
         ChangeNotifierProvider<IdentifierProvider>(
           create: (context) => IdentifierProvider(),
+        ),
+        ChangeNotifierProvider<ApiProvider>(
+          create: (context) => ApiProvider(),
         )
       ],
       child: MyApp()
@@ -26,6 +30,7 @@ void initialization(BuildContext context) async {
 
 double paddingSize = 20;
 class MyApp extends StatelessWidget {
+
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.

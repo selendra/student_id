@@ -23,9 +23,10 @@ class _VerifyPageState extends State<VerifyPage> {
 
     if (form.validate()) {
       await Future.delayed(const Duration(seconds: 1), () async {
-        await MyDialog().customDialog(context, "Message", "Successfully login");
+        await MyDialog().customDialog(context, "Message", "Successfully verify");
         
-        Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
+        // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const SetupPage()));
       });
     }
   }

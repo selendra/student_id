@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/text_c.dart';
 
 class LoginPageBody extends StatelessWidget {
 
@@ -9,6 +10,7 @@ class LoginPageBody extends StatelessWidget {
   final Function? handleRememberMe;
   final GlobalKey<FormState> formKey;
   final Function? validator;
+  final Function? submitLogin;
 
   const LoginPageBody({
     Key? key, 
@@ -18,6 +20,7 @@ class LoginPageBody extends StatelessWidget {
     this.isChecked = false,
     required this.formKey,
     this.validator,
+    this.submitLogin
   }) : super(key: key);
   
   @override
@@ -55,35 +58,53 @@ class LoginPageBody extends StatelessWidget {
                     const GoogleBtn(
                       title: 'Login with Google',
                     ),
-                    const FacebookBtn(
-                      title: 'Login with META',
+                    // const FacebookBtn(
+                    //   title: 'Login with META',
+                    // ),
+                    const CustomBtn(
+                      title: 'Login with Meta',
+                      logo: 'meta.svg',
                     ),
                     const CustomBtn(
                       title: 'Login with Metamask',
-                      icon: 'metamask.svg',
+                      logo: 'metamask.svg',
                     ),
                     const CustomBtn(
                       title: 'Login with Trust',
-                      icon: 'trust.svg',
+                      logo: 'trust.svg',
                     ),
                     const CustomBtn(
                       title: 'Login with Bitriel',
-                      icon: 'bitriel.svg',
+                      logo: 'bitriel.svg',
                     ),
                     divider('or Login with Email'),
                     EmailInput(
                       textEditingController: emailInputController, 
                       onFieldSubmitted: (){
-                        validator!();
+                        // validator!();
+                      },
+                    ),
+                    PassInput(
+                      textEditingController: passwordInputController, 
+                      onFieldSubmitted: (){
+                        // validator!();
                       },
                     ),
                     const SizedBox(height: 20),
                     SubmitButton(
                       text: 'Submit',
-                      onPressed: () {
-                        validator!();
+                      onPressed: () async {
+                        // validator!();
+                        await submitLogin!();
                       },
                     ),
+
+                    TextButton(
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, signUpRoute);
+                      }, 
+                      child: MyText(text: "Account sign up", fontWeight: FontWeight.w600,)
+                    )
                   ],
                 ),
               ),

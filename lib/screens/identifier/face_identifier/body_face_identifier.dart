@@ -76,11 +76,16 @@ class IdentifierFaceBody extends StatelessWidget {
                     Expanded(
                       child: TextButton(
                         onPressed: () async {
-                          final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
-                          if (model!.frontImage == ''){
-                            await pickImage!(img, 'front');
-                          } else {
-                            await pickImage!(img, 'back');
+                          try {
+
+                            final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
+                            if (model!.frontFaceImage == ''){
+                              await pickImage!(img, 'front');
+                            } else {
+                              await pickImage!(img, 'back');
+                            }
+                          } catch (e){
+                            print("Error $e");
                           }
                         }, 
                         child: Row(
@@ -95,28 +100,33 @@ class IdentifierFaceBody extends StatelessWidget {
                         )
                       ),
                     ),
-                    // Expanded(
-                    //   child: TextButton(
-                    //     onPressed: () async {
-                    //       final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                    //       if (model!.frontImage == ''){
-                    //         await pickImage!(image!.path, 'front');
-                    //       } else {
-                    //         await pickImage!(image!.path, 'back');
-                    //       }
-                    //     }, 
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.center,
-                    //       crossAxisAlignment: CrossAxisAlignment.center,
-                    //       children: [
-                    //         Icon(Icons.upload),
-                    //         MyText(
-                    //           text: "Upload image"
-                    //         )
-                    //       ],
-                    //     )
-                    //   ),
-                    // ),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () async {
+                          try {
+
+                            final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                            if (model!.frontFaceImage == ''){
+                              await pickImage!(image!.path, 'front');
+                            } else {
+                              await pickImage!(image!.path, 'back');
+                            }
+                          } catch (e){
+
+                          }
+                        }, 
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.upload),
+                            MyText(
+                              text: "Upload image"
+                            )
+                          ],
+                        )
+                      ),
+                    ),
                   ],
                 ),
               )

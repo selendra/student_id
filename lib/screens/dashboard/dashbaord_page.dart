@@ -14,6 +14,7 @@ import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/screens/dashboard/body_dashboard.dart';
 import 'package:student_id/services/storage.dart';
 
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
 
@@ -22,7 +23,6 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-
   TextEditingController phraseKey = TextEditingController();
   DashBoardModel dashBoardM = DashBoardModel();
   IdentifierModel _identifierModel = IdentifierModel();
@@ -76,8 +76,7 @@ class _DashboardPageState extends State<DashboardPage> {
     dashBoardM.emailController.text = "rithythul@gmail.com";
     dashBoardM.nationalityController.text = "Cambodia";
     dashBoardM.phoneNumController.text = "+855-77-202-202";
-    // ApiProvider().initApi(context: context);
-    StorageServices.removeKey(DbKey.idKey);
+    // StorageServices.removeKey(DbKey.idKey);
     initId();
     super.initState();
   }

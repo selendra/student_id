@@ -7,12 +7,13 @@ import gov from "./gov";
 import { Keyring } from "@polkadot/keyring";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair, KeyringPair$Json } from "@polkadot/keyring/types";
-import { ApiPromise, SubmittableResult } from "@polkadot/api";
+import { ApiPromise, SubmittableResult, WsProvider } from "@polkadot/api";
 import { SubmittableExtrinsic } from "@polkadot/api/types";
 import { ITuple } from "@polkadot/types/types";
 import { DispatchError } from "@polkadot/types/interfaces";
 import { ContractPromise } from "@polkadot/api-contract";
 let keyring = new Keyring({ ss58Format: 42, type: "sr25519" });
+const provider = new WsProvider("wss://indra-testnet.selendra.org");
 
 var selAddr;
 
@@ -66,37 +67,77 @@ async function validateAddress(address: string) {
   });
 }
 
-
-/// Student ID
-async function registerSel11(api: ApiPromise, email: string, password: string, pubKey: string){
+async function loginAccessSel12(api: ApiPromise, email: string, password: string, seed: string) {
+  console.log("Hello loginAccessSel12");
   console.log("Email", email);
   console.log("Password", password);
-  console.log("pubKey", pubKey);
-  try{
-    let keyPair: KeyringPair;
-    keyPair = keyring.getPair(hexToU8a(pubKey));
-    api.tx
-    const tx = await api.tx.indraIdentity.requestRegistrationSel11(email, password).signAndSend(keyPair);
-    console.log("sign", tx.hash);
-    // tx.then((value) => {
-    // })
-  } catch (error){
-    console.log(`Erorr ${error}`);
+  const alic = keyring.addFromMnemonic(seed);
+  console.log("alic.address", alic.address);
+  const {nonce} = await api.query.system.account(alic.address);
+  const login = api.tx.indraIdentity.loginAccessSel12(email, password);
+  try {
+    const hash = await login.signAndSend(alic);
+    console.log("hash loginAccessSel12", hash);
+    return {'status': true, 'message': hash.hash};
+  } catch (e){
+    return {'status': false, 'message': e};
   }
-  // const event = api.tx.system
+}
 
+/// Student ID
+async function registerSel11(api: ApiPromise, email: string, password: string, seed: string){
+  console.log("Email", email);
+  console.log("Password", password);
 
-  // const tx = api.tx.indraIdentity.requestRegistrationSel11(email, password);
-  // console.log(`requestRegistrationSel11 ${tx.data}`);
-  // const event = api.tx.system
+  // try{
+  //   let keyPair: KeyringPair;
+  //   keyPair = keyring.getPair(hexToU8a(pubKey));
+  //   api.tx
+  //   const tx = await api.tx.indraIdentity.requestRegistrationSel11(email, password).signAndSend(keyPair);
+  //   console.log("sign", tx.hash);
+  //   // tx.then((value) => {
+  //   // })
+  // } catch (error){
+  //   console.log(`Erorr ${error}`);
+  // }
 
+  // const alic = keyring.addFromMnemonic(seed);
+  const aliza = keyring.addFromUri('donate slogan wear furnace idle canal raw senior pink frame truck beyond');
+  // const {nonce, data: balance} = await api.query.system.account(alic.address);
 
-  // return new Promise(async (resolve, reject) => {
-  //   try {
-  //   } catch (err){
-  //     resolve (err.message);
-  //   }
-  // });
+  // console.log("alic", alic);
+  // console.log("Balance ", balance.free);
+
+  // const register = api.tx.indraIdentity.requestRegistrationSel11(email, password);
+  const register2 = api.tx.indraIdentity.requestRegistrationSel11(email, password);
+
+  try {
+    // const hash = await register.signAndSend(alic);
+    const hash2 = await register2.signAndSend(aliza);
+    console.log("Registered with hash", hash2.hash);
+    return {'status': true, 'message': hash2.hash};
+  } catch ( e){
+    console.log('Register error ', e);
+    return {'status': false, 'message': e};
+  }
+}
+
+async function changePasswordSel13(api: ApiPromise, email: string, password: string, seed: string ){
+
+  const alic = keyring.addFromUri(seed);
+  const {nonce} = await api.query.system.account(alic.address);
+
+  console.log("nonce", nonce);
+
+  const register = api.tx.indraIdentity.changePasswordSel13(email, password);
+
+  try {
+    const hash = await register.signAndSend(alic);
+    console.log("change Password with hash", hash.toHuman());
+    return hash.hash;
+  } catch (e){
+    console.log('Register error ', e);
+  }
 }
 
 /**
@@ -627,6 +668,8 @@ export default {
   makeTx,
   addSignatureAndSend,
   registerSel11,
+  changePasswordSel13,
+  loginAccessSel12
   //signTxAsExtension,
   //signBytesAsExtension,
   //verifySignature,

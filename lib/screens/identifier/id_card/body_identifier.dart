@@ -61,7 +61,7 @@ class IdentifierBody extends StatelessWidget {
                       ),
 
                       // Back
-                      model!.frontImage != '' ? MyText(
+                      model!.backImage != '' ? MyText(
                         text: "Back"
                       ) : Container(),
                       model!.backImage == '' ? Container() : Card(child: Image.file(File(model!.backImage!), height: 200, width: 400))
@@ -77,13 +77,18 @@ class IdentifierBody extends StatelessWidget {
                     Expanded(
                       child: TextButton(
                         onPressed: () async {
-                          // ImagePicker _picker = ImagePicker();
-                          // await _picker.pickImage(source: ImageSource.camera);
-                          final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
-                          if (model!.frontImage == ''){
-                            await pickImage!(img, 'front');
-                          } else {
-                            await pickImage!(img, 'back');
+                          try {
+
+                            // ImagePicker _picker = ImagePicker();
+                            // await _picker.pickImage(source: ImageSource.camera);
+                            final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
+                            if (model!.frontImage == ''){
+                              await pickImage!(img, 'front');
+                            } else {
+                              await pickImage!(img, 'back');
+                            }
+                          } catch (e) {
+                            print("Error CameraApp $e");
                           }
                         }, 
                         child: Row(
@@ -98,28 +103,33 @@ class IdentifierBody extends StatelessWidget {
                         )
                       ),
                     ),
-                    // Expanded(
-                    //   child: TextButton(
-                    //     onPressed: () async {
-                    //       final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                    //       if (model!.frontImage == ''){
-                    //         await pickImage!(image!.path, 'front');
-                    //       } else {
-                    //         await pickImage!(image!.path, 'back');
-                    //       }
-                    //     }, 
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.center,
-                    //       crossAxisAlignment: CrossAxisAlignment.center,
-                    //       children: [
-                    //         Icon(Icons.upload),
-                    //         MyText(
-                    //           text: "Upload image"
-                    //         )
-                    //       ],
-                    //     )
-                    //   ),
-                    // ),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () async {
+                          try {
+
+                            final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                            if (model!.frontImage == ''){
+                              await pickImage!(image!.path, 'front');
+                            } else {
+                              await pickImage!(image!.path, 'back');
+                            }
+                          } catch (e){
+                            
+                          }
+                        }, 
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.upload),
+                            MyText(
+                              text: "Upload image"
+                            )
+                          ],
+                        )
+                      ),
+                    ),
                   ],
                 ),
               )

@@ -30,6 +30,9 @@ class _IdentifierState extends State<IdentifierFace> {
         
         widget.model!.frontFaceImage = img;
       }
+      setState(() {
+        
+      });
     } catch (e){
       print("Error pickImage $e");
     }
