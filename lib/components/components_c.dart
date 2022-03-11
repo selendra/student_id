@@ -40,7 +40,22 @@ class Components {
                   },
                   child: Align(
                     alignment: Alignment.center,
-                    child: MyText(text: 'gallery', color2: Colors.black, fontWeight: FontWeight.w600)
+                    child: MyText(text: 'Gallery', color2: Colors.black, fontWeight: FontWeight.w600)
+                  )
+                )
+              ),
+              Divider(
+                thickness: 0.2,
+                color: Colors.black54.withOpacity(0.7),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: MyText(text: 'Cancel', color2: Colors.red, fontWeight: FontWeight.w600)
                   )
                 )
               )

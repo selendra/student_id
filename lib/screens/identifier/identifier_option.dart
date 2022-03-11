@@ -9,9 +9,7 @@ class IDOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: MyText(text: "Identity Option", fontWeight: FontWeight.w600, color2: Colors.white,),
-      ),
+      appBar: appbarCustom("Identity Options", context),
       body: Column(
         children: [
 

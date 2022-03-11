@@ -11,6 +11,7 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar>
 {
+  
   int _selectedIndex = 0;
 
   static const List<Widget> _options  = <Widget> [
@@ -78,7 +79,7 @@ class _NavbarState extends State<Navbar>
           currentIndex: _selectedIndex,
           selectedItemColor: primaryColor,
           unselectedItemColor: Colors.black,
-          iconSize: 35,
+          iconSize: 30,
           onTap: _onItemTap,
           elevation: 5,
         ),

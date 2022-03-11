@@ -19,9 +19,7 @@ class IdentifierFaceBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: MyText(text: model!.title, fontWeight: FontWeight.w600, color2: Colors.white,),
-      ),
+      appBar: appbarCustom("Natonal ID", context),  
       body: Stack(
         children: [
           Column(

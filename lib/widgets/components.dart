@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/column_info_c.dart';
+import 'package:student_id/models/asset_list_m.dart';
 import 'package:student_id/models/dashboard_m.dart';
 import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/screens/dashboard/edit_info.dart';
@@ -195,11 +196,20 @@ class EmailInput extends StatelessWidget {
 
 class PassInput extends StatelessWidget {
 
+  final String? label;
   final bool? obscureText;
   final TextEditingController? textEditingController;
   final Function()? onFieldSubmitted;
+  final Function? validator;
 
-  const PassInput({Key? key, required this.textEditingController, this.onFieldSubmitted, this.obscureText = true}) : super(key: key);
+  const PassInput({
+    Key? key, 
+    this.label, 
+    required this.textEditingController, 
+    this.onFieldSubmitted, 
+    this.obscureText = true,
+    this.validator,
+    }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -243,7 +253,7 @@ class PassInput extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               style: const TextStyle(fontSize: 14, color: Colors.black),
               decoration: InputDecoration(
-                label: const Text("Password"),
+                label: Text(label!),
                 labelStyle: const TextStyle(color: Colors.grey),
                 hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
                 contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
@@ -298,7 +308,6 @@ class MyInput extends StatelessWidget {
               ),
             ]),
             child: TextFormField(
-              obscureText: true,
               controller: textEditingController,
               onChanged: (value) {
                 //Do something wi
@@ -309,7 +318,6 @@ class MyInput extends StatelessWidget {
               onFieldSubmitted: (String value){
                 onFieldSubmitted!();
               },
-              keyboardType: TextInputType.emailAddress,
               style: const TextStyle(fontSize: 14, color: Colors.black),
               decoration: InputDecoration(
                 label: Text("$label"),
@@ -743,7 +751,7 @@ class DashboardOptions extends StatelessWidget {
                       ),
 
                       provider.alreadySetup! 
-                      ? Positioned(
+                      ? const Positioned(
                         child: Icon(Icons.check, size: 20, color: Colors.blue),
                         right: 0,
                         bottom: 0,
@@ -884,8 +892,8 @@ class PersonlInfo extends StatelessWidget {
               shape: BoxShape.circle,
               color: Colors.grey[300]
             ),
-            padding: EdgeInsets.all(5),
-            child: model!.isEditing ? Icon(Icons.edit_off_outlined) : Icon(Icons.edit_outlined) ,
+            padding: const EdgeInsets.all(5),
+            child: model!.isEditing ? const Icon(Icons.edit_off_outlined) : const Icon(Icons.edit_outlined) ,
           )
         )
 
@@ -1006,25 +1014,77 @@ class LinkedAccountInfo extends StatelessWidget {
   }
 }
 
+// class CryptosAssetInfo extends StatelessWidget {
+//   const CryptosAssetInfo({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     TextEditingController fiat = TextEditingController(text: '2,000,000');
+//     TextEditingController btc = TextEditingController(text: '1 BTC');
+//     TextEditingController eth = TextEditingController(text: '0.001 ETH');
+//     TextEditingController sel = TextEditingController(text: '500 SEL');
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       mainAxisAlignment: MainAxisAlignment.start,
+//       children: [
+//         titleDashboard('Cryptos Assets', context),
+//         getBalanceBox('Fiat: Khmer Riel (KHR), USD', fiat, context),
+//         getBalanceBox('Bitcoin (BTC)', btc, context),
+//         getBalanceBox('Ethereum (ETH)', eth, context),
+//         getBalanceBox('Selendra (SEL', sel, context),
+//       ],
+//     );
+//   }
+// }
+
 class CryptosAssetInfo extends StatelessWidget {
   const CryptosAssetInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController fiat = TextEditingController(text: '2,000,000');
-    TextEditingController btc = TextEditingController(text: '1 BTC');
-    TextEditingController eth = TextEditingController(text: '0.001 ETH');
-    TextEditingController sel = TextEditingController(text: '500 SEL');
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        titleDashboard('Cryptos Assets', context),
-        getBalanceBox('Fiat: Khmer Riel (KHR), USD', fiat, context),
-        getBalanceBox('Bitcoin (BTC)', btc, context),
-        getBalanceBox('Ethereum (ETH)', eth, context),
-        getBalanceBox('Selendra (SEL', sel, context),
-      ],
+    return Card(
+      margin: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+       shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+        side: const BorderSide(
+          color: Colors.black,
+          width: 2.0,
+        ),
+      ),
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0.0),
+        itemBuilder: (context, index) {
+          return Column(
+            children: <Widget>[
+              ListTile(
+                leading: Image(image: assetList[index].image!, height: 50, width: 50),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      assetList[index].title!.toUpperCase(),
+                      style: TextStyle(color: darkGreen, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      assetList[index].balance!,
+                      style: TextStyle(color: darkGreen, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              index == assetList.length - 1 ? Container()
+              : const Divider(
+                thickness: 1.0,
+                color: Colors.black,
+              ),
+            ],
+          );
+        },
+        itemCount: assetList.length,
+      ),
     );
   }
 }
@@ -1059,27 +1119,27 @@ class ToolsInfo extends StatelessWidget {
   }
 }
 
-class AddAssetButton extends StatelessWidget {
+class AddButton extends StatelessWidget {
   final String? text;
   final Function()? onPressed;
-  const AddAssetButton({this.text, this.onPressed, Key? key}) : super(key: key);
+  final IconData? icon;
+  const AddButton({this.text, this.onPressed, this.icon, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    HexColor primaryColor = HexColor('#00AAFF');
     const accentColor = Color(0xffffffff);
 
-    const double borderRadius = 4;
+    const double borderRadius = 12;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 70, right: 70),
+      padding: const EdgeInsets.all(20),
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: DecoratedBox(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderRadius),
                 color: primaryColor),
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
               style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),
                   alignment: Alignment.center,
@@ -1092,11 +1152,13 @@ class AddAssetButton extends StatelessWidget {
                         borderRadius: BorderRadius.circular(borderRadius)),
                   )),
               onPressed: onPressed,
-              child: Text(
+              label: Text(
                 text!,
-                style: const TextStyle(color: accentColor, fontSize: 16),
+                style: const TextStyle(color: accentColor, fontSize: 18),
               ),
-            )),
+              icon: Icon(icon, size: 28),
+            ),
+        ),
       ),
     );
   }

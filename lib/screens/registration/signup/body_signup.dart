@@ -94,12 +94,13 @@ class SignUpPageBody extends StatelessWidget {
                       },
                     ),
                     PassInput(
+                      label: "Password",
                       textEditingController: signUpModel!.passwordInputController, 
                       onFieldSubmitted: (){
                         // validator!();
                       },
                     ),
-                    MyInput(
+                    PassInput(
                       label: "Confirm password",
                       textEditingController: signUpModel!.conPasController, 
                       onFieldSubmitted: (){
@@ -117,7 +118,7 @@ class SignUpPageBody extends StatelessWidget {
                           return "Password less than 6 digit";
                         }
 
-                        // the email is valid
+                        // the password is valid
                         return null;
                       },
                     ),

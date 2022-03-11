@@ -3,7 +3,7 @@ import 'package:student_id/all_export.dart';
 class DashBoardModel {
   
   String profile = 'https://images.unsplash.com/photo-1597466765990-64ad1c35dafc';
-  String cover = 'https://picsum.photos/250?image=9';
+  String cover = 'https://avatars.githubusercontent.com/u/49308834?s=200&v=4';
 
   String name = '';
   String email = '';
