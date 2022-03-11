@@ -40,11 +40,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void isLogin() async {
-    // await StorageServices.fetchData(DbKey.login).then((value) {
-    //   if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
-    // });
-    await Future.delayed(Duration(seconds: 1), (){});
-    Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
+    await StorageServices.fetchData(DbKey.login).then((value) {
+      if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
+    });
+    // await Future.delayed(Duration(seconds: 1), (){});
+    // Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
     setState(() {
       checkLogin = false;
     });
@@ -55,19 +55,24 @@ class _LoginPageState extends State<LoginPage> {
     MyDialog().dialogLoading(context);
     print("submitLogin");
     try {
-      await Provider.of<ApiProvider>(context, listen: false).loginSELNetwork(email: "condaveat123@gmail.com", password: "12345").then((value) async {
-        
-        // Close Dialog
-        Navigator.pop(context);
-        
-        if (value == true){
-          await MyDialog().customDialog(context, "Message", "Successfully login");
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
-        } else {
-          await MyDialog().customDialog(context, "Oops", "Failed login");
-
-        }
+      await Future.delayed(Duration(seconds: 1), (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
       });
+      // Provider.of<ApiProvider>(context, listen: false).loginSELNetwork(email: "condaveat123@gmail.com", password: "12345").then((value) async {
+        
+      //   // Close Dialog
+      //   Navigator.pop(context);
+        
+      //   if (value == true){
+      //     await MyDialog().customDialog(context, "Message", "Successfully login");
+      //     // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
+      //   } else {
+      //     await MyDialog().customDialog(context, "Oops", "Failed login");
+
+      //   }
+      // });
+
+
       // await Backend().login(emailInputController.text, passwordInputController.text ).then((value) async {
       //   print("value ${value.body} ");
       //   dynamic decode = json.decode(value.body);
@@ -92,6 +97,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     isLogin();
+    emailInputController.text = "rithythul@gmail.com";
+    passwordInputController.text = "123456";
     super.initState();
   }
 
@@ -112,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
       validator: validator,
       submitLogin: submitLogin
     ) 
-    : const Center(
+    : const Scaffold(body: Center(
       child: CircularProgressIndicator(),
-    );
+    ),);
   }
 }

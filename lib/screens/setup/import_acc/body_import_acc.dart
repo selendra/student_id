@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 
-class VerifyPageBody extends StatelessWidget {
+class ImportAccountBody extends StatelessWidget {
   final TextEditingController verifyInputController;
   final GlobalKey<FormState> formKey;
   final Function? validator;
 
-  const VerifyPageBody({ 
+  const ImportAccountBody({ 
     Key? key, 
     required this.verifyInputController,
     required this.formKey,
@@ -31,12 +31,12 @@ class VerifyPageBody extends StatelessWidget {
                     const SizedBox(height: 20),
                     selLogo(context),
                     const SizedBox(height: 20),
-                    const Text('Verify',
+                    const Text('Import account',
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                     ),
                     const SizedBox(height: 15),
                     const Text(
-                      'One account. One place to manage it all.\n Welcome to you account dashboard.',
+                      'Please input your account with your mnemonic or pass phrase.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 15,
@@ -45,10 +45,10 @@ class VerifyPageBody extends StatelessWidget {
                       )
                     ),
                     const SizedBox(height: 20),
-                    VerifyInput(textEditingController: verifyInputController),
+                    MyInput(label: 'Mnemonic', textEditingController: verifyInputController, validator: (String value){},),
                     const SizedBox(height: 25),
                     SubmitButton(
-                      text: 'Verify',
+                      text: 'Import',
                       onPressed: () {
                         validator!();
                       },

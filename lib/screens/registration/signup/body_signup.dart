@@ -133,7 +133,7 @@ class SignUpPageBody extends StatelessWidget {
                       onPressed: (){
                         Navigator.pushReplacementNamed(context, loginRoute);
                       }, 
-                      child: MyText(text: "Account login", fontWeight: FontWeight.w600,)
+                      child: MyText(text: "Account login", fontWeight: FontWeight.w600, color2: Colors.blue,)
                     )
                   ],
                 ),

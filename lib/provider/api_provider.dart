@@ -374,7 +374,7 @@ class ApiProvider with ChangeNotifier {
       final node = NetworkParams();
 
       // node.name = 'Indranet hosted By Seslendra';
-      node.endpoint = 'wss://indra-testnet.selendra.org';//'wss://10.1.1.117:9944';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
+      node.endpoint = 'wss://student.selendra.org';//'wss://10.1.1.117:9944';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
       node.ss58 = 42;//isMainnet ? AppConfig.networkList[0].ss58MN : AppConfig.networkList[0].ss58;
 
       // node.endpoint = 'wss://rpc1-mainnet.selendra.org/';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
@@ -423,7 +423,7 @@ class ApiProvider with ChangeNotifier {
       acc: json,
       password: "Condaveat0975973667",
     ).then((value) async {
-      await getChainDecimal(context: context);
+      // await getChainDecimal(context: context);
     });
   }
 

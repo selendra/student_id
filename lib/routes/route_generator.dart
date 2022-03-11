@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/screens/registration/signup/signup.dart';
+import 'package:student_id/screens/setup/import_acc/import_acc.dart';
 
 const String loginRoute = '/';
 const String signUpRoute = '/signUp';
@@ -10,6 +11,7 @@ const String verifyRoute = 'verify';
 const String setupRoute = 'setup';
 const String createWalletRoute = 'createWallet';
 const String verifyWaletRoute = 'verifyWallet';
+const String importRoute = 'importAcc';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,6 +30,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const CreateWalletPage());
       case verifyWaletRoute:
         return MaterialPageRoute(builder: (_) => const VerifyPassphrase());
+      case importRoute:
+        return MaterialPageRoute(builder: (_) => const ImportAccount());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

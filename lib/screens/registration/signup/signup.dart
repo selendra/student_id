@@ -46,19 +46,25 @@ class _SignUpPageState extends State<SignUpPage> {
     MyDialog().dialogLoading(context);
     try {
 
+      // await Future.delayed(Duration(seconds: 1), (){
+      //   Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
+      // });
+
       await Provider.of<ApiProvider>(context, listen: false).registerSELNetwork(email: "condaveat@gmail.com", password: "12345").then((value) async {
         
+        print("value $value");
         // Close Dialog
         Navigator.pop(context);
         
         if (value == true){
           await MyDialog().customDialog(context, "Message", "Successfully register");
-          Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
         } else {
           await MyDialog().customDialog(context, "Oops", "Account already registered");
 
         }
       });
+
       // await Backend().register(_signUpModel).then((value) async {
       //   print("value ${value.body} ");
       //   dynamic decode = json.decode(value.body);
@@ -81,10 +87,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
-    _signUpModel.userNameController.text = "Daveat";
-    _signUpModel.emailInputController.text = "dibit51207@toudrum.com";
+    _signUpModel.userNameController.text = "Rithy THUL";
+    _signUpModel.emailInputController.text = "rithythul@gmail.com";
     _signUpModel.passwordInputController.text = "123456";
     _signUpModel.conPasController.text = "123456";
+    Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
     super.initState();
   }
 

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/alert_dialog_c.dart';
+import 'package:student_id/core/config/app_config.dart';
+import 'package:student_id/screens/setup/import_acc/body_import_acc.dart';
+import 'package:student_id/services/storage.dart';
 
 
-class VerifyPage extends StatefulWidget {
-  const VerifyPage({Key? key}) : super(key: key);
+class ImportAccount extends StatefulWidget {
+  const ImportAccount({Key? key}) : super(key: key);
 
   @override
-  _VerifyPageState createState() => _VerifyPageState();
+  _ImportAccountState createState() => _ImportAccountState();
 }
 
-class _VerifyPageState extends State<VerifyPage> {
+class _ImportAccountState extends State<ImportAccount> {
   final TextEditingController verifyInputController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
@@ -24,10 +27,11 @@ class _VerifyPageState extends State<VerifyPage> {
     // if (form.validate()) {
 
       await Future.delayed(const Duration(seconds: 1), () async {
-        await MyDialog().customDialog(context, "Message", "Successfully verify");
+        await MyDialog().customDialog(context, "Message", "Successfully import");
         
         // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const SetupPage()));
+        await StorageServices.storeData(true, DbKey.login);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const Navbar()));
       });
       
     // }
@@ -45,7 +49,7 @@ class _VerifyPageState extends State<VerifyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return VerifyPageBody(
+    return ImportAccountBody(
       verifyInputController: verifyInputController,
       formKey: formKey,
       validator: validator

@@ -76,7 +76,7 @@ class VerifyPassphraseBody extends StatelessWidget {
                                   // Show Loading
                                   MyDialog().dialogLoading(context);
                                   await Future.delayed(const Duration(seconds: 1), () async {
-                                    await MyDialog().customDialog(context, "Message", "Successfully login");
+                                    await MyDialog().customDialog(context, "Message", "Successfully verify");
                                     await StorageServices.storeData(true, DbKey.login);
                                     // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
                                     

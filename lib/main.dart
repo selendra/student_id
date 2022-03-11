@@ -5,6 +5,7 @@ import 'package:student_id/all_export.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/screens/registration/signup/signup.dart';
 
 void main() {
   FlutterNativeSplash.removeAfter(initialization);
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: const LoginPage(),
+      home: const SignUpPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

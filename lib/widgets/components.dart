@@ -195,10 +195,11 @@ class EmailInput extends StatelessWidget {
 
 class PassInput extends StatelessWidget {
 
+  final bool? obscureText;
   final TextEditingController? textEditingController;
   final Function()? onFieldSubmitted;
 
-  const PassInput({Key? key, required this.textEditingController, this.onFieldSubmitted}) : super(key: key);
+  const PassInput({Key? key, required this.textEditingController, this.onFieldSubmitted, this.obscureText = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -217,6 +218,7 @@ class PassInput extends StatelessWidget {
               ),
             ]),
             child: TextFormField(
+              obscureText: obscureText!,
               controller: textEditingController,
               onChanged: (value) {
                 //Do something wi
@@ -296,6 +298,7 @@ class MyInput extends StatelessWidget {
               ),
             ]),
             child: TextFormField(
+              obscureText: true,
               controller: textEditingController,
               onChanged: (value) {
                 //Do something wi

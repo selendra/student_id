@@ -78,6 +78,7 @@ async function loginAccessSel12(api: ApiPromise, email: string, password: string
   try {
     const hash = await login.signAndSend(alic);
     console.log("hash loginAccessSel12", hash);
+    eventTx(api);
     return {'status': true, 'message': hash.hash};
   } catch (e){
     return {'status': false, 'message': e};
@@ -115,6 +116,7 @@ async function registerSel11(api: ApiPromise, email: string, password: string, s
     // const hash = await register.signAndSend(alic);
     const hash2 = await register2.signAndSend(aliza);
     console.log("Registered with hash", hash2.hash);
+    eventTx(api);
     return {'status': true, 'message': hash2.hash};
   } catch ( e){
     console.log('Register error ', e);
@@ -138,6 +140,10 @@ async function changePasswordSel13(api: ApiPromise, email: string, password: str
   } catch (e){
     console.log('Register error ', e);
   }
+}
+
+async function eventTx (api: ApiPromise){
+  console.log("My event",api.events.indraIdentity.IdentityKilled.is)
 }
 
 /**

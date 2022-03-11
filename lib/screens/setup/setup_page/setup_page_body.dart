@@ -33,9 +33,7 @@ class SetupPageBody extends StatelessWidget {
                     text: 'Import secret recovery phrase key',
                     colorBtn: whiteColor,
                     colorText: primaryColor,
-                    onPressed: () => {
-                      
-                    },
+                    onPressed: () => Navigator.pushNamed(context, importRoute),
                   ),
                 ),
                 Padding(
@@ -44,9 +42,7 @@ class SetupPageBody extends StatelessWidget {
                     text: 'Create a new wallet',
                     colorBtn: primaryColor,
                     colorText: whiteColor,
-                    onPressed: () => {
-                      Navigator.pushNamed(context, createWalletRoute)
-                    },
+                    onPressed: () => Navigator.pushNamed(context, createWalletRoute),
                   ),
                 )
               ],
