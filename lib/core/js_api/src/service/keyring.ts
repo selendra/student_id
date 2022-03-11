@@ -74,7 +74,7 @@ async function loginAccessSel12(api: ApiPromise, email: string, password: string
   const alic = keyring.addFromMnemonic(seed);
   console.log("alic.address", alic.address);
   const {nonce} = await api.query.system.account(alic.address);
-  const login = api.tx.indraIdentity.loginAccessSel12(email, password);
+  const login = api.tx.identity.loginAccessSel12(email, password);
   try {
     const hash = await login.signAndSend(alic);
     console.log("hash loginAccessSel12", hash);
@@ -94,7 +94,7 @@ async function registerSel11(api: ApiPromise, email: string, password: string, s
   //   let keyPair: KeyringPair;
   //   keyPair = keyring.getPair(hexToU8a(pubKey));
   //   api.tx
-  //   const tx = await api.tx.indraIdentity.requestRegistrationSel11(email, password).signAndSend(keyPair);
+  //   const tx = await api.tx.identity.requestRegistrationSel11(email, password).signAndSend(keyPair);
   //   console.log("sign", tx.hash);
   //   // tx.then((value) => {
   //   // })
@@ -103,21 +103,38 @@ async function registerSel11(api: ApiPromise, email: string, password: string, s
   // }
 
   // const alic = keyring.addFromMnemonic(seed);
-  const aliza = keyring.addFromUri('donate slogan wear furnace idle canal raw senior pink frame truck beyond');
+  const aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
   // const {nonce, data: balance} = await api.query.system.account(alic.address);
 
   // console.log("alic", alic);
   // console.log("Balance ", balance.free);
 
-  // const register = api.tx.indraIdentity.requestRegistrationSel11(email, password);
-  const register2 = api.tx.indraIdentity.requestRegistrationSel11(email, password);
+  // const register = api.tx.identity.requestRegistrationSel11(email, password);
+  const register2 = api.tx.identity.requestRegistrationSel11(email, password);
 
   try {
     // const hash = await register.signAndSend(alic);
-    const hash2 = await register2.signAndSend(aliza);
-    console.log("Registered with hash", hash2.hash);
-    eventTx(api);
-    return {'status': true, 'message': hash2.hash};
+    const hash2 = await register2.signAndSend(aliza, ({events = [], status}) => {
+      console.log('Transaction status:', status.type);
+      if (status.isInBlock){
+        console.log('Included at block hash', status.asInBlock.toHex());
+        console.log('Events:');
+
+        events.forEach(({ event: { data, method, section }, phase }) => {
+          console.log('\t', phase.toString(), `: ${section}.${method}`, data.toString());
+          console.log("method", data.forEach)
+        });
+        
+      } else if (status.isFinalized) {
+        console.log('Finalized block hash', status.asFinalized.toHex());
+
+        process.exit(0);
+      }
+      
+    });
+    // console.log("Registered with hash", hash2.registry.findMetaEvent);
+    // eventTx(api);
+    // return {'status': true, 'message': hash2.registry.findMetaEvent};
   } catch ( e){
     console.log('Register error ', e);
     return {'status': false, 'message': e};
@@ -131,11 +148,11 @@ async function changePasswordSel13(api: ApiPromise, email: string, password: str
 
   console.log("nonce", nonce);
 
-  const register = api.tx.indraIdentity.changePasswordSel13(email, password);
+  const register = api.tx.identity.changePasswordSel13(email, password);
 
   try {
     const hash = await register.signAndSend(alic);
-    console.log("change Password with hash", hash.toHuman());
+    console.log("change Password with hash", hash);
     return hash.hash;
   } catch (e){
     console.log('Register error ', e);
@@ -143,7 +160,9 @@ async function changePasswordSel13(api: ApiPromise, email: string, password: str
 }
 
 async function eventTx (api: ApiPromise){
-  console.log("My event",api.events.indraIdentity.IdentityKilled.is)
+  const evt = api.events.identity.JudgementGiven;
+  
+  console.log("My event", evt.is.call);
 }
 
 /**
