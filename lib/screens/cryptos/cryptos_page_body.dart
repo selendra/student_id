@@ -21,7 +21,6 @@ class CryptosPageBody extends StatelessWidget {
               const CryptosAssetInfo(),
               AddButton(
                 text: 'Add Asset',
-                icon: Icons.account_balance_wallet_outlined,
                 onPressed: () {}
               ),
             ],

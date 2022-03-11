@@ -17,42 +17,33 @@ class PhraseInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            offset: const Offset(12, 26),
-            blurRadius: 8,
-            spreadRadius: 0,
-            color: Colors.grey.withOpacity(.1)),
-      ]),
-      child: TextField(
-        controller: textEditingController,
-        onChanged: (value) {
-          //Do something wi
-        },
-        style: const TextStyle(fontSize: 14, color: Colors.black),
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          contentPadding: const EdgeInsets.symmetric(vertical: 40),
-          labelStyle: const TextStyle(color: Colors.grey),
-          hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
+    return TextField(
+      controller: textEditingController,
+      onChanged: (value) {
+        //Do something wi
+      },
+      style: const TextStyle(fontSize: 14, color: Colors.black),
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        contentPadding: const EdgeInsets.symmetric(vertical: 40),
+        labelStyle: const TextStyle(color: Colors.grey),
+        hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        ),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 1.0),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
       ),
     );
@@ -72,42 +63,33 @@ class VerifyPassphraseInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  offset: const Offset(12, 26),
-                  blurRadius: 50,
-                  spreadRadius: 0,
-                  color: Colors.grey.withOpacity(.1)),
-            ]),
-            child: TextFormField(
-              controller: textEditingController,
-              onChanged: (value) {
-                //Do something wi
-              },
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-              decoration: InputDecoration(
-                label: const Text("Verify Passphrase"),
-                labelStyle: const TextStyle(color: Colors.grey),
-                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
+          TextFormField(
+            controller: textEditingController,
+            onChanged: (value) {
+              //Do something wi
+            },
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+            decoration: InputDecoration(
+              label: const Text("Verify Passphrase"),
+              labelStyle: const TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
             ),
           ),
@@ -131,60 +113,50 @@ class EmailInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                offset: const Offset(12, 26),
-                blurRadius: 50,
-                spreadRadius: 0,
-                color: Colors.grey.withOpacity(.1)
+          TextFormField(
+            controller: textEditingController,
+            onChanged: (value) {
+              //Do something wi
+            },
+            validator: (value) {
+              // Check if this field is empty
+              if (value == null || value.isEmpty) {
+                return 'This field is required';
+              }
+
+              // using regular expression
+              if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                return "Please enter a valid email address";
+              }
+
+              // the email is valid
+              return null;
+            },
+            onFieldSubmitted: (String value){
+              onFieldSubmitted!();
+            },
+            keyboardType: TextInputType.emailAddress,
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+            decoration: InputDecoration(
+              label: const Text("Email"),
+              labelStyle: const TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+              contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
-            ]),
-            child: TextFormField(
-              controller: textEditingController,
-              onChanged: (value) {
-                //Do something wi
-              },
-              validator: (value) {
-                // Check if this field is empty
-                if (value == null || value.isEmpty) {
-                  return 'This field is required';
-                }
-
-                // using regular expression
-                if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                  return "Please enter a valid email address";
-                }
-
-                // the email is valid
-                return null;
-              },
-              onFieldSubmitted: (String value){
-                onFieldSubmitted!();
-              },
-              keyboardType: TextInputType.emailAddress,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-              decoration: InputDecoration(
-                label: const Text("Email"),
-                labelStyle: const TextStyle(color: Colors.grey),
-                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
             ),
           ),
@@ -218,61 +190,51 @@ class PassInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                offset: const Offset(12, 26),
-                blurRadius: 50,
-                spreadRadius: 0,
-                color: Colors.grey.withOpacity(.1)
+          TextFormField(
+            obscureText: obscureText!,
+            controller: textEditingController,
+            onChanged: (value) {
+              //Do something wi
+            },
+            validator: (value) {
+              // Check if this field is empty
+              if (value == null || value.isEmpty) {
+                return 'This field is required';
+              }
+
+              // using regular expression
+              if ( value.length < 6) {
+                return "Password less than 6 digit";
+              }
+
+              // the email is valid
+              return null;
+            },
+            onFieldSubmitted: (String value){
+              onFieldSubmitted!();
+            },
+            keyboardType: TextInputType.emailAddress,
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+            decoration: InputDecoration(
+              label: Text(label!),
+              labelStyle: const TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+              contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
-            ]),
-            child: TextFormField(
-              obscureText: obscureText!,
-              controller: textEditingController,
-              onChanged: (value) {
-                //Do something wi
-              },
-              validator: (value) {
-                // Check if this field is empty
-                if (value == null || value.isEmpty) {
-                  return 'This field is required';
-                }
-
-                // using regular expression
-                if ( value.length < 6) {
-                  return "Password less than 6 digit";
-                }
-
-                // the email is valid
-                return null;
-              },
-              onFieldSubmitted: (String value){
-                onFieldSubmitted!();
-              },
-              keyboardType: TextInputType.emailAddress,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-              decoration: InputDecoration(
-                label: Text(label!),
-                labelStyle: const TextStyle(color: Colors.grey),
-                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
             ),
           ),
@@ -298,48 +260,38 @@ class MyInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                offset: const Offset(12, 26),
-                blurRadius: 50,
-                spreadRadius: 0,
-                color: Colors.grey.withOpacity(.1)
+          TextFormField(
+            controller: textEditingController,
+            onChanged: (value) {
+              //Do something wi
+            },
+            validator: (value) {
+              return validator!(value);
+            },
+            onFieldSubmitted: (String value){
+              onFieldSubmitted!();
+            },
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+            decoration: InputDecoration(
+              label: Text("$label"),
+              labelStyle: const TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
+              contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
-            ]),
-            child: TextFormField(
-              controller: textEditingController,
-              onChanged: (value) {
-                //Do something wi
-              },
-              validator: (value) {
-                return validator!(value);
-              },
-              onFieldSubmitted: (String value){
-                onFieldSubmitted!();
-              },
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-              decoration: InputDecoration(
-                label: Text("$label"),
-                labelStyle: const TextStyle(color: Colors.grey),
-                hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
             ),
           ),
@@ -1014,77 +966,45 @@ class LinkedAccountInfo extends StatelessWidget {
   }
 }
 
-// class CryptosAssetInfo extends StatelessWidget {
-//   const CryptosAssetInfo({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     TextEditingController fiat = TextEditingController(text: '2,000,000');
-//     TextEditingController btc = TextEditingController(text: '1 BTC');
-//     TextEditingController eth = TextEditingController(text: '0.001 ETH');
-//     TextEditingController sel = TextEditingController(text: '500 SEL');
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: [
-//         titleDashboard('Cryptos Assets', context),
-//         getBalanceBox('Fiat: Khmer Riel (KHR), USD', fiat, context),
-//         getBalanceBox('Bitcoin (BTC)', btc, context),
-//         getBalanceBox('Ethereum (ETH)', eth, context),
-//         getBalanceBox('Selendra (SEL', sel, context),
-//       ],
-//     );
-//   }
-// }
-
 class CryptosAssetInfo extends StatelessWidget {
   const CryptosAssetInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.fromLTRB(20, 30, 20, 0),
-       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-        side: const BorderSide(
-          color: Colors.black,
-          width: 2.0,
-        ),
-      ),
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0.0),
-        itemBuilder: (context, index) {
-          return Column(
-            children: <Widget>[
-              ListTile(
-                leading: Image(image: assetList[index].image!, height: 50, width: 50),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      assetList[index].title!.toUpperCase(),
-                      style: TextStyle(color: darkGreen, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      assetList[index].balance!,
-                      style: TextStyle(color: darkGreen, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: const EdgeInsets.fromLTRB(30, 15, 30, 0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            side: const BorderSide(
+              color: Colors.black,
+              width: 2.0,
+            ),
+          ),
+          child: ListTile(
+            leading: Image(image: assetList[index].image!, height: 40, width: 40),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  assetList[index].title!.toUpperCase(),
+                  style: TextStyle(color: darkGreen, fontWeight: FontWeight.bold),
                 ),
-              ),
-              index == assetList.length - 1 ? Container()
-              : const Divider(
-                thickness: 1.0,
-                color: Colors.black,
-              ),
-            ],
-          );
-        },
-        itemCount: assetList.length,
-      ),
+                const SizedBox(width: 5),
+                Text(
+                  assetList[index].balance!,
+                  style: TextStyle(color: darkGreen, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      itemCount: assetList.length,
     );
   }
 }
@@ -1122,8 +1042,7 @@ class ToolsInfo extends StatelessWidget {
 class AddButton extends StatelessWidget {
   final String? text;
   final Function()? onPressed;
-  final IconData? icon;
-  const AddButton({this.text, this.onPressed, this.icon, Key? key}) : super(key: key);
+  const AddButton({this.text, this.onPressed, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -1132,14 +1051,14 @@ class AddButton extends StatelessWidget {
     const double borderRadius = 12;
 
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(30),
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: DecoratedBox(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderRadius),
                 color: primaryColor),
-            child: ElevatedButton.icon(
+            child: ElevatedButton(
               style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),
                   alignment: Alignment.center,
@@ -1152,11 +1071,10 @@ class AddButton extends StatelessWidget {
                         borderRadius: BorderRadius.circular(borderRadius)),
                   )),
               onPressed: onPressed,
-              label: Text(
+              child: Text(
                 text!,
                 style: const TextStyle(color: accentColor, fontSize: 18),
               ),
-              icon: Icon(icon, size: 28),
             ),
         ),
       ),

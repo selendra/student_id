@@ -20,9 +20,8 @@ class StoragesPageBody extends StatelessWidget {
               const StoragesInfo(),
               AddButton(
                 text: 'Add Services', 
-                icon: Icons.storage_outlined,
                 onPressed: () {}
-                ),
+              ),
             ],
           ),
         ),

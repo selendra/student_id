@@ -26,9 +26,8 @@ class ToolsPageBody extends StatelessWidget {
               const ToolsInfo(),
               AddButton(
                 text: 'Add Services',
-                icon: Icons.storage_outlined,
                 onPressed: () {},
-                ),
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: TextButton(
