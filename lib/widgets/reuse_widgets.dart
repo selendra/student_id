@@ -15,7 +15,8 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: HexColor('#EDEDED'),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12.0))),
         content: SizedBox(
           width: MediaQuery.of(context).size.width / 1.3,
           height: MediaQuery.of(context).size.height / 2.2,
@@ -25,17 +26,26 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
             children: <Widget>[
               const Text(
                 "Social Wallets",
-                style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 10),
               const Text(
                 "Generate Private/Public Key with close friends’ contacts; phone numbers and/or email addresses and/or names.\nA secure key to everything yours, make sure you save or remember it well",
-                style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
+                style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 20),
               const Text(
                 "12 words* separated by space",
-                style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
+                style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 10),
               PhraseInput(textEditingController: phraseKey),
@@ -58,7 +68,7 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
                           )),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
                       },
                       child: const Text(
@@ -75,13 +85,13 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
   );
 }
 
-
 void qrCodeAlertDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12.0))),
         backgroundColor: HexColor('#EDEDED'),
         content: SizedBox(
           width: MediaQuery.of(context).size.width / 1.3,
@@ -92,7 +102,10 @@ void qrCodeAlertDialog(BuildContext context) {
             children: <Widget>[
               const Text(
                 'My QR Code',
-                style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 20),
               QrImage(
@@ -100,7 +113,8 @@ void qrCodeAlertDialog(BuildContext context) {
                 version: QrVersions.auto,
                 size: 250,
                 gapless: false,
-                embeddedImage: const AssetImage('assets/logos/telegram_logo.png'),
+                embeddedImage:
+                    const AssetImage('assets/logos/telegram-logo.png'),
                 embeddedImageStyle: QrEmbeddedImageStyle(
                   size: const Size(80, 80),
                 ),
@@ -124,7 +138,7 @@ void qrCodeAlertDialog(BuildContext context) {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),
                           )),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
                       },
                       child: const Text(
@@ -145,36 +159,32 @@ Widget selLogo(BuildContext context) {
   return Image.asset('assets/logos/sel.png', width: 100, height: 100);
 }
 
-Widget profileWidget(BuildContext context, { @required DashBoardModel? model, @required Function? pickImage}) {
+Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @required Function? pickImage}) {
   return Stack(
     children: <Widget>[
-
       ImageEditComponent(
-        image: model!.cover.contains("https") 
-        ? Image.network(
-          model.cover,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 3,
-          fit: BoxFit.cover,
-        ) 
-        : Image.file(
-          File(model.cover),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 3,
-          fit: BoxFit.cover,
-        ),
+        image: model!.cover.contains("https")
+            ? Image.network(
+                model.cover,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3.2,
+                fit: BoxFit.cover,
+              )
+            : Image.file(
+                File(model.cover),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3.2,
+                fit: BoxFit.cover,
+              ),
         action: () async {
           print("Cover");
           await Components().imageOption(
-            context: context, 
-            getImage: pickImage,
-            label: "cover"
-          );
+              context: context, getImage: pickImage, label: "cover");
         },
       ),
       SizedBox(
         width: (MediaQuery.of(context).size.width),
-        height: MediaQuery.of(context).size.height / 3,
+        height: MediaQuery.of(context).size.height / 3.2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -184,34 +194,30 @@ Widget profileWidget(BuildContext context, { @required DashBoardModel? model, @r
                 radius: 60,
                 backgroundColor: Colors.white,
                 child: ClipOval(
-                  child: model.profile.contains("https") 
-                  ? Image.network(
-                    model.profile,
-                    height: 110,
-                    width: 110,
-                    fit: BoxFit.fill,
-                  ) 
-                  : Image.file(
-                    File(model.profile),
-                    height: 110,
-                    width: 110,
-                    fit: BoxFit.fill,
-                  )
-                ),
+                    child: model.profile.contains("https")
+                        ? Image.network(
+                            model.profile,
+                            height: 110,
+                            width: 110,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            File(model.profile),
+                            height: 110,
+                            width: 110,
+                            fit: BoxFit.cover,
+                          )),
               ),
               action: () async {
                 await Components().imageOption(
-                  context: context, 
-                  getImage: pickImage,
-                  label: "profile"
-                );
+                    context: context, getImage: pickImage, label: "profile");
               },
             ),
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
               child: Text(
                 model.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -257,9 +263,31 @@ Widget titleDashboard(String title, BuildContext context, {String? title2}) {
     color: greyBackgroundColor,
     child: Row(
       children: [
-        MyText(text: title, color2: greyColor, fontWeight: FontWeight.w700, right: 5, fontSize: 16,),
-        title2 != null ? Container(height: 20, child: VerticalDivider(width: 5, thickness: 1, color: Colors.grey, indent: 2,)) : Container(),
-        title2 != null ? MyText(left: 5, text: title2, color2: Colors.blue, fontWeight: FontWeight.w700, fontSize: 16) : Container()
+        MyText(
+          text: title,
+          color2: greyColor,
+          fontWeight: FontWeight.w700,
+          right: 5,
+          fontSize: 16,
+        ),
+        title2 != null
+            ? Container(
+                height: 20,
+                child: const VerticalDivider(
+                  width: 5,
+                  thickness: 1,
+                  color: Colors.grey,
+                  indent: 2,
+                ))
+            : Container(),
+        title2 != null
+            ? MyText(
+                left: 5,
+                text: title2,
+                color2: Colors.blue,
+                fontWeight: FontWeight.w700,
+                fontSize: 16)
+            : Container()
       ],
     ),
   );
@@ -320,4 +348,21 @@ class SetupProgressIndicator extends StatelessWidget with PreferredSizeWidget {
       ),
     );
   }
+}
+
+PreferredSizeWidget appbarCustom(String title, BuildContext context) {
+  return AppBar(
+    title: Text(
+      title,
+      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+    ),
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    leading: IconButton(
+      icon: const Icon(Icons.arrow_back_ios_new,color: Colors.black,),
+      onPressed: (){
+        Navigator.pop(context);
+      },
+    ),
+  );
 }

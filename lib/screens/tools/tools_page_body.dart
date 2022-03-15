@@ -24,7 +24,10 @@ class ToolsPageBody extends StatelessWidget {
               profileWidget(context, pickImage: (){}, model: DashBoardModel()),
               const DashboardOptions(),
               const ToolsInfo(),
-              AddAssetButton(text: 'Add Services', onPressed: () {}),
+              AddButton(
+                text: 'Add Services',
+                onPressed: () {},
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: TextButton(

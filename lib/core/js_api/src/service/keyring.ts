@@ -12,10 +12,11 @@ import { SubmittableExtrinsic } from "@polkadot/api/types";
 import { ITuple } from "@polkadot/types/types";
 import { DispatchError } from "@polkadot/types/interfaces";
 import { ContractPromise } from "@polkadot/api-contract";
+import { Result } from "@polkadot/types";
 let keyring = new Keyring({ ss58Format: 42, type: "sr25519" });
-const provider = new WsProvider("wss://indra-testnet.selendra.org");
 
 var selAddr;
+let msg;
 
 function send(path: string, data: any) {
   if (window.location.href === "about:blank") {
@@ -78,7 +79,6 @@ async function loginAccessSel12(api: ApiPromise, email: string, password: string
   try {
     const hash = await login.signAndSend(alic);
     console.log("hash loginAccessSel12", hash);
-    eventTx(api);
     return {'status': true, 'message': hash.hash};
   } catch (e){
     return {'status': false, 'message': e};
@@ -86,9 +86,12 @@ async function loginAccessSel12(api: ApiPromise, email: string, password: string
 }
 
 /// Student ID
-async function registerSel11(api: ApiPromise, email: string, password: string, seed: string){
+async function registerSel11(api: ApiPromise, email: string, password: string, seed: string, setState2: any) {
   console.log("Email", email);
   console.log("Password", password);
+
+  console.log("registerSel11 Typeof", typeof registerSel11);
+  console.log("Typeof", typeof setState2);
 
   // try{
   //   let keyPair: KeyringPair;
@@ -111,34 +114,43 @@ async function registerSel11(api: ApiPromise, email: string, password: string, s
 
   // const register = api.tx.identity.requestRegistrationSel11(email, password);
   const register2 = api.tx.identity.requestRegistrationSel11(email, password);
-
+  let ready = false;
+  let result: any;
+  
   try {
-    // const hash = await register.signAndSend(alic);
-    const hash2 = await register2.signAndSend(aliza, ({events = [], status}) => {
-      console.log('Transaction status:', status.type);
-      if (status.isInBlock){
-        console.log('Included at block hash', status.asInBlock.toHex());
-        console.log('Events:');
-
-        events.forEach(({ event: { data, method, section }, phase }) => {
-          console.log('\t', phase.toString(), `: ${section}.${method}`, data.toString());
-          console.log("method", data.forEach)
-        });
-        
-      } else if (status.isFinalized) {
-        console.log('Finalized block hash', status.asFinalized.toHex());
-
-        process.exit(0);
+    // let res = await register2.signAndSend(aliza, ({ dispatchError, dispatchInfo, events }) => {
+    //   console.log("dispatchInfo", JSON.stringify(dispatchInfo, null, 4));
+    //   console.log("dispatchError", JSON.stringify(dispatchError, null, 4));
+    //   console.log("events", JSON.stringify(events, null, 4));
+      
+    // })
+    await register2.signAndSend(aliza, ({ status, events, dispatchError }) => {
+      // status would still be set, but in the case of error we can shortcut
+      // to just check it (so an error would indicate InBlock or Finalized)
+      if (dispatchError) {
+        if (dispatchError.isModule) {
+          // for module errors, we have the section indexed, lookup
+          const decoded = api.registry.findMetaError(dispatchError.asModule);
+          const { docs, name, section } = decoded;
+  
+          console.log(`${section}.${name}: ${docs.join(' ')}`);
+          // setState(`hello`);
+          setState2();
+        } else {
+          // Other, CannotLookup, BadOrigin, no extra info
+          console.log(dispatchError.toString());
+        }
       }
       
     });
-    // console.log("Registered with hash", hash2.registry.findMetaEvent);
-    // eventTx(api);
-    // return {'status': true, 'message': hash2.registry.findMetaEvent};
-  } catch ( e){
+  }
+  catch (e){
     console.log('Register error ', e);
     return {'status': false, 'message': e};
   }
+
+  return JSON.stringify({status: 'error', message: 'failed register'});
+  // return result;
 }
 
 async function changePasswordSel13(api: ApiPromise, email: string, password: string, seed: string ){
@@ -159,12 +171,16 @@ async function changePasswordSel13(api: ApiPromise, email: string, password: str
   }
 }
 
-async function eventTx (api: ApiPromise){
-  const evt = api.events.identity.JudgementGiven;
-  
-  console.log("My event", evt.is.call);
-}
+async function eventTx (api: ApiPromise, addr: string){
+  const lastHdr = await api.rpc.chain.getHeader();
 
+  // Retrieve the balance at both the current and the parent hashes
+  await Promise.all([
+    api.query.system.events(lastHdr.parentHash, addr)
+  ]);
+
+  // console.log("api.events.system.ExtrinsicFailed.is(event)", api.events.system.ExtrinsicFailed.is(event));
+}
 /**
  * Import keyPair from mnemonic, rawSeed or keystore.
  */
@@ -694,7 +710,7 @@ export default {
   addSignatureAndSend,
   registerSel11,
   changePasswordSel13,
-  loginAccessSel12
+  loginAccessSel12,
   //signTxAsExtension,
   //signBytesAsExtension,
   //verifySignature,

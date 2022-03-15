@@ -459,13 +459,10 @@ class ApiProvider with ChangeNotifier {
     return false;
   }
 
-  Future<bool> registerSELNetwork({required String? email, required String? password}) async {
+  Future<bool> registerSELNetwork({required String? email, required String? password, Function(String)? setState, Function? setState2}) async {
     try {
 
-      return await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "$email","$password", "$_seed")').then((value) {
-        print("registerSELNetwork $value");
-        return value;
-      });
+      return await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "$email","$password", "$_seed", "$setState2")');
 
     } catch (e){
       print("Error registerSELNetwork ${e}");
@@ -485,7 +482,7 @@ class ApiProvider with ChangeNotifier {
     //       int.parse(contract.listContract[selNativeIndex].chainDecimal!),
     //     );
     //   });
-    //   // await _sdk.api.account.subscribeBalance(contract.listContract[0].address, (res) {
+      // await _sdk.api.account.subscribeBalance(contract.listContract[0].address, (res) {
     //   //   print("Res $res");
     //   //   contract.listContract[0].balance = Fmt.balance(
     //   //     res.freeBalance.toString(),

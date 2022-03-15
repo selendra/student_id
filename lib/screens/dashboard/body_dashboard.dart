@@ -80,16 +80,27 @@ class DashBoardBody extends StatelessWidget {
                       child: provider.alreadySetup == false 
                       ? ElevatedButton(
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.zero)
+                          backgroundColor: MaterialStateProperty.all(
+                            Colors.transparent
+                          ),
+                          side: MaterialStateProperty.all(
+                            BorderSide()
+                          ),
+                          padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(13)
+                            )
+                          ),
                         ),
                         onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const IDOption()));
                         }, 
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 60,
+                          height: 50,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)
+                            borderRadius: BorderRadius.circular(12)
                           ),
                           alignment: Alignment.center,
                           child: MyText(
@@ -119,15 +130,22 @@ class DashBoardBody extends StatelessWidget {
                       onPressed: (){
                         submitEdit!();
                       }, 
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13)
+                          )
+                        ),
+                      ),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 60,
+                        height: 50,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(12)
                         ),
                         alignment: Alignment.center,
                         child: MyText(
-                          text: "Submit",
+                          text: "Submit Edit",
                           fontWeight: FontWeight.w600,
                           color2: Colors.white,
                         )

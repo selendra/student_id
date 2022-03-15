@@ -82,6 +82,7 @@ class LoginPageBody extends StatelessWidget {
                       },
                     ),
                     PassInput(
+                      label: 'Password',
                       textEditingController: passwordInputController, 
                       onFieldSubmitted: (){
                         // validator!();

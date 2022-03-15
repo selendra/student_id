@@ -27,10 +27,41 @@ class _SignUpPageState extends State<SignUpPage> {
   
   final formKey = GlobalKey<FormState>();
 
+  String? _msg;
+
   void handleRememberMe(bool? value) async {
     setState(() {
       isChecked = value;
     });
+        
+  }
+
+  void mySetState(String msg) async {
+    print("Hey setstate $msg");
+    _msg = msg;
+
+    await MyDialog().customDialog(context, "Message", _msg!);
+        // if (value == true){
+        //   await MyDialog().customDialog(context, "Message", "Successfully register");
+        //   // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
+        // } else {
+        //   await MyDialog().customDialog(context, "Oops", "Account already registered");
+
+        // }
+
+  }
+  void mySetState2() async {
+    print("Hey setstate 2");
+
+    await MyDialog().customDialog(context, "Message", "Hey setstate 2");
+        // if (value == true){
+        //   await MyDialog().customDialog(context, "Message", "Successfully register");
+        //   // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
+        // } else {
+        //   await MyDialog().customDialog(context, "Oops", "Account already registered");
+
+        // }
+
   }
 
   void validator() {
@@ -50,19 +81,11 @@ class _SignUpPageState extends State<SignUpPage> {
       //   Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
       // });
 
-      await Provider.of<ApiProvider>(context, listen: false).registerSELNetwork(email: "condaveat@gmail.com", password: "12345").then((value) async {
+      await Provider.of<ApiProvider>(context, listen: false).registerSELNetwork(email: "condaveat@gmail.com", password: "12345", setState2: mySetState2).then((value) async {
         
         print("value $value");
         // Close Dialog
         Navigator.pop(context);
-        
-        if (value == true){
-          await MyDialog().customDialog(context, "Message", "Successfully register");
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
-        } else {
-          await MyDialog().customDialog(context, "Oops", "Account already registered");
-
-        }
       });
 
       // await Backend().register(_signUpModel).then((value) async {

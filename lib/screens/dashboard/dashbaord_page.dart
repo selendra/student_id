@@ -23,6 +23,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  
   TextEditingController phraseKey = TextEditingController();
   DashBoardModel dashBoardM = DashBoardModel();
   IdentifierModel _identifierModel = IdentifierModel();
@@ -69,12 +70,12 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     dashBoardM.name = "Rithy THUL";
     dashBoardM.email = "rithythul@gmail.com";
-    dashBoardM.nationality = "Cambodia";
+    dashBoardM.nationality = "Cambodian";
     dashBoardM.phoneNum = "+855-77-202-202";
 
     dashBoardM.nameController.text = "Rithy THUL";
     dashBoardM.emailController.text = "rithythul@gmail.com";
-    dashBoardM.nationalityController.text = "Cambodia";
+    dashBoardM.nationalityController.text = "Cambodian";
     dashBoardM.phoneNumController.text = "+855-77-202-202";
     // StorageServices.removeKey(DbKey.idKey);
     initId();

@@ -17,8 +17,12 @@ class CryptosPageBody extends StatelessWidget {
             children: [
               profileWidget(context, pickImage: (){}, model: DashBoardModel()),
               const DashboardOptions(),
+              titleDashboard('Cryptos Assets', context),
               const CryptosAssetInfo(),
-              AddAssetButton(text: 'Add Asset', onPressed: () {}),
+              AddButton(
+                text: 'Add Asset',
+                onPressed: () {}
+              ),
             ],
           ),
         ),

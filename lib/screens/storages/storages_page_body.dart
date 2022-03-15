@@ -18,7 +18,10 @@ class StoragesPageBody extends StatelessWidget {
               profileWidget(context, pickImage: (){}, model: DashBoardModel()),
               const DashboardOptions(),
               const StoragesInfo(),
-              AddAssetButton(text: 'Add Services', onPressed: () {}),
+              AddButton(
+                text: 'Add Services', 
+                onPressed: () {}
+              ),
             ],
           ),
         ),

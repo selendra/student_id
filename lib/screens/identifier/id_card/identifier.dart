@@ -41,6 +41,6 @@ class _IdentifierState extends State<Identifier> {
 
   @override
   Widget build(BuildContext context) {
-    return IdentifierBody(model: model, pickImage: pickImage);
+    return IdentifierBody(title: widget.title, model: model, pickImage: pickImage);
   }
 }
