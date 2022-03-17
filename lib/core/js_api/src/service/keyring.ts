@@ -15,8 +15,10 @@ import { ContractPromise } from "@polkadot/api-contract";
 import { Result } from "@polkadot/types";
 let keyring = new Keyring({ ss58Format: 42, type: "sr25519" });
 
+// const alic = keyring.addFromMnemonic(seed);
+// const {nonce, data: balance} = await api.query.system.account(alic.address);
+
 var selAddr;
-let msg;
 
 function send(path: string, data: any) {
   if (window.location.href === "about:blank") {
@@ -69,87 +71,81 @@ async function validateAddress(address: string) {
 }
 
 async function loginAccessSel12(api: ApiPromise, email: string, password: string, seed: string) {
-  console.log("Hello loginAccessSel12");
-  console.log("Email", email);
-  console.log("Password", password);
-  const alic = keyring.addFromMnemonic(seed);
-  console.log("alic.address", alic.address);
-  const {nonce} = await api.query.system.account(alic.address);
+  console.log("loginAccessSel12");
+  let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
   const login = api.tx.identity.loginAccessSel12(email, password);
-  try {
-    const hash = await login.signAndSend(alic);
-    console.log("hash loginAccessSel12", hash);
-    return {'status': true, 'message': hash.hash};
-  } catch (e){
-    return {'status': false, 'message': e};
-  }
+  return new Promise( async (resolve, reject) => {
+    try {
+      await login.signAndSend(aliza, ({ status, events, dispatchError }) => {
+        // status would still be set, but in the case of error we can shortcut
+        // to just check it (so an error would indicate InBlock or Finalized)
+        if (dispatchError) {
+          if (dispatchError.isModule) {
+            // for module errors, we have the section indexed, lookup
+            const decoded = api.registry.findMetaError(dispatchError.asModule);
+            const { docs, name, section } = decoded;
+    
+            console.log(`${section}.${name}: ${docs.join(' ')}`);
+  
+            resolve({'status': false,'message': name == 'NoIdentity' ? 'This account doesn\'t exist' : name});
+          } else {
+            // Other, CannotLookup, BadOrigin, no extra info
+            console.log(dispatchError.toString());
+          }
+        } else {
+          events.forEach(({ phase, event: { data, method, section } }) => {
+            console.log(`\t' ${phase}: ${section}.${method}:: ${data}`);
+            resolve({'status': true,'message': 'Login successfully'});
+          });
+        }
+        
+      });
+    } catch (e){
+      return {'status': false, 'message': e};
+    }
+  });
 }
 
 /// Student ID
-async function registerSel11(api: ApiPromise, email: string, password: string, seed: string, setState2: any) {
-  console.log("Email", email);
-  console.log("Password", password);
-
-  console.log("registerSel11 Typeof", typeof registerSel11);
-  console.log("Typeof", typeof setState2);
-
-  // try{
-  //   let keyPair: KeyringPair;
-  //   keyPair = keyring.getPair(hexToU8a(pubKey));
-  //   api.tx
-  //   const tx = await api.tx.identity.requestRegistrationSel11(email, password).signAndSend(keyPair);
-  //   console.log("sign", tx.hash);
-  //   // tx.then((value) => {
-  //   // })
-  // } catch (error){
-  //   console.log(`Erorr ${error}`);
-  // }
-
-  // const alic = keyring.addFromMnemonic(seed);
-  const aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
-  // const {nonce, data: balance} = await api.query.system.account(alic.address);
-
-  // console.log("alic", alic);
-  // console.log("Balance ", balance.free);
-
+async function registerSel11(api: ApiPromise, email: string, password: string) {
+  console.log("registerSel11");
+  let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
   // const register = api.tx.identity.requestRegistrationSel11(email, password);
-  const register2 = api.tx.identity.requestRegistrationSel11(email, password);
-  let ready = false;
-  let result: any;
+  const register = api.tx.identity.requestRegistrationSel11(email, password);
   
-  try {
-    // let res = await register2.signAndSend(aliza, ({ dispatchError, dispatchInfo, events }) => {
-    //   console.log("dispatchInfo", JSON.stringify(dispatchInfo, null, 4));
-    //   console.log("dispatchError", JSON.stringify(dispatchError, null, 4));
-    //   console.log("events", JSON.stringify(events, null, 4));
-      
-    // })
-    await register2.signAndSend(aliza, ({ status, events, dispatchError }) => {
-      // status would still be set, but in the case of error we can shortcut
-      // to just check it (so an error would indicate InBlock or Finalized)
-      if (dispatchError) {
-        if (dispatchError.isModule) {
-          // for module errors, we have the section indexed, lookup
-          const decoded = api.registry.findMetaError(dispatchError.asModule);
-          const { docs, name, section } = decoded;
-  
-          console.log(`${section}.${name}: ${docs.join(' ')}`);
-          // setState(`hello`);
-          setState2();
-        } else {
-          // Other, CannotLookup, BadOrigin, no extra info
-          console.log(dispatchError.toString());
-        }
-      }
-      
-    });
-  }
-  catch (e){
-    console.log('Register error ', e);
-    return {'status': false, 'message': e};
-  }
+  return new Promise( async (resolve, reject) => {
+    try {
 
-  return JSON.stringify({status: 'error', message: 'failed register'});
+      await register.signAndSend(aliza, ({ status, events, dispatchError }) => {
+        // status would still be set, but in the case of error we can shortcut
+        // to just check it (so an error would indicate InBlock or Finalized)
+        if (dispatchError) {
+          if (dispatchError.isModule) {
+            // for module errors, we have the section indexed, lookup
+            const decoded = api.registry.findMetaError(dispatchError.asModule);
+            const { docs, name, section } = decoded;
+    
+            console.log(`${section}.${name}: ${docs.join(' ')}`);
+
+            resolve({'status': false,'message': name == "IdentityAlreadyClaimed" ? 'Email already registered' : name});
+          } else {
+            // Other, CannotLookup, BadOrigin, no extra info
+            console.log(dispatchError.toString());
+          }
+        } else {
+          events.forEach(({ phase, event: { data, method, section } }) => {
+            console.log(`\t' ${phase}: ${section}.${method}:: ${data}`);
+            resolve({'status': true,'message': 'Registration completed successfully'});
+          });
+        }
+        
+      });
+    }
+    catch (e){
+      console.log('Register error ', e);
+      return {'status': false, 'message': e};
+    }
+  })
   // return result;
 }
 
@@ -171,15 +167,79 @@ async function changePasswordSel13(api: ApiPromise, email: string, password: str
   }
 }
 
-async function eventTx (api: ApiPromise, addr: string){
-  const lastHdr = await api.rpc.chain.getHeader();
+async function eventTx (api: ApiPromise){
+  // no blockHash is specified, so we retrieve the latest
+// const signedBlock = await api.rpc.chain.getBlock();
+// const allRecords = await api.query.system.events.at(signedBlock.block.header.hash);
 
-  // Retrieve the balance at both the current and the parent hashes
-  await Promise.all([
-    api.query.system.events(lastHdr.parentHash, addr)
-  ]);
+//   signedBlock.block.extrinsics.forEach(({ method: { method, section } }, index) => {
+//     allRecords
+//       // filter the specific events based on the phase and then the
+//       // index of our extrinsic in the block
+//       // find/filter for failed events
+//       // .filter(({ event }) =>
+//       //   api.events.system.ExtrinsicFailed.is(event)
+//       // )
+//       // test the events against the specific types we are looking for
+//       .forEach(({ event }) => {
+//         console.log("api.events.system.ExtrinsicFailed.is(event)", api.events.system.ExtrinsicFailed.is(event));
+//         if (api.events.system.ExtrinsicSuccess.is(event)) {
+//           // extract the data for this event
+//           // (In TS, because of the guard above, these will be typed)
+//           const [dispatchInfo] = event.data;
+  
+//           console.log(`${section}.${method}:: ExtrinsicSuccess:: ${JSON.stringify(dispatchInfo.toHuman())}`);
+//         } else if (api.events.system.ExtrinsicFailed.is(event)) {
+//           // extract the data for this event
+//           const [dispatchError, dispatchInfo] = event.data;
+//           let errorInfo;
+  
+//           // decode the error
+//           if (dispatchError.isModule) {
+//             // for module errors, we have the section indexed, lookup
+//             // (For specific known errors, we can also do a check against the
+//             // api.errors.<module>.<ErrorName>.is(dispatchError.asModule) guard)
+//             const decoded = api.registry.findMetaError(dispatchError.asModule);
+  
+//             errorInfo = `${decoded.section}.${decoded.name}`;
+//           } else {
+//             // Other, CannotLookup, BadOrigin, no extra info
+//             errorInfo = dispatchError.toString();
+//           }
+  
+//           console.log(`${section}.${method}:: ExtrinsicFailed:: ${errorInfo}`);
+//         }
+//       });
+//   });
 
-  // console.log("api.events.system.ExtrinsicFailed.is(event)", api.events.system.ExtrinsicFailed.is(event));
+  return new Promise((resolve, reject) => {
+    return api.query.system.events((events) => {
+      console.log(`\nReceived ${events.length} events:`);
+    
+      // Loop through the Vec<EventRecord>
+      events.forEach((record, ) => {
+        // Extract the phase, event and the event types
+        const { event, phase } = record;
+        const types = event.typeDef;
+    
+        // Show what we are busy with
+        console.log(
+          `\t${event.section}:${event.method}:: (phase=${phase.toString()})`
+        );
+        if (event.method == "ExtrinsicFailed") resolve(event.method);
+        // console.log(`\t\t${event.meta.documentation.toString()}`);
+    
+        // Loop through each of the parameters, displaying the type and data
+        event.data.forEach((data, index) => {
+          console.log(`\t\t\t${types[index].type}: ${data.toString()}`);
+          
+        });
+      });
+      
+    });
+  })
+
+
 }
 /**
  * Import keyPair from mnemonic, rawSeed or keystore.
@@ -710,7 +770,7 @@ export default {
   addSignatureAndSend,
   registerSel11,
   changePasswordSel13,
-  loginAccessSel12,
+  loginAccessSel12
   //signTxAsExtension,
   //signBytesAsExtension,
   //verifySignature,

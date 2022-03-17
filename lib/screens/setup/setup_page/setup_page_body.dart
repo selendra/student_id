@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/main.dart';
 
 class SetupPageBody extends StatelessWidget {
   const SetupPageBody({Key? key}) : super(key: key);
@@ -10,8 +11,10 @@ class SetupPageBody extends StatelessWidget {
       backgroundColor: whiteColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Center(
+          child: Container(
+            padding: EdgeInsets.all(paddingSize),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Padding(

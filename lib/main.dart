@@ -30,9 +30,22 @@ void initialization(BuildContext context) async {
 }
 
 double paddingSize = 20;
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
 
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  
+  @override
+  initState(){
+
+    Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
+    super.initState();
+  }
 
   // This widget is the root of your application.
   @override
@@ -65,7 +78,7 @@ class MyApp extends StatelessWidget {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: const SignUpPage(),
+      home: const LoginPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

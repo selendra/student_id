@@ -8,7 +8,7 @@ import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/models/sign_up_m.dart';
 import 'package:student_id/provider/api_provider.dart';
-import 'package:student_id/screens/registration/login/login_page_body.dart';
+import 'package:student_id/screens/registration/login/body_login_page.dart';
 import 'package:student_id/screens/registration/signup/body_signup.dart';
 import 'package:student_id/screens/registration/verfiyAcc/verifyAcc.dart';
 import 'package:student_id/services/storage.dart';
@@ -36,34 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
         
   }
 
-  void mySetState(String msg) async {
-    print("Hey setstate $msg");
-    _msg = msg;
-
-    await MyDialog().customDialog(context, "Message", _msg!);
-        // if (value == true){
-        //   await MyDialog().customDialog(context, "Message", "Successfully register");
-        //   // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
-        // } else {
-        //   await MyDialog().customDialog(context, "Oops", "Account already registered");
-
-        // }
-
-  }
-  void mySetState2() async {
-    print("Hey setstate 2");
-
-    await MyDialog().customDialog(context, "Message", "Hey setstate 2");
-        // if (value == true){
-        //   await MyDialog().customDialog(context, "Message", "Successfully register");
-        //   // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
-        // } else {
-        //   await MyDialog().customDialog(context, "Oops", "Account already registered");
-
-        // }
-
-  }
-
   void validator() {
     final form = formKey.currentState!;
 
@@ -81,11 +53,18 @@ class _SignUpPageState extends State<SignUpPage> {
       //   Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
       // });
 
-      await Provider.of<ApiProvider>(context, listen: false).registerSELNetwork(email: "condaveat@gmail.com", password: "12345", setState2: mySetState2).then((value) async {
-        
-        print("value $value");
+      await Provider.of<ApiProvider>(context, listen: false).registerSELNetwork(email: _signUpModel.emailInputController.text, password: _signUpModel.conPasController.text).then((value) async {
+      
         // Close Dialog
         Navigator.pop(context);
+
+        if (value['status'] == true) {
+          print("Success");
+          await MyDialog().customDialog(context, "Message", "${value['message']}"); 
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
+        } else {
+          await MyDialog().customDialog(context, "Message", "${value['message']}");
+        }
       });
 
       // await Backend().register(_signUpModel).then((value) async {
@@ -114,7 +93,6 @@ class _SignUpPageState extends State<SignUpPage> {
     _signUpModel.emailInputController.text = "rithythul@gmail.com";
     _signUpModel.passwordInputController.text = "123456";
     _signUpModel.conPasController.text = "123456";
-    Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
     super.initState();
   }
 

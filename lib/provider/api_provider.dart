@@ -49,7 +49,7 @@ class ApiProvider with ChangeNotifier {
 
   String btcAdd = '';
 
-  String _seed = 'f';
+  String _seed = '';
 
   // ContractProvider? contractProvider;
 
@@ -69,23 +69,7 @@ class ApiProvider with ChangeNotifier {
   int btcIndex = 7;
   int attIndex = 8;
 
-  // SmartContractModel nativeM = SmartContractModel(
-  //   id: 'selendra',
-  //   logo: AppConfig.assetsPath+'SelendraCircle-White.png',
-  //   symbol: 'SEL',
-  //   name: "SELENDRA",
-  //   balance: '0.0',
-  //   org: 'Testnet',
-  //   lineChartModel: LineChartModel()
-  // );
-
   bool get isConnected => _isConnected;
-
-  // void setAccount(AccountM acc){
-  //   accountM = acc;
-
-  //   notifyListeners();
-  // }
 
   Future<void> initApi({@required BuildContext? context}) async {
     print("hello initApi");
@@ -448,7 +432,7 @@ class ApiProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> loginSELNetwork({required String? email, required String? password}) async {
+  Future<dynamic> loginSELNetwork({required String? email, required String? password}) async {
     try {
 
       return await _sdk.api.service.webView!.evalJavascript('keyring.loginAccessSel12(api, "$email","$password", "$_seed")');
@@ -459,15 +443,18 @@ class ApiProvider with ChangeNotifier {
     return false;
   }
 
-  Future<bool> registerSELNetwork({required String? email, required String? password, Function(String)? setState, Function? setState2}) async {
+  Future<dynamic> registerSELNetwork({required String? email, required String? password}) async {
     try {
 
-      return await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "$email","$password", "$_seed", "$setState2")');
+      return await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "$email","$password")').then((value) async {
+        print("registerSel11 $value");
+        print(value['status']);
+        return value;
+      });
 
     } catch (e){
       print("Error registerSELNetwork ${e}");
     }
-    return false;
   }
 
   Future<void> subSELNativeBalance({@required BuildContext? context}) async {

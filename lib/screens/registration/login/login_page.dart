@@ -6,7 +6,7 @@ import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
-import 'package:student_id/screens/registration/login/login_page_body.dart';
+import 'package:student_id/screens/registration/login/body_login_page.dart';
 import 'package:student_id/services/storage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -55,8 +55,21 @@ class _LoginPageState extends State<LoginPage> {
     MyDialog().dialogLoading(context);
     print("submitLogin");
     try {
-      await Future.delayed(Duration(seconds: 1), (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
+      // await Future.delayed(Duration(seconds: 1), (){
+      //   Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
+      // });
+
+      await Provider.of<ApiProvider>(context, listen: false).loginSELNetwork(email: emailInputController.text, password: passwordInputController.text).then((value) async {
+      
+        // Close Dialog
+        Navigator.pop(context);
+
+        if (value['status'] == true) {
+          print("Success login");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
+        } else {
+          await MyDialog().customDialog(context, "Message", "${value['message']}");
+        }
       });
       // Provider.of<ApiProvider>(context, listen: false).loginSELNetwork(email: "condaveat123@gmail.com", password: "12345").then((value) async {
         
@@ -90,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
 
     } catch (e) {
       print("Error submitSignUp $e");
-      Navigator.pop(context);
+      // Navigator.pop(context);
     }
   }
 
