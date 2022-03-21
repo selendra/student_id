@@ -40,12 +40,7 @@ class DashBoardBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // ElevatedButton(
-                //   onPressed: () async {
-                //     await Provider.of<ApiProvider>(context, listen: false).getChainDecimal(context: context);
-                //   }, 
-                //   child: Text("Change pass")
-                // ),
+                
                 profileWidget(context, model: dashModel, pickImage: pickImage),
                 const DashboardOptions(),
                 titleDashboard('Basic Info', context, title2: "Identities"),

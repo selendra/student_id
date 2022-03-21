@@ -6,7 +6,9 @@ import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/registration/login/body_login_page.dart';
+import 'package:student_id/screens/setup/import_acc/import_acc.dart';
 import 'package:student_id/services/storage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -43,6 +45,8 @@ class _LoginPageState extends State<LoginPage> {
     await StorageServices.fetchData(DbKey.login).then((value) {
       if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
     });
+
+    // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ImportAccount()), (route) => false);
     // await Future.delayed(Duration(seconds: 1), (){});
     // Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
     setState(() {
@@ -65,41 +69,15 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pop(context);
 
         if (value['status'] == true) {
-          print("Success login");
+          
+          Provider.of<RegistrationProvider>(context, listen: false).email = emailInputController.text;
+          Provider.of<RegistrationProvider>(context, listen: false).password = passwordInputController.text;
+
           Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }
       });
-      // Provider.of<ApiProvider>(context, listen: false).loginSELNetwork(email: "condaveat123@gmail.com", password: "12345").then((value) async {
-        
-      //   // Close Dialog
-      //   Navigator.pop(context);
-        
-      //   if (value == true){
-      //     await MyDialog().customDialog(context, "Message", "Successfully login");
-      //     // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
-      //   } else {
-      //     await MyDialog().customDialog(context, "Oops", "Failed login");
-
-      //   }
-      // });
-
-
-      // await Backend().login(emailInputController.text, passwordInputController.text ).then((value) async {
-      //   print("value ${value.body} ");
-      //   dynamic decode = json.decode(value.body);
-      //   Navigator.pop(context);
-      //   if (value.statusCode == 200){
-      //     // await MyDialog().customDialog(context, "Message", "${decode['message']}");
-      //     await StorageServices.storeData(decode['access_token'], DbKey.token);
-      //     Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
-      //   } else {
-      //     await MyDialog().customDialog(context, "Oops", "${decode['message']}");
-
-      //   }
-
-      // });
 
     } catch (e) {
       print("Error submitSignUp $e");
@@ -110,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     isLogin();
-    emailInputController.text = "rithythul@gmail.com";
+    emailInputController.text = "condaveat@gmail.com";
     passwordInputController.text = "123456";
     super.initState();
   }

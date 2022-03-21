@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:student_id/core/config/app_config.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:encrypt/encrypt.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class StorageServices {
+  
   static String? _decode;
   static SharedPreferences? _preferences;
 
@@ -99,5 +102,25 @@ class StorageServices {
       return jsonDecode(value);
     }
     return {};
+  }
+}
+
+class Encryption {
+  
+  static final _key = encrypt.Key.fromLength(32);
+  final _iv = encrypt.IV.fromLength(16);
+  final _encrypter = encrypt.Encrypter(encrypt.AES(_key));
+
+  Encrypted encryptAES(txt){
+    return _encrypter.encrypt(txt, iv: _iv);
+  }  
+
+  String decryptAES(txt){
+
+    //1. Parse List<dynamic> to List int
+    List<int> lsInt = List<int>.from(txt);
+    
+    //2. Parse List Int To Uint8List
+    return _encrypter.decrypt(Encrypted(Uint8List.fromList(lsInt)), iv: _iv);
   }
 }

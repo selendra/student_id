@@ -250,8 +250,9 @@ class MyInput extends StatelessWidget {
   final TextEditingController? textEditingController;
   final Function()? onFieldSubmitted;
   final Function? validator;
+  final Function? onChanged;
 
-  const MyInput({Key? key, required this.label, required this.textEditingController, this.onFieldSubmitted, required this.validator}) : super(key: key);
+  const MyInput({Key? key, required this.label, required this.textEditingController, this.onFieldSubmitted, required this.validator, this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +265,7 @@ class MyInput extends StatelessWidget {
             controller: textEditingController,
             onChanged: (value) {
               //Do something wi
+              if (onChanged != null) onChanged!(value);
             },
             validator: (value) {
               return validator!(value);

@@ -61,11 +61,6 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  void btn()async {
-
-    await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context);
-  }
-
   @override
   void initState() {
     dashBoardM.name = "Rithy THUL";
@@ -91,6 +86,21 @@ class _DashboardPageState extends State<DashboardPage> {
         });
       }
     });
+
+
+    await StorageServices.fetchData(DbKey.sensitive).then((value) async {
+
+      Map<String, dynamic> data = await json.decode(Encryption().decryptAES(value));
+
+      print(data);
+
+      dashBoardM.name = data['usrName'];
+      dashBoardM.email = data['email'];
+      dashBoardM.nameController.text = data['usrName'];
+      dashBoardM.emailController.text = data['email'];
+      
+    });
+    setState(() { });
   }
 
   void submitEdit(){

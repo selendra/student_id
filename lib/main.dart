@@ -5,6 +5,7 @@ import 'package:student_id/all_export.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/registration/signup/signup.dart';
 
 void main() {
@@ -17,6 +18,9 @@ void main() {
         ),
         ChangeNotifierProvider<ApiProvider>(
           create: (context) => ApiProvider(),
+        ),
+        ChangeNotifierProvider<RegistrationProvider>(
+          create: (context) => RegistrationProvider(),
         )
       ],
       child: MyApp()

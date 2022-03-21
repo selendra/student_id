@@ -8,7 +8,7 @@ export 'package:student_id/widgets/reuse_widgets.dart';
 export 'package:hexcolor/hexcolor.dart';
 
 export 'package:student_id/screens/verify/verify_page.dart';
-export 'package:student_id/screens/verify/verify_page_body.dart';
+export 'package:student_id/screens/verify/body_verify_page.dart';
 
 export 'package:student_id/screens/dashboard/dashbaord_page.dart';
 

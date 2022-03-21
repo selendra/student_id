@@ -13,6 +13,7 @@ import { ITuple } from "@polkadot/types/types";
 import { DispatchError } from "@polkadot/types/interfaces";
 import { ContractPromise } from "@polkadot/api-contract";
 import { Result } from "@polkadot/types";
+
 let keyring = new Keyring({ ss58Format: 42, type: "sr25519" });
 
 // const alic = keyring.addFromMnemonic(seed);
@@ -53,9 +54,7 @@ async function validateAddress(address: string) {
     const isValidAddressPolkadotAddress = () => {
       try {
         encodeAddress(
-          isHex(address)
-            ? hexToU8a(address)
-            : decodeAddress(address)
+          isHex(address) ? hexToU8a(address) : decodeAddress(address)
         );
 
         resolve(true);
@@ -70,8 +69,7 @@ async function validateAddress(address: string) {
   });
 }
 
-async function loginAccessSel12(api: ApiPromise, email: string, password: string, seed: string) {
-  console.log("loginAccessSel12");
+async function loginAccessSel12(api: ApiPromise, email: string, password: string) {
   let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
   const login = api.tx.identity.loginAccessSel12(email, password);
   return new Promise( async (resolve, reject) => {
@@ -108,8 +106,9 @@ async function loginAccessSel12(api: ApiPromise, email: string, password: string
 
 /// Student ID
 async function registerSel11(api: ApiPromise, email: string, password: string) {
-  console.log("registerSel11");
+  
   let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
+  
   // const register = api.tx.identity.requestRegistrationSel11(email, password);
   const register = api.tx.identity.requestRegistrationSel11(email, password);
   
@@ -167,80 +166,6 @@ async function changePasswordSel13(api: ApiPromise, email: string, password: str
   }
 }
 
-async function eventTx (api: ApiPromise){
-  // no blockHash is specified, so we retrieve the latest
-// const signedBlock = await api.rpc.chain.getBlock();
-// const allRecords = await api.query.system.events.at(signedBlock.block.header.hash);
-
-//   signedBlock.block.extrinsics.forEach(({ method: { method, section } }, index) => {
-//     allRecords
-//       // filter the specific events based on the phase and then the
-//       // index of our extrinsic in the block
-//       // find/filter for failed events
-//       // .filter(({ event }) =>
-//       //   api.events.system.ExtrinsicFailed.is(event)
-//       // )
-//       // test the events against the specific types we are looking for
-//       .forEach(({ event }) => {
-//         console.log("api.events.system.ExtrinsicFailed.is(event)", api.events.system.ExtrinsicFailed.is(event));
-//         if (api.events.system.ExtrinsicSuccess.is(event)) {
-//           // extract the data for this event
-//           // (In TS, because of the guard above, these will be typed)
-//           const [dispatchInfo] = event.data;
-  
-//           console.log(`${section}.${method}:: ExtrinsicSuccess:: ${JSON.stringify(dispatchInfo.toHuman())}`);
-//         } else if (api.events.system.ExtrinsicFailed.is(event)) {
-//           // extract the data for this event
-//           const [dispatchError, dispatchInfo] = event.data;
-//           let errorInfo;
-  
-//           // decode the error
-//           if (dispatchError.isModule) {
-//             // for module errors, we have the section indexed, lookup
-//             // (For specific known errors, we can also do a check against the
-//             // api.errors.<module>.<ErrorName>.is(dispatchError.asModule) guard)
-//             const decoded = api.registry.findMetaError(dispatchError.asModule);
-  
-//             errorInfo = `${decoded.section}.${decoded.name}`;
-//           } else {
-//             // Other, CannotLookup, BadOrigin, no extra info
-//             errorInfo = dispatchError.toString();
-//           }
-  
-//           console.log(`${section}.${method}:: ExtrinsicFailed:: ${errorInfo}`);
-//         }
-//       });
-//   });
-
-  return new Promise((resolve, reject) => {
-    return api.query.system.events((events) => {
-      console.log(`\nReceived ${events.length} events:`);
-    
-      // Loop through the Vec<EventRecord>
-      events.forEach((record, ) => {
-        // Extract the phase, event and the event types
-        const { event, phase } = record;
-        const types = event.typeDef;
-    
-        // Show what we are busy with
-        console.log(
-          `\t${event.section}:${event.method}:: (phase=${phase.toString()})`
-        );
-        if (event.method == "ExtrinsicFailed") resolve(event.method);
-        // console.log(`\t\t${event.meta.documentation.toString()}`);
-    
-        // Loop through each of the parameters, displaying the type and data
-        event.data.forEach((data, index) => {
-          console.log(`\t\t\t${types[index].type}: ${data.toString()}`);
-          
-        });
-      });
-      
-    });
-  })
-
-
-}
 /**
  * Import keyPair from mnemonic, rawSeed or keystore.
  */

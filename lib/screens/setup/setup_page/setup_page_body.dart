@@ -20,25 +20,16 @@ class SetupPageBody extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(50.0),
                   child: Text('Wallet Setup',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)
+                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.all(25.0),
                   child: Text('Import an existing wallet or create a new one.',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 2),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomButton(
-                    text: 'Import secret recovery phrase key',
-                    colorBtn: whiteColor,
-                    colorText: primaryColor,
-                    onPressed: () => Navigator.pushNamed(context, importRoute),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)
                   ),
                 ),
+                SizedBox(height: MediaQuery.of(context).size.height / 2),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomButton(
@@ -47,7 +38,17 @@ class SetupPageBody extends StatelessWidget {
                     colorText: whiteColor,
                     onPressed: () => Navigator.pushNamed(context, createWalletRoute),
                   ),
-                )
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomButton(
+                    text: 'Import secret phrase key',
+                    colorBtn: whiteColor,
+                    colorText: primaryColor,
+                    onPressed: () => Navigator.pushNamed(context, importRoute),
+                  ),
+                ),
               ],
             ),
           ),

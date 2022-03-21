@@ -3,6 +3,7 @@ import 'package:student_id/all_export.dart';
 
 
 class SetupPage extends StatefulWidget {
+  
   const SetupPage({Key? key}) : super(key: key);
 
   @override

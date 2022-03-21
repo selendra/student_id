@@ -4,13 +4,15 @@ import 'package:student_id/all_export.dart';
 class ImportAccountBody extends StatelessWidget {
   final TextEditingController verifyInputController;
   final GlobalKey<FormState> formKey;
-  final Function? validator;
+  final Function? validateSeed;
+  final Function? submitSeed;
 
   const ImportAccountBody({ 
     Key? key, 
     required this.verifyInputController,
     required this.formKey,
-    this.validator,
+    this.validateSeed,
+    this.submitSeed,
     }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class ImportAccountBody extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Form(
             key: formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            // autovalidateMode: AutovalidateMode.onUserInteraction,
             child: SizedBox(
               child: Center(
                 child: Column(
@@ -45,12 +47,20 @@ class ImportAccountBody extends StatelessWidget {
                       )
                     ),
                     const SizedBox(height: 20),
-                    MyInput(label: 'Mnemonic', textEditingController: verifyInputController, validator: (String value){},),
+                    MyInput(
+                      label: 'Mnemonic', 
+                      textEditingController: verifyInputController, 
+                      validator: (String value) async {
+                      },
+                      onChanged: (String value) async {
+                        await validateSeed!(value);
+                      },
+                    ),
                     const SizedBox(height: 25),
                     SubmitButton(
                       text: 'Import',
-                      onPressed: () {
-                        validator!();
+                      onPressed: () async {
+                        await submitSeed!();
                       },
                     ),
                   ],

@@ -89,7 +89,7 @@ class LoginPageBody extends StatelessWidget {
                       },
                     ),
                     SubmitButton(
-                      text: 'Submit',
+                      text: 'Login',
                       onPressed: () async {
                         // validator!();
                         await submitLogin!();

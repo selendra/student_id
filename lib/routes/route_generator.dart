@@ -31,7 +31,7 @@ class RouteGenerator {
       case verifyWaletRoute:
         return MaterialPageRoute(builder: (_) => const VerifyPassphrase());
       case importRoute:
-        return MaterialPageRoute(builder: (_) => const ImportAccount());
+        return MaterialPageRoute(builder: (_) => ImportAccount());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

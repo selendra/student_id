@@ -49,8 +49,6 @@ class ApiProvider with ChangeNotifier {
 
   String btcAdd = '';
 
-  String _seed = '';
-
   // ContractProvider? contractProvider;
 
   // AccountM accountM = AccountM();
@@ -311,11 +309,12 @@ class ApiProvider with ChangeNotifier {
     try {
 
       res = await _sdk.api.service.webView!.evalJavascript('keyring.validateMnemonic("$mnemonic")');
+      print("validate mnemonic $res");
       return res;
     } catch (e) {
       // print("Error validateMnemonic $e");
     }
-    return res;
+    return res ?? false;
   }
   
   Future<bool> validateEther(String address) async {
@@ -364,9 +363,11 @@ class ApiProvider with ChangeNotifier {
       // node.endpoint = 'wss://rpc1-mainnet.selendra.org/';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
       // node.ss58 = 972;//isMainnet ? AppConfig.networkList[0].ss58MN : AppConfig.networkList[0].ss58;
 
-      final res = await _sdk.api.connectNode(_keyring, [node]).then((value) async {
-        await addAcc(context: context);
-      });
+      final res = await _sdk.api.connectNode(_keyring, [node]);
+      print("My res");
+      // .then((value) async {
+      //   await addAcc(context: context);
+      // });
 
       // final res = await _sdk.webView!.evalJavascript("settings.connect(${jsonEncode([node].map((e) => e.endpoint).toList())})");
 
@@ -381,33 +382,30 @@ class ApiProvider with ChangeNotifier {
     return null;
   }
 
-  Future<void> addAcc({@required BuildContext? context}) async {
+  Future<void> addAcc({@required BuildContext? context, required String? usrName, required String? password, required String? seed}) async {
     print("addAcc");
+
+    print("Seed $seed");
+    print("usrName $usrName");
+    print("password $password");
+
     dynamic json = await apiKeyring.importAccount(
       _keyring,
       keyType: KeyType.mnemonic,
-      key: _seed,
-      name: "Daveat",
-      password: "radabo6114@ketchet.com",
+      key: seed!,
+      name: usrName!,
+      password: password!,
     );
 
-    print("json $json");
+    print("finish importAccount");
 
-    // For encryptSeed
-    // await _api.addAccount(
-    //   _api.getKeyring,
-    //   keyType: KeyType.mnemonic,
-    //   acc: json!,
-    //   password: _userInfoM.confirmPasswordCon.text,
-    // );
-
-    await apiKeyring.addAccount(// _api.getSdk.api.keyring.addAccount(
+    await apiKeyring.addAccount(
       _keyring,
       keyType: KeyType.mnemonic,
       acc: json,
-      password: "Condaveat0975973667",
-    ).then((value) async {
-      // await getChainDecimal(context: context);
+      password: password,
+    ).then((value) {
+      print("addAccount $value");
     });
   }
 
@@ -435,7 +433,7 @@ class ApiProvider with ChangeNotifier {
   Future<dynamic> loginSELNetwork({required String? email, required String? password}) async {
     try {
 
-      return await _sdk.api.service.webView!.evalJavascript('keyring.loginAccessSel12(api, "$email","$password", "$_seed")');
+      return await _sdk.api.service.webView!.evalJavascript('keyring.loginAccessSel12(api, "$email","$password")');
 
     } catch (e){
       print("Error registerSELNetwork ${e}");
