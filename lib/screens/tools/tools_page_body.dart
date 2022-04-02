@@ -15,34 +15,35 @@ class ToolsPageBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              profileWidget(context, pickImage: (){}, model: DashBoardModel()),
-              const DashboardOptions(),
-              const ToolsInfo(),
-              AddButton(
-                text: 'Add Services',
-                onPressed: () {},
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: TextButton(
-                  onPressed: () async {
-                    MyDialog().dialogLoading(context);
-                    await StorageServices.removeKey(DbKey.login);
-                    await Future.delayed(Duration(seconds: 1), (){
-
-                    }); 
-                    Navigator.pushNamedAndRemoveUntil(context, loginRoute, (route) => false);
-                  }, 
-                  child: MyText(top: paddingSize, text: "Log out", color2: Colors.red, fontWeight: FontWeight.w700,)
+        child: MyNestedScrollView(
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const DashboardOptions(),
+                const ToolsInfo(),
+                AddButton(
+                  text: 'Add Services',
+                  onPressed: () {},
                 ),
-              )
-            ],
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TextButton(
+                    onPressed: () async {
+                      MyDialog().dialogLoading(context);
+                      await StorageServices.removeKey(DbKey.login);
+                      await Future.delayed(Duration(seconds: 1), (){
+        
+                      }); 
+                      Navigator.pushNamedAndRemoveUntil(context, loginRoute, (route) => false);
+                    }, 
+                    child: MyText(top: paddingSize, text: "Log out", color2: Colors.red, fontWeight: FontWeight.w700,)
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

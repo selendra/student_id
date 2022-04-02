@@ -28,21 +28,6 @@ class _DashboardPageState extends State<DashboardPage> {
   DashBoardModel dashBoardM = DashBoardModel();
   IdentifierModel _identifierModel = IdentifierModel();
 
-  Future pickImage(ImageSource source, String? label) async {
-
-    final pickedFile = await ImagePicker.platform.pickImage(source: source);
-    
-    if (pickedFile != null){
-      setState(() {
-        if (label == 'cover'){
-          dashBoardM.cover = pickedFile.path;
-        } else {
-
-          dashBoardM.profile = pickedFile.path;
-        }
-      });
-    }
-  }
   
   void edit(){
     setState(() {
@@ -112,6 +97,6 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DashBoardBody(dashModel: dashBoardM, idModel: _identifierModel, edit: edit, pickImage: pickImage, submitEdit: submitEdit);
+    return DashBoardBody(dashModel: dashBoardM, idModel: _identifierModel, edit: edit, submitEdit: submitEdit);
   }
 }

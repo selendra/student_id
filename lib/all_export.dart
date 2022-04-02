@@ -43,6 +43,8 @@ export 'package:student_id/screens/setup/create_key/create_key_body.dart';
 export 'package:student_id/screens/setup/verify_key/verify_key.dart';
 export 'package:student_id/screens/setup/verify_key/verify_key_body.dart';
 
+export 'package:student_id/components/nested_scroll_view_custom.dart';
+
 /// Model
 /// 
 export 'package:student_id/models/dashboard_m.dart';
