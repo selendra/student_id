@@ -38,7 +38,7 @@ export 'package:student_id/screens/setup/setup_page/setup_page.dart';
 export 'package:student_id/screens/setup/setup_page/setup_page_body.dart';
 
 export 'package:student_id/screens/setup/create_key/create_key.dart';
-export 'package:student_id/screens/setup/create_key/create_key_body.dart';
+export 'package:student_id/screens/setup/create_key/body_create_key.dart';
 
 export 'package:student_id/screens/setup/verify_key/verify_key.dart';
 export 'package:student_id/screens/setup/verify_key/verify_key_body.dart';

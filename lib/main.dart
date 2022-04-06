@@ -3,10 +3,13 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:student_id/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/provider/registration_p.dart';
+import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
 import 'package:student_id/screens/registration/signup/signup.dart';
+import 'package:student_id/screens/setup/import_acc/import_acc.dart';
 
 void main() {
   FlutterNativeSplash.removeAfter(initialization);
@@ -21,7 +24,10 @@ void main() {
         ),
         ChangeNotifierProvider<RegistrationProvider>(
           create: (context) => RegistrationProvider(),
-        )
+        ),
+        ChangeNotifierProvider<WalletConnectComponent>(
+          create: (context) => WalletConnectComponent(),
+        ),
       ],
       child: MyApp()
     )
@@ -46,9 +52,19 @@ class _MyAppState extends State<MyApp> {
   
   @override
   initState(){
-
-    Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
+    initApiProvider();
+    WalletConnectComponent _wConnectC = WalletConnectComponent();
+    _wConnectC.setBuildContext = context;
     super.initState();
+  }
+  
+  initApiProvider() async {
+    
+    await Provider.of<ApiProvider>(context, listen: false).initApi(context: context).then((value) async {
+      
+      await Provider.of<ApiProvider>(context, listen: false).getAddressIcon();
+      // await Provider.of<ApiProvider>(context, listen: false).getCurrentAccount();
+    });
   }
 
   // This widget is the root of your application.
@@ -82,7 +98,7 @@ class _MyAppState extends State<MyApp> {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: const LoginPage(),
+      home: LoginPage(),//CreateWalletPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

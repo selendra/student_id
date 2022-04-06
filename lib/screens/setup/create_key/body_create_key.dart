@@ -21,8 +21,8 @@ class CreateKeyBody extends StatelessWidget {
         child: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).orientation == Orientation.portrait
-                ? correctHeight
-                : MediaQuery.of(context).size.height * 2,
+              ? correctHeight
+              : MediaQuery.of(context).size.height * 2,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

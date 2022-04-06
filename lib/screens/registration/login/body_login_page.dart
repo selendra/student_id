@@ -1,5 +1,11 @@
+import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
+import 'package:student_id/components/qr_scanner.dart';
+import 'package:student_id/components/walletConnect_c.dart';
+import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
+import 'package:student_id/screens/wallet_connect/wallet_connect.dart';
+import 'package:wallet_connect/wallet_connect.dart';
 
 class LoginPageBody extends StatelessWidget {
 
@@ -30,19 +36,19 @@ class LoginPageBody extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Form(
-            autovalidateMode: AutovalidateMode.always,
             key: formKey,
             child: SizedBox(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
+
                     const SizedBox(height: 20),
                     selLogo(context),
                     const SizedBox(height: 20),
                     const Text('Login',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                    ),
                     const SizedBox(height: 15),
                     const Text(
                         'One account. One place to manage it all.\n Welcome to you account dashboard.',

@@ -2,6 +2,7 @@ class AppConfig {
 
   static String iconPath = "assets/icons/";
   static String illusPath = "assets/illustration/";
+  static String logoPath = "assets/logos/";
 }
 
 class DbKey {

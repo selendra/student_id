@@ -23,14 +23,20 @@ class _VerifyPageState extends State<VerifyPage> {
 
     // if (form.validate()) {
 
+      
+    // }
+  }
+
+  void onChanged(String value) async {
+    if (value.length == 6){
+
       await Future.delayed(const Duration(seconds: 1), () async {
         await MyDialog().customDialog(context, "Message", "Successfully verify");
         
         // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
         Navigator.push(context, MaterialPageRoute(builder: (context) => const SetupPage()));
       });
-      
-    // }
+    }
   }
 
   @override
@@ -48,6 +54,7 @@ class _VerifyPageState extends State<VerifyPage> {
     return VerifyPageBody(
       verifyInputController: verifyInputController,
       formKey: formKey,
+      onChanged: onChanged,
       validator: validator
     );
   }

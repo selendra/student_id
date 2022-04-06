@@ -305,8 +305,9 @@ class MyInput extends StatelessWidget {
 
 class VerifyInput extends StatefulWidget {
   final TextEditingController? textEditingController;
+  final Function(String)? onChanged;
 
-  const VerifyInput({required this.textEditingController, Key? key})
+  const VerifyInput({required this.textEditingController, this.onChanged, Key? key})
       : super(key: key);
 
   @override
@@ -358,6 +359,7 @@ class _VerifyInputState extends State<VerifyInput> {
             borderRadius: BorderRadius.circular(50.0),
           ),
         ),
+        onChanged: widget.onChanged,
         validator: (value) {
           // Check if this field is empty
           if (value == null || value.isEmpty) {
@@ -508,7 +510,8 @@ class FacebookBtn extends StatelessWidget {
 class SubmitButton extends StatelessWidget {
   final String? text;
   final Function()? onPressed;
-  const SubmitButton({this.text, this.onPressed, Key? key}) : super(key: key);
+  final EdgeInsetsGeometry? padding;
+  const SubmitButton({this.text, this.onPressed, this.padding, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -518,7 +521,7 @@ class SubmitButton extends StatelessWidget {
     const double borderRadius = 50;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: DecoratedBox(

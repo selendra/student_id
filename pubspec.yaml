@@ -32,7 +32,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   connectivity:
@@ -45,8 +44,14 @@ dependencies:
   flutter_launcher_icons:
   path_provider:
   path:
+  qr_code_scanner:
 
   shared_preferences: 
+  mnemonic:
+  wallet_connect:
+  walletconnect_dart:
+  web3dart:
+  eth_sig_util:
   
 dependency_overrides:
   encrypt:

@@ -21,6 +21,7 @@ import 'package:polkawallet_sdk/storage/types/keyPairData.dart';
 import 'package:polkawallet_sdk/api/apiKeyring.dart';
 import 'package:polkawallet_sdk/utils/localStorage.dart';
 import 'package:provider/provider.dart';
+import 'package:student_id/models/account_m.dart';
 import 'package:student_id/services/apiKeyring.dart';
 // import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 
@@ -51,7 +52,7 @@ class ApiProvider with ChangeNotifier {
 
   // ContractProvider? contractProvider;
 
-  // AccountM accountM = AccountM();
+  AccountM accountM = AccountM();
 
   String? _jsCode;
 
@@ -537,34 +538,38 @@ class ApiProvider with ChangeNotifier {
   }
 
   Future<void> getAddressIcon() async {
-    // try {
+    print("getAddressIcon");
+    try {
 
-    //   final res = await _sdk.api.account.getPubKeyIcons(
-    //     [_keyring.keyPairs[0].pubKey!],
-    //   );
+      final res = await _sdk.api.account.getPubKeyIcons(
+        [_keyring.keyPairs[0].pubKey!],
+      );
 
-    //   accountM.addressIcon = res.toString();
-    //   notifyListeners();
-    // } catch (e) {
-    //   // print("Error get icon from address $e");
-    // }
+      print("res ${res}");
+      print("res2 ${res![0][0]}");
+
+      accountM.addressIcon = res.toString();
+      accountM.address = res[0][0].toString();
+      notifyListeners();
+    } catch (e) {
+      print("Error get icon from address $e");
+    }
   }
 
   Future<void> getCurrentAccount({String funcName = 'account'}) async {
-    // print("getCurrentAccount");
-    // try {
+    print("getCurrentAccount");
+    try {
 
-    //   accountM.address = await _sdk.webView!.evalJavascript('$funcName.getSELAddr()');
-    //   accountM.name = _keyring.current.name;
-    //   print("accountM.address ${accountM.address}");
-    //   print("accountM.name ${accountM.name}");
-    //   contractProvider!.setSELNativeAddr(accountM.address!);
-    // } catch (e){
-    //   // print("Error getCurrentAccount $e");
-    // }
-
+      accountM.address = await _sdk.webView!.evalJavascript('$funcName.getSELAddr()');
+      accountM.name = _keyring.current.name;
+      print("accountM.address ${accountM.address}");
+      print("accountM.name ${accountM.name}");
+      // contractProvider!.setSELNativeAddr(accountM.address!);
+    } catch (e){
+      // print("Error getCurrentAccount $e");
+    }
     
-    // notifyListeners();
+    notifyListeners();
   }
 
   Future<List> getCheckInList(String attender) async {

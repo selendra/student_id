@@ -51,7 +51,6 @@ class _ImportAccountState extends State<ImportAccount> {
           'seed': verifyInputController.text
         };
         
-
         // Encrypt Data
         Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
         await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);

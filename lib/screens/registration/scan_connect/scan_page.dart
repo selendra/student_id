@@ -9,23 +9,31 @@ import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/registration/login/body_login_page.dart';
+import 'package:student_id/screens/registration/scan_connect/body_scan_page.dart';
 import 'package:student_id/screens/setup/import_acc/import_acc.dart';
-import 'package:student_id/screens/wallet_connect/wallet_connect.dart';
 import 'package:student_id/services/storage.dart';
+import 'package:wallet_connect/wallet_connect.dart';
+import 'package:walletconnect_dart/walletconnect_dart.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+
+class ScanConnect extends StatefulWidget {
+
+  final String? wcUrl;
+
+  const ScanConnect({Key? key, this.wcUrl}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ScanConnectState createState() => _ScanConnectState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ScanConnectState extends State<ScanConnect> {
 
   final TextEditingController emailInputController = TextEditingController();
   final TextEditingController passwordInputController = TextEditingController();
   bool? isChecked = false;
   bool? checkLogin = true;
+
+  WalletConnectComponent? _wConnectC;
   
   final formKey = GlobalKey<FormState>();
 
@@ -44,9 +52,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void isLogin() async {
-    await StorageServices.fetchData(DbKey.login).then((value) {
-      if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
-    });
+    // await StorageServices.fetchData(DbKey.login).then((value) {
+    //   if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
+    // });
 
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ImportAccount()), (route) => false);
     // await Future.delayed(Duration(seconds: 1), (){});
@@ -54,17 +62,6 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       checkLogin = false;
     });
-    // await StorageServices.fetchData("session").then((value) async {
-    //   print("Session $value");
-    //   if (value != null){
-
-    //     print("Start navigate");
-    //     await Navigator.push(
-    //       context, 
-    //       MaterialPageRoute(builder: (context) => WalletConnectPage())
-    //     );
-    //   }
-    // });
   }
 
   Future<void> submitLogin() async {
@@ -86,15 +83,14 @@ class _LoginPageState extends State<LoginPage> {
           Provider.of<RegistrationProvider>(context, listen: false).email = emailInputController.text;
           Provider.of<RegistrationProvider>(context, listen: false).password = passwordInputController.text;
 
-          // For OTP
-          // await Backend().getOtp(emailInputController.text).then((value) async {
-          //   if (value.statusCode == 201){
-          //     await MyDialog().customDialog(context, "Message", "We sent you 6 digit OTP code.\nPlease check your email.");
-          //   }
-          // });
+          await Backend().getOtp(emailInputController.text).then((value) async {
+            if (value.statusCode == 201){
+              await MyDialog().customDialog(context, "Message", "We sent you 6 digit OTP code.\nPlease check your email.");
+            }
+          });
 
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage())); 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
+          Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage())); 
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }
@@ -108,9 +104,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    isLogin();
-    emailInputController.text = "condaveat@gmail.com";
-    passwordInputController.text = "123456";
     super.initState();
   }
 
@@ -121,18 +114,16 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return checkLogin == false 
-    ? LoginPageBody(
+    return ScanConnectBody(
       emailInputController: emailInputController,
       passwordInputController: passwordInputController,
       handleRememberMe: handleRememberMe,
       isChecked: isChecked,
       formKey: formKey,
       validator: validator,
-      submitLogin: submitLogin
-    ) 
-    : const Scaffold(body: Center(
-      child: CircularProgressIndicator(),
-    ),);
+      submitLogin: submitLogin,
+      wcUrl: widget.wcUrl,
+      wConnectC: _wConnectC
+    );
   }
 }

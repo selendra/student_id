@@ -4,12 +4,14 @@ import 'package:student_id/all_export.dart';
 class VerifyPageBody extends StatelessWidget {
   final TextEditingController verifyInputController;
   final GlobalKey<FormState> formKey;
+  final Function(String)? onChanged;
   final Function? validator;
 
   const VerifyPageBody({ 
     Key? key, 
     required this.verifyInputController,
     required this.formKey,
+    this.onChanged,
     this.validator,
     }) : super(key: key);
 
@@ -27,6 +29,7 @@ class VerifyPageBody extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    
                     const SizedBox(height: 20),
                     selLogo(context),
                     const SizedBox(height: 20),
@@ -44,7 +47,7 @@ class VerifyPageBody extends StatelessWidget {
                       )
                     ),
                     const SizedBox(height: 20),
-                    VerifyInput(textEditingController: verifyInputController),
+                    VerifyInput(textEditingController: verifyInputController, onChanged: onChanged),
                     const SizedBox(height: 25),
                     SubmitButton(
                       text: 'Verify',

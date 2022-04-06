@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
-import 'package:bip39/bip39.dart' as bip39;
+// import 'package:bip39/bip39.dart' as bip39;
+import 'package:mnemonic/mnemonic.dart';
 
 class CreateWalletPage extends StatefulWidget {
   const CreateWalletPage({Key? key}) : super(key: key);
@@ -15,15 +18,16 @@ class _CreateWalletPagetScreenState extends State<CreateWalletPage> {
   String seed = '';
 
   void generateKey() async {
+    print(mnemonicToEntropy('hello world yes nice'));
     setState(() {
-      seed = bip39.generateMnemonic();
+      // seed = bip39.generateMnemonic();
     });
   }
 
   @override
   void didChangeDependencies() async {
     if (initial) {
-      seed = bip39.generateMnemonic();
+      // seed = bip39.generateMnemonic();
 
       setState(() {
         initial = false;

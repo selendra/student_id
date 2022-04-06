@@ -37,14 +37,17 @@ class ImportAccountBody extends StatelessWidget {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                     ),
                     const SizedBox(height: 15),
-                    const Text(
-                      'Please input your account with your mnemonic or pass phrase.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey
-                      )
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width/2.5,
+                      child: Text(
+                        'Please input your account with your mnemonic or pass phrase.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey
+                        )
+                      ),
                     ),
                     const SizedBox(height: 20),
                     MyInput(
