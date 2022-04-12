@@ -511,7 +511,12 @@ class SubmitButton extends StatelessWidget {
   final String? text;
   final Function()? onPressed;
   final EdgeInsetsGeometry? padding;
-  const SubmitButton({this.text, this.onPressed, this.padding, Key? key}) : super(key: key);
+  const SubmitButton({
+    this.text, 
+    this.onPressed, 
+    this.padding = const EdgeInsets.all(20), 
+    Key? key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -526,8 +531,9 @@ class SubmitButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: DecoratedBox(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadius),
-                color: primaryColor),
+              borderRadius: BorderRadius.circular(borderRadius),
+              color: primaryColor
+            ),
             child: ElevatedButton(
               style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),
@@ -556,39 +562,43 @@ class CustomButton extends StatelessWidget {
   final Function()? onPressed;
   final Color? colorBtn;
   final Color? colorText;
-  const CustomButton(
-      {this.text, this.colorBtn, this.colorText, this.onPressed, Key? key})
+  final EdgeInsetsGeometry? edgePadding;
+  CustomButton({
+    this.text, this.colorBtn, this.colorText, this.onPressed, this.edgePadding, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     const double borderRadius = 50;
 
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: DecoratedBox(
-          decoration: BoxDecoration(
+    return Padding(
+      padding: edgePadding ?? EdgeInsets.zero,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: DecoratedBox(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
               color: colorBtn),
-          child: ElevatedButton(
-            style: ButtonStyle(
+            child: ElevatedButton(
+              style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
                 alignment: Alignment.center,
-                padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(top: 15, bottom: 15)),
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.transparent),
+                padding: MaterialStateProperty.all(const EdgeInsets.only(top: 15, bottom: 15)),
+                backgroundColor: MaterialStateProperty.all(Colors.transparent),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(borderRadius),
-                      side: BorderSide(color: primaryColor)),
-                )),
-            onPressed: onPressed,
-            child: Text(
-              text!,
-              style: TextStyle(color: colorText, fontSize: 16),
-            ),
-          )),
+                    borderRadius: BorderRadius.circular(borderRadius),
+                    side: BorderSide(color: primaryColor)
+                  ),
+                )
+              ),
+              onPressed: onPressed,
+              child: Text(
+                text!,
+                style: TextStyle(color: colorText, fontSize: 16),
+              ),
+            )),
+      )
     );
   }
 }
@@ -599,14 +609,14 @@ class CustomButtonIcon extends StatelessWidget {
   final Color? colorBtn;
   final Color? colorText;
   final Icon? icon;
-  const CustomButtonIcon(
-      {this.text, 
-      this.colorBtn, 
-      this.colorText, 
-      this.onPressed, 
-      this.icon,
-      Key? key})
-      : super(key: key);
+  const CustomButtonIcon({
+    this.text, 
+    this.colorBtn, 
+    this.colorText, 
+    this.onPressed, 
+    this.icon,
+    Key? key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

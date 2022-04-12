@@ -10,5 +10,6 @@ class DbKey {
   static String idKey = "id";
   static String login = "login";
   static String token = "token";
+  static String otpCode = "otpCode";
   static String sensitive = "sensitive";
 }

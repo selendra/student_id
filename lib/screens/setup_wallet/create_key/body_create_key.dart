@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/text_c.dart';
+import 'package:student_id/main.dart';
 
 class CreateKeyBody extends StatelessWidget {
+
   final bool initial;
   final String seed;
   final Function() generateKey;
@@ -42,8 +45,7 @@ class CreateKeyBody extends StatelessWidget {
                               padding: const EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                 color: grey,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(12)),
+                                borderRadius: const BorderRadius.all(Radius.circular(12)),
                               ),
                               child: Column(
                                 children: [
@@ -55,34 +57,27 @@ class CreateKeyBody extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          'Generate random 12 words',
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w700,
-                                              color: blackColor),
+                                        MyText(
+                                          text: 'Generate random 12 words',
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700,
+                                          color2: blackColor,
+                                          bottom: 5,
                                         ),
                                         Text(
-                                          'Setup Your Secure Phassphrase',
+                                          'The mnemonic is used to recover the wallet or repeat the wallet password, copy it to the paper accurately, and store it in a safe place that only you know.',
                                           style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700,
-                                              color: blackColor),
-                                        ),
-                                        Text(
-                                          'Write down the following words in order and keep them somewhere safe. Anyone with access to it will also have access to your account! You will be asked to verify your passphrase next. Passphrase also known mnemonic. ',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: blackColor),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: blackColor
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
+                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                         content: Text(
                                           'Copied to clipboard',
                                           textAlign: TextAlign.center,
@@ -178,18 +173,42 @@ class CreateKeyBody extends StatelessWidget {
                     ),
                   ),
                 ),
+                
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: EdgeInsets.symmetric(horizontal: paddingSize),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.error_outline_outlined, color: Colors.blue,),
+                      Expanded(
+                        child: MyText(
+                          text: """Do not take screenshots, someone will have fully access to your assets, if it gets your mnemonic!\nPlease copy the mnemonic, then store it at a safe place.
+                          """,
+                          left: 5,
+                          fontSize: 14,
+                          textAlign: TextAlign.left,
+                          fontWeight: FontWeight.bold,
+                          color2: blackColor
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: paddingSize),
                   child: CustomButton(
                     onPressed: () async => {
+
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => VerifyPassphrase(),
+                          builder: (context) => VerifyPassphrase(seed: seed,),
                         ),
                       ),
                     },
-                    text: 'Continue',
+                    text: 'Next',
                     colorBtn: primaryColor,
                     colorText: whiteColor,
                   ),

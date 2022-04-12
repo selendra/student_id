@@ -7,6 +7,7 @@ import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/registration_p.dart';
+import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/screens/wallet_connect/body_walletconnect_page.dart';
 import 'package:student_id/services/storage.dart';
 import 'package:wallet_connect/wallet_connect.dart';
@@ -82,7 +83,7 @@ class _WalletConnectPageState extends State<WalletConnectPage> {
             }
           });
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage())); 
+          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage())); 
           // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");

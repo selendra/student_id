@@ -7,9 +7,6 @@ export 'package:student_id/widgets/reuse_widgets.dart';
 
 export 'package:hexcolor/hexcolor.dart';
 
-export 'package:student_id/screens/verify/verify_page.dart';
-export 'package:student_id/screens/verify/body_verify_page.dart';
-
 export 'package:student_id/screens/dashboard/dashbaord_page.dart';
 
 export 'package:student_id/widgets/constants.dart';
@@ -34,14 +31,12 @@ export 'package:student_id/widgets/navbar.dart';
 
 export 'package:student_id/routes/route_generator.dart';
 
-export 'package:student_id/screens/setup/setup_page/setup_page.dart';
-export 'package:student_id/screens/setup/setup_page/setup_page_body.dart';
-
-export 'package:student_id/screens/setup/create_key/create_key.dart';
-export 'package:student_id/screens/setup/create_key/body_create_key.dart';
-
-export 'package:student_id/screens/setup/verify_key/verify_key.dart';
-export 'package:student_id/screens/setup/verify_key/verify_key_body.dart';
+export 'package:student_id/screens/setup_wallet/setup_page/setup_page.dart';
+export 'package:student_id/screens/setup_wallet/setup_page/setup_page_body.dart';
+export 'package:student_id/screens/setup_wallet/create_key/create_key.dart';
+export 'package:student_id/screens/setup_wallet/create_key/body_create_key.dart';
+export 'package:student_id/screens/setup_wallet/verify_key/verify_key.dart';
+export 'package:student_id/screens/setup_wallet/verify_key/verify_key_body.dart';
 
 /// Model
 /// 

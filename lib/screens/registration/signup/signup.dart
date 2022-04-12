@@ -8,6 +8,8 @@ import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/models/sign_up_m.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/registration_p.dart';
+import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/screens/registration/login/body_login_page.dart';
 import 'package:student_id/screens/registration/signup/body_signup.dart';
 import 'package:student_id/screens/registration/verfiyAcc/verifyAcc.dart';
@@ -28,6 +30,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final formKey = GlobalKey<FormState>();
 
   String? _msg;
+  
+  RegistrationProvider? _registrationProvider;
 
   void handleRememberMe(bool? value) async {
     setState(() {
@@ -54,14 +58,23 @@ class _SignUpPageState extends State<SignUpPage> {
       // });
 
       await Provider.of<ApiProvider>(context, listen: false).registerSELNetwork(email: _signUpModel.emailInputController.text, password: _signUpModel.conPasController.text).then((value) async {
-      
+        
+        // Assign User Data
+        _registrationProvider!.usrName = _signUpModel.userNameController.text;
+        _registrationProvider!.email = _signUpModel.emailInputController.text;
+        _registrationProvider!.password = _signUpModel.conPasController.text;
+
         // Close Dialog
         Navigator.pop(context);
 
         if (value['status'] == true) {
-          print("Success");
-          await MyDialog().customDialog(context, "Message", "${value['message']}"); 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
+          await Backend().getOtp(_signUpModel.emailInputController.text).then((otpMsg) async {
+            if (value.statusCode == 201){
+              await MyDialog().customDialog(context, "${value['message']}", "We sent you 4 digit OTP code.\nPlease check your email.");
+            }
+          });
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage()));
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }
@@ -93,6 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
     _signUpModel.emailInputController.text = "rithythul@gmail.com";
     _signUpModel.passwordInputController.text = "123456";
     _signUpModel.conPasController.text = "123456";
+    _registrationProvider = Provider.of<RegistrationProvider>(context, listen: false);
     super.initState();
   }
 

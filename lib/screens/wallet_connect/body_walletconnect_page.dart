@@ -32,7 +32,7 @@ class WalletConnectBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<WalletConnectComponent>(
       builder: (context, provider, widget){
-        print("provider.sessionStore! ${provider.sessionStore}");
+        print("provider.sessionStore! ${provider.ip}");
         return Scaffold(
           backgroundColor: whiteColor,
           appBar: AppBar(
@@ -64,7 +64,7 @@ class WalletConnectBody extends StatelessWidget {
 
                   Padding(
                     padding: EdgeInsets.only(bottom: paddingSize),
-                    child: Image.network(provider.sessionStore!.remotePeerMeta.icons.first.replaceAll("localhost", "10.1.2.40"), width: 80,),
+                    child: Image.network(provider.sessionStore!.remotePeerMeta.icons.first.replaceAll("localhost", provider.ip!), width: 80,),
                   ),
 
                   MyText(

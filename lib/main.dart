@@ -9,7 +9,6 @@ import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
 import 'package:student_id/screens/registration/signup/signup.dart';
-import 'package:student_id/screens/setup/import_acc/import_acc.dart';
 
 void main() {
   FlutterNativeSplash.removeAfter(initialization);
@@ -60,9 +59,12 @@ class _MyAppState extends State<MyApp> {
   
   initApiProvider() async {
     
-    await Provider.of<ApiProvider>(context, listen: false).initApi(context: context).then((value) async {
-      
-      await Provider.of<ApiProvider>(context, listen: false).getAddressIcon();
+    ApiProvider _apiProvider = Provider.of<ApiProvider>(context, listen: false);
+    
+    _apiProvider.initApi(context: context).then((value) async {
+      if (_apiProvider.getKeyring.keyPairs.isNotEmpty) {
+        await Provider.of<ApiProvider>(context, listen: false).getAddressIcon();
+      }
       // await Provider.of<ApiProvider>(context, listen: false).getCurrentAccount();
     });
   }

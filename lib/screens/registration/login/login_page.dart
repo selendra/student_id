@@ -1,16 +1,11 @@
-import 'dart:convert';
-
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/alert_dialog_c.dart';
-import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/registration_p.dart';
-import 'package:student_id/screens/registration/login/body_login_page.dart';
-import 'package:student_id/screens/setup/import_acc/import_acc.dart';
-import 'package:student_id/screens/wallet_connect/wallet_connect.dart';
+import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/services/storage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -87,21 +82,21 @@ class _LoginPageState extends State<LoginPage> {
           Provider.of<RegistrationProvider>(context, listen: false).password = passwordInputController.text;
 
           // For OTP
-          // await Backend().getOtp(emailInputController.text).then((value) async {
-          //   if (value.statusCode == 201){
-          //     await MyDialog().customDialog(context, "Message", "We sent you 6 digit OTP code.\nPlease check your email.");
-          //   }
-          // });
+          await Backend().getOtp(emailInputController.text).then((value) async {
+            if (value.statusCode == 201){
+              await MyDialog().customDialog(context, "Message", "We sent you 4 digit OTP code.\nPlease check your email.");
+            }
+          });
 
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage())); 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
+          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage())); 
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }
       });
 
     } catch (e) {
-      print("Error submitSignUp $e");
+      debugPrint("Error submitSignUp $e");
       // Navigator.pop(context);
     }
   }

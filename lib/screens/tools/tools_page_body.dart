@@ -44,7 +44,7 @@ class ToolsPageBody extends StatelessWidget {
                       Expanded(
                         child: MyText(
                           textAlign: TextAlign.end,
-                          text: provider.accountM.address != null ? provider.accountM.address : '',
+                          text: provider.accountM.address ?? '',
                           color2: Colors.grey,
                           overflow: TextOverflow.ellipsis,
                         )
@@ -55,7 +55,6 @@ class ToolsPageBody extends StatelessWidget {
                   Consumer<WalletConnectComponent>(
                     builder: (context, provider, widget){
 
-                      print("WalletConnectComponent ${provider.sessionStore}");
                       return provider.sessionStore == null ? CustomBtn(
                         title: 'Scan with WalletConnect',
                         logo: 'walletconnect-logo.svg',

@@ -1,8 +1,9 @@
 // variable for our route names
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/screens/registration/signup/signup.dart';
-import 'package:student_id/screens/setup/import_acc/import_acc.dart';
+import 'package:student_id/screens/setup_wallet/import_acc/import_acc.dart';
 
 const String loginRoute = '/';
 const String signUpRoute = '/signUp';
@@ -23,13 +24,13 @@ class RouteGenerator {
       case navbarRoute:
         return MaterialPageRoute(builder: (_) => const Navbar());
       case verifyRoute:
-        return MaterialPageRoute(builder: (_) => const VerifyPage());
+        return MaterialPageRoute(builder: (_) => const OTPVerifyPage());
       case setupRoute:
         return MaterialPageRoute(builder: (_) => const SetupPage());
       case createWalletRoute:
         return MaterialPageRoute(builder: (_) => const CreateWalletPage());
       case verifyWaletRoute:
-        return MaterialPageRoute(builder: (_) => const VerifyPassphrase());
+        return MaterialPageRoute(builder: (_) => VerifyPassphrase());
       case importRoute:
         return MaterialPageRoute(builder: (_) => ImportAccount());
       default:

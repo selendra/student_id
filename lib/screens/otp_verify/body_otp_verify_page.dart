@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
 
-class VerifyPageBody extends StatelessWidget {
+class OTPVerifyPageBody extends StatelessWidget {
   final TextEditingController verifyInputController;
   final GlobalKey<FormState> formKey;
   final Function(String)? onChanged;
   final Function? validator;
 
-  const VerifyPageBody({ 
+  const OTPVerifyPageBody({ 
     Key? key, 
     required this.verifyInputController,
     required this.formKey,

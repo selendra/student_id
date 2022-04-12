@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
-import 'package:student_id/components/alert_dialog_c.dart';
-import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/services/storage.dart';
 
 class VerifyPassphraseBody extends StatelessWidget {
   final TextEditingController phraseKey;
-  const VerifyPassphraseBody({Key? key, required this.phraseKey}) : super(key: key);
+  final String? rd1, rd2, rd3;
+  final Function? verify;
+
+  const VerifyPassphraseBody({
+    Key? key, 
+    required this.phraseKey,
+    this.rd1,
+    this.rd2,
+    this.rd3,
+    this.verify
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +66,12 @@ class VerifyPassphraseBody extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              const Text(
-                                'Word #2',
+                              Text(
+                                "Word #$rd1, Word #$rd2, and Word #$rd3",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.blue
                                 ),
                               ),
                               const SizedBox(height: 20),
@@ -71,17 +80,9 @@ class VerifyPassphraseBody extends StatelessWidget {
                               CustomButton(
                                 colorBtn: primaryColor,
                                 colorText: whiteColor,
-                                text: 'Verify & Complete',
+                                text: 'Verify',
                                 onPressed: () async {
-                                  // Show Loading
-                                  MyDialog().dialogLoading(context);
-                                  await Future.delayed(const Duration(seconds: 1), () async {
-                                    await MyDialog().customDialog(context, "Message", "Successfully verify");
-                                    await StorageServices.storeData(true, DbKey.login);
-                                    // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
-                                    
-                                  });
-                                  Navigator.pushReplacementNamed(context, navbarRoute);
+                                  await verify!();
                                 },
                               ),
                             ],

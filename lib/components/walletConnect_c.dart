@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +39,9 @@ class WalletConnectComponent with ChangeNotifier {
     http.Client(),
   );
 
+  String? ip;
+  List<InternetAddress>? _internetAddress;
+
   Map<String, dynamic>? result = {};
 
   WalletConnectComponent(){
@@ -51,7 +55,21 @@ class WalletConnectComponent with ChangeNotifier {
       onCustomRequest: (_, __) {},
       onConnect: onConnect,
     );
+    // getIP();
     // initSession();
+  }
+
+  void getIP() async {
+    print("getIP");
+    List<NetworkInterface> l = await NetworkInterface.list();
+    for (int i = 0; i < l.length; i++ ){
+      _internetAddress = l[0].addresses;
+      ip = _internetAddress![0].address;
+      break;
+    }
+    print("my ip $ip");
+
+    notifyListeners();
   }
 
   set setBuildContext(BuildContext context) {
@@ -134,7 +152,7 @@ class WalletConnectComponent with ChangeNotifier {
                   height: 100.0,
                   width: 100.0,
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Image.network(peerMeta.icons.first.replaceAll("localhost", "10.1.2.40")),
+                  child: Image.network(peerMeta.icons.first.replaceAll("localhost", ip!)),
                 ),
               Text(peerMeta.name),
             ],

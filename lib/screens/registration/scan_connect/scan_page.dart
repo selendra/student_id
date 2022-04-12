@@ -1,19 +1,12 @@
-import 'dart:convert';
-
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/core/backend.dart';
-import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/registration_p.dart';
-import 'package:student_id/screens/registration/login/body_login_page.dart';
+import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/screens/registration/scan_connect/body_scan_page.dart';
-import 'package:student_id/screens/setup/import_acc/import_acc.dart';
-import 'package:student_id/services/storage.dart';
-import 'package:wallet_connect/wallet_connect.dart';
-import 'package:walletconnect_dart/walletconnect_dart.dart';
 
 
 class ScanConnect extends StatefulWidget {
@@ -89,7 +82,7 @@ class _ScanConnectState extends State<ScanConnect> {
             }
           });
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage())); 
+          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage())); 
           // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");

@@ -8,7 +8,7 @@ import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/registration_p.dart';
-import 'package:student_id/screens/setup/import_acc/body_import_acc.dart';
+import 'package:student_id/screens/setup_wallet/import_acc/body_import_acc.dart';
 import 'package:student_id/services/storage.dart';
 import 'package:encrypt/encrypt.dart';
 
