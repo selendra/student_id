@@ -29,6 +29,7 @@ class ToolsPageBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  
                   profileWidget(context, pickImage: (){}, model: DashBoardModel()),
                   const DashboardOptions(),
                   const ToolsInfo(),
