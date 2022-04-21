@@ -9,21 +9,23 @@ class StoragesPageBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              profileWidget(context, pickImage: (){}, model: DashBoardModel()),
-              const DashboardOptions(),
-              const StoragesInfo(),
-              AddButton(
-                text: 'Add Services', 
-                onPressed: () {}
+              Center(
+                child: Image.asset(AppConfig.illusPath+"developing.jpg"),
               ),
+              MyText(
+                top: paddingSize,
+                text: "Feature is under development",
+                fontSize: 20,
+  
+              )
             ],
-          ),
+          )
         ),
       ),
     );

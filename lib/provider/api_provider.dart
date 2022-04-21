@@ -365,7 +365,7 @@ class ApiProvider with ChangeNotifier {
       // node.ss58 = 972;//isMainnet ? AppConfig.networkList[0].ss58MN : AppConfig.networkList[0].ss58;
 
       final res = await _sdk.api.connectNode(_keyring, [node]);
-      print("My res");
+      print("My res $res");
       // .then((value) async {
       //   await addAcc(context: context);
       // });

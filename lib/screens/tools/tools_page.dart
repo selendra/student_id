@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_id/all_export.dart';
@@ -14,6 +15,8 @@ class ToolsPage extends StatefulWidget {
 }
 
 class _ToolsPageState extends State<ToolsPage> {
+
+  DashBoardModel model = DashBoardModel();
 
   @override
   initState(){
@@ -31,9 +34,28 @@ class _ToolsPageState extends State<ToolsPage> {
     }
 
   }
+
+  Future pickImage(ImageSource source, String? label) async {
+
+    final pickedFile = await ImagePicker.platform.pickImage(source: source);
+    
+    if (pickedFile != null){
+      setState(() {
+        if (label == 'cover'){
+          model.cover = pickedFile.path;
+        } else {
+
+          model.profile = pickedFile.path;
+        }
+      });
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
-    return const ToolsPageBody();
+    return ToolsPageBody(
+      model: model,
+      pickImage: pickImage
+    );
   }
 }

@@ -6,7 +6,9 @@ import 'package:student_id/all_export.dart';
 import 'package:student_id/components/components_c.dart';
 import 'package:student_id/components/image_edit_c.dart';
 import 'package:student_id/components/text_c.dart';
+import 'package:student_id/main.dart';
 import 'package:student_id/models/dashboard_m.dart';
+import 'package:student_id/theme/theme.dart';
 
 // =============================== Reuse Widget ===============================
 void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
@@ -90,63 +92,64 @@ void qrCodeAlertDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        shape: const RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(12.0))),
         backgroundColor: HexColor('#EDEDED'),
         content: SizedBox(
           width: MediaQuery.of(context).size.width / 1.3,
-          height: MediaQuery.of(context).size.height / 2,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                'My QR Code',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
+
+              // User Name
+              MyText(
+                bottom: paddingSize,
+                text: 'My QR Code',
+                color2: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w700
               ),
-              const SizedBox(height: 20),
+
               QrImage(
-                data: 'This QR code has an embedded image as well',
+                data: '0x6871EB5dB4554dB54276D5E5d24f17B9E9dF95F3',
                 version: QrVersions.auto,
                 size: 250,
                 gapless: false,
-                embeddedImage:
-                    const AssetImage('assets/logos/telegram-logo.png'),
+                // embeddedImage: const AssetImage('assets/logos/telegram-logo.png'),
                 embeddedImageStyle: QrEmbeddedImageStyle(
                   size: const Size(80, 80),
                 ),
               ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2,
-                child: DecoratedBox(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: primaryColor),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          elevation: MaterialStateProperty.all(0),
-                          alignment: Alignment.center,
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.only(top: 15, bottom: 15)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                          )),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'OK',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                    )),
+
+              // Address
+              MyText(
+                top: paddingSize,
+                bottom: paddingSize,
+                text: '0x6871EB5dB4554dB54276D5E5d24f17B9E9dF95F3',
+                color2: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w700
               ),
+              
+              TextButton(
+                onPressed: (){}, 
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.copy, color: HexColor(AppColors.primary), size: 27,),
+                    MyText(
+                      left: 5,
+                      text: 'Copy address',
+                      color: AppColors.primary,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ],
+                )
+              )
+
             ],
           ),
         ),

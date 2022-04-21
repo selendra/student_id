@@ -12,7 +12,7 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar>
 {
   
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
 
   static const List<Widget> _options  = <Widget> [
     DashboardPage(),
@@ -45,8 +45,8 @@ class _NavbarState extends State<Navbar>
         child: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppConfig.iconPath+"card.svg", width: iconSize, height: iconSize,),
-              activeIcon: SvgPicture.asset(AppConfig.iconPath+"card.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
+              icon: SvgPicture.asset(AppConfig.iconPath+"card.svg", width: iconSize-5, height: iconSize-5, color: Colors.black,),
+              activeIcon: SvgPicture.asset(AppConfig.iconPath+"card.svg", width: iconSize, height: iconSize, color: Colors.blue,),
               label: 'Card',
               backgroundColor: HexColor('#FFFFFF'),
             ),
@@ -57,20 +57,20 @@ class _NavbarState extends State<Navbar>
             //   backgroundColor: HexColor('#FFFFFF'),
             // ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppConfig.iconPath+"crypto.svg", width: iconSize, height: iconSize),
-              activeIcon: SvgPicture.asset(AppConfig.iconPath+"crypto.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
+              icon: SvgPicture.asset(AppConfig.iconPath+"wallet_2.svg", width: iconSize, height: iconSize),
+              activeIcon: SvgPicture.asset(AppConfig.iconPath+"wallet_2.svg", width: iconSize, height: iconSize, color: Colors.blue,),
               label: 'Cryptos',
               backgroundColor: HexColor('#FFFFFF'),
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(AppConfig.iconPath+"storage.svg", width: iconSize, height: iconSize),
-              activeIcon: SvgPicture.asset(AppConfig.iconPath+"storage.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
+              activeIcon: SvgPicture.asset(AppConfig.iconPath+"storage.svg", width: iconSize, height: iconSize, color: Colors.blue,),
               label: 'Storages',
               backgroundColor: HexColor('#FFFFFF'),
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(AppConfig.iconPath+"tool.svg", width: iconSize, height: iconSize),
-              activeIcon: SvgPicture.asset(AppConfig.iconPath+"tool.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
+              activeIcon: SvgPicture.asset(AppConfig.iconPath+"tool.svg", width: iconSize, height: iconSize, color: Colors.blue,),
               label: 'Tools',
               backgroundColor: HexColor('#FFFFFF'),
             ),

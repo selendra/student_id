@@ -75,7 +75,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Student ID',
       theme: ThemeData(
-        scaffoldBackgroundColor: HexColor("#F3F3F3"),
+        fontFamily: "Quicksand",
+        scaffoldBackgroundColor: HexColor("#F8F8F8"),
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -87,6 +88,7 @@ class _MyAppState extends State<MyApp> {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      
       builder: (context, widget) => ResponsiveWrapper.builder(
         BouncingScrollWrapper.builder(context, widget!),
         maxWidth: 1200,

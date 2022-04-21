@@ -63,6 +63,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   void initState() {
+    
     dashBoardM.name = "Rithy THUL";
     dashBoardM.email = "rithythul@gmail.com";
     dashBoardM.nationality = "Cambodian";

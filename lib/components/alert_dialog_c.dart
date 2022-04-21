@@ -53,8 +53,9 @@ class MyDialog{
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               CircularProgressIndicator(
-                  backgroundColor: Colors.transparent,
-                  valueColor: AlwaysStoppedAnimation(HexColor("#F39D0C"))),
+                backgroundColor: Colors.transparent,
+                valueColor: AlwaysStoppedAnimation(HexColor("#F39D0C"))
+              ),
               if (content == null)
                 Container()
               else
