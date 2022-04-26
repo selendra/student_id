@@ -11,7 +11,7 @@ import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
 import 'package:student_id/screens/registration/signup/signup.dart';
 
 void main() {
-  FlutterNativeSplash.removeAfter(initialization);
+  // FlutterNativeSplash.removeAfter(initialization);
   runApp(
     MultiProvider(
       providers: [

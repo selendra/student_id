@@ -53,45 +53,45 @@ class ToolsPageBody extends StatelessWidget {
                     ]
                   ),
 
-                  Consumer<WalletConnectComponent>(
-                    builder: (context, provider, widget){
+                  // Consumer<WalletConnectComponent>(
+                  //   builder: (context, provider, widget){
 
-                      return provider.sessionStore == null ? CustomBtn(
-                        title: 'Scan with WalletConnect',
-                        logo: 'walletconnect-logo.svg',
-                        onPressed: () async {
+                  //     return provider.sessionStore == null ? CustomBtn(
+                  //       title: 'Scan with WalletConnect',
+                  //       logo: 'walletconnect-logo.svg',
+                  //       onPressed: () async {
 
-                          String? value = await Navigator.push(context, MaterialPageRoute(builder: (context) => QRViewExample()));
-                          print("my value $value");
-                          if (value != null){
+                  //         String? value = await Navigator.push(context, MaterialPageRoute(builder: (context) => QRViewExample()));
+                  //         print("my value $value");
+                  //         if (value != null){
                             
-                            WalletConnectComponent _wConnectC = Provider.of<WalletConnectComponent>(context, listen: false);
-                            _wConnectC.setBuildContext = context;
-                            _wConnectC.qrScanHandler(value);
-                            print("finish qrScanHandler");
-                          }
-                        },
-                      ) 
-                      : Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: (){
-                              Navigator.push(
-                                context, 
-                                MaterialPageRoute(builder: (context) => WalletConnectPage() )
-                              );
-                            }, 
-                            child: MyText(
-                              color2: Colors.white,
-                              text: "WalletConnect is connected"
-                            )
-                          )
-                        ],
-                      );
-                    }
-                  ),
+                  //           WalletConnectComponent _wConnectC = Provider.of<WalletConnectComponent>(context, listen: false);
+                  //           _wConnectC.setBuildContext = context;
+                  //           _wConnectC.qrScanHandler(value);
+                  //           print("finish qrScanHandler");
+                  //         }
+                  //       },
+                  //     ) 
+                  //     : Row(
+                  //       crossAxisAlignment: CrossAxisAlignment.center,
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         ElevatedButton(
+                  //           onPressed: (){
+                  //             Navigator.push(
+                  //               context, 
+                  //               MaterialPageRoute(builder: (context) => WalletConnectPage() )
+                  //             );
+                  //           }, 
+                  //           child: MyText(
+                  //             color2: Colors.white,
+                  //             text: "WalletConnect is connected"
+                  //           )
+                  //         )
+                  //       ],
+                  //     );
+                  //   }
+                  // ),
                   
 
                   Align(

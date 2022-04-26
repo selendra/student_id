@@ -16,7 +16,7 @@ class _NavbarState extends State<Navbar>
 
   static const List<Widget> _options  = <Widget> [
     DashboardPage(),
-    // AccountPage(),
+    AccountPage(),
     CryptosPage(),
     StoragesPage(),
     ToolsPage(),
@@ -28,7 +28,7 @@ class _NavbarState extends State<Navbar>
     });
   }
 
-  final double iconSize = 25;
+  final double iconSize = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +45,17 @@ class _NavbarState extends State<Navbar>
         child: BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppConfig.iconPath+"card.svg", width: iconSize, height: iconSize,),
-              activeIcon: SvgPicture.asset(AppConfig.iconPath+"card.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
-              label: 'Card',
+              icon: SvgPicture.asset(AppConfig.iconPath+"profile.svg", width: iconSize, height: iconSize,),
+              activeIcon: SvgPicture.asset(AppConfig.iconPath+"profile.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
+              label: 'Profile',
               backgroundColor: HexColor('#FFFFFF'),
             ),
-            // BottomNavigationBarItem(
-            //   icon: SvgPicture.asset(AppConfig.iconPath+"account.svg", width: iconSize, height: iconSize),
-            //   activeIcon: SvgPicture.asset(AppConfig.iconPath+"account.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
-            //   label: 'Account',
-            //   backgroundColor: HexColor('#FFFFFF'),
-            // ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(AppConfig.iconPath+"account.svg", width: iconSize, height: iconSize),
+              activeIcon: SvgPicture.asset(AppConfig.iconPath+"account.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),
+              label: 'Account',
+              backgroundColor: HexColor('#FFFFFF'),
+            ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(AppConfig.iconPath+"crypto.svg", width: iconSize, height: iconSize),
               activeIcon: SvgPicture.asset(AppConfig.iconPath+"crypto.svg", width: iconSize + 5, height: iconSize + 5, color: Colors.blue,),

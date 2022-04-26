@@ -365,7 +365,7 @@ class ApiProvider with ChangeNotifier {
       // node.ss58 = 972;//isMainnet ? AppConfig.networkList[0].ss58MN : AppConfig.networkList[0].ss58;
 
       final res = await _sdk.api.connectNode(_keyring, [node]);
-      print("My res");
+      print("My res $res");
       // .then((value) async {
       //   await addAcc(context: context);
       // });
@@ -446,6 +446,51 @@ class ApiProvider with ChangeNotifier {
     try {
 
       return await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "$email","$password")').then((value) async {
+        print("registerSel11 $value");
+        print(value['status']);
+        return value;
+      });
+
+    } catch (e){
+      print("Error registerSELNetwork ${e}");
+    }
+  }
+
+  Future<dynamic> setReferalSel12({required String? email}) async {
+    print("setReferalSel12");
+    try {
+
+      return await _sdk.api.service.webView!.evalJavascript('keyring.setReferalSel12(api, "$email")').then((value) async {
+        print("setReferalSel12 $value");
+        print(value['status']);
+        return value;
+      });
+
+    } catch (e){
+      print("Error registerSELNetwork ${e}");
+    }
+  }
+
+  Future<dynamic> createWeb3linkSel15({required String? email}) async {
+    print("createWeb3linkSel15");
+    try {
+
+      return await _sdk.api.service.webView!.evalJavascript('keyring.createWeb3linkSel(api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV")').then((value) async {
+        print("registerSel11 $value");
+        print(value['status']);
+        return value;
+      });
+
+    } catch (e){
+      print("Error registerSELNetwork ${e}");
+    }
+  }
+
+  Future<dynamic> transfer() async {
+    print("createWeb3linkSel15");
+    try {
+
+      return await _sdk.api.service.webView!.evalJavascript('keyring.transfer(api, "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV")').then((value) async {
         print("registerSel11 $value");
         print(value['status']);
         return value;
@@ -550,6 +595,7 @@ class ApiProvider with ChangeNotifier {
 
       accountM.addressIcon = res.toString();
       accountM.address = res[0][0].toString();
+      accountM.pubKey = _keyring.keyPairs[0].pubKey!;
       notifyListeners();
     } catch (e) {
       print("Error get icon from address $e");
