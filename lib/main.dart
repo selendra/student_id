@@ -1,17 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter/services.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:student_id/all_export.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/provider/registration_p.dart';
-import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
-import 'package:student_id/screens/registration/signup/signup.dart';
 
 void main() {
   // FlutterNativeSplash.removeAfter(initialization);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MultiProvider(
       providers: [
@@ -26,6 +25,9 @@ void main() {
         ),
         ChangeNotifierProvider<WalletConnectComponent>(
           create: (context) => WalletConnectComponent(),
+        ),
+        ChangeNotifierProvider<HomeProvider>(
+          create: (context) => HomeProvider(),
         ),
       ],
       child: MyApp()

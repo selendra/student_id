@@ -8,6 +8,7 @@ import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/models/identifier_m.dart';
 import 'package:student_id/screens/identifier/face_identifier/face_identifier.dart';
+import 'package:student_id/services/services_s.dart';
 
 class IdentifierBody extends StatelessWidget {
   final String? title;
@@ -113,12 +114,19 @@ class IdentifierBody extends StatelessWidget {
                       child: TextButton(
                           onPressed: () async {
                             try {
-                              final XFile? image = await ImagePicker()
-                                  .pickImage(source: ImageSource.gallery);
+                              // final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                              // final pickedFile = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+                              // if (model!.frontImage == '') {
+                              //   await pickImage!(pickedFile!.path, 'front');
+                              // } else {
+                              //   await pickImage!(pickedFile!.path, 'back');
+                              // }
+                              
+                              final pickedFile = await Services.pickImage(ImageSource.gallery);
                               if (model!.frontImage == '') {
-                                await pickImage!(image!.path, 'front');
+                                await pickImage!(pickedFile!.path, 'front');
                               } else {
-                                await pickImage!(image!.path, 'back');
+                                await pickImage!(pickedFile!.path, 'back');
                               }
                             } catch (e) {}
                           },

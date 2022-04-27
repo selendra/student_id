@@ -20,6 +20,7 @@ let keyring = new Keyring({ ss58Format: 42, type: "sr25519" });
 // const {nonce, data: balance} = await api.query.system.account(alic.address);
 
 var selAddr;
+var referal;
 
 function send(path: string, data: any) {
   if (window.location.href === "about:blank") {
@@ -164,6 +165,139 @@ async function changePasswordSel13(api: ApiPromise, email: string, password: str
   } catch (e){
     console.log('Register error ', e);
   }
+}
+
+async function setReferalSel12(api: ApiPromise, email:string){
+
+  referal = (Math.random() + 1).toString(36).substring(7);
+  console.log("referal = "+referal);
+  let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
+  console.log("email", email);
+  
+  // const register = api.tx.identity.requestRegistrationSel11(email, password);
+  const referalset = api.tx.identity.setReferalSel12(email, referal);
+  return new Promise( async (resolve, reject) => {
+    await referalset.signAndSend(aliza, ({ status, events, dispatchError }) => {
+      // status would still be set, but in the case of error we can shortcut
+      // to just check it (so an error would indicate InBlock or Finalized)
+      if (dispatchError) {
+        console.log("dispatchError");
+        if (dispatchError.isModule) {
+          // for module errors, we have the section indexed, lookup
+          const decoded = api.registry.findMetaError(dispatchError.asModule);
+          const { docs, name, section } = decoded;
+  
+          console.log(`${section}.${name}: ${docs.join(' ')}`);
+  
+          resolve({'status': false,'message': name});
+        } else {
+          // Other, CannotLookup, BadOrigin, no extra info
+          console.log(dispatchError.toString());
+        }
+      } else {
+        console.log("Success");
+        events.forEach(({ phase, event: { data, method, section } }) => {
+          console.log(`\t' ${phase}: ${section}.${method}:: ${data}`);
+          resolve({'status': true,'message': 'Success'});
+        });
+      }
+      
+    });
+  });
+}
+
+async function createWeb3linkSel(api: ApiPromise, email:string, address: string){
+
+  console.log("referal = "+referal);
+  console.log("email", email);
+  console.log("address", address);
+  try {
+
+    let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
+ 
+    // console.log("aliza", aliza);
+    // const referalset = api.tx.identity.setReferalSel12(email, referal);
+    // console.log("finish referalset");
+    // const login = api.tx.identity.loginAccessSel12(email, "123456");
+    // console.log("finish checkWeb3");
+    const linkWeb3 = api.tx.identity.createWeb3linkSel(email, aliza.address, referal);
+    console.log("finish linkWeb3");
+    return new Promise( async (resolve, reject) => { 
+      await linkWeb3.signAndSend(aliza, ({ status, events, dispatchError }) => {
+        // status would still be set, but in the case of error we can shortcut
+        // to just check it (so an error would indicate InBlock or Finalized)
+        if (dispatchError) {
+          console.log("dispatchError");
+          if (dispatchError.isModule) {
+            // for module errors, we have the section indexed, lookup
+            const decoded = api.registry.findMetaError(dispatchError.asModule);
+            const { docs, name, section } = decoded;
+    
+            console.log(`${section}.${name}: ${docs.join(' ')}`);
+    
+            resolve({'status': false,'message': name});
+          } else {
+            // Other, CannotLookup, BadOrigin, no extra info
+            console.log(dispatchError.toString());
+          }
+        } else {
+          console.log("Success");
+          events.forEach(({ phase, event: { data, method, section } }) => {
+            console.log(`\t' ${phase}: ${section}.${method}:: ${data}`);
+            resolve({'status': true,'message': 'Registration completed successfully'});
+          });
+        }
+        
+      });
+    });
+  } catch (e){
+    console.log("Error createWeb3linkSel"+e);
+  }
+}
+
+async function transfer(api: ApiPromise, address: string){
+
+  let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
+
+  console.log("aliza", aliza.address);
+  console.log("address to transfer", address);
+  
+  // const register = api.tx.identity.requestRegistrationSel11(email, password);
+  const referalset = api.tx.balances.transfer(address, 12345);
+
+  const {partialFee, weight} = await referalset.paymentInfo(aliza);
+
+  console.log(`transaction will have a weight of ${weight}, with ${partialFee.toHuman()} weight fees`);
+
+  console.log("finish transfer");
+  return new Promise( async (resolve, reject) => { 
+    await referalset.signAndSend(aliza, ({ status, events, dispatchError }) => {
+      // status would still be set, but in the case of error we can shortcut
+      // to just check it (so an error would indicate InBlock or Finalized)
+      if (dispatchError) {
+        console.log("dispatchError");
+        if (dispatchError.isModule) {
+          // for module errors, we have the section indexed, lookup
+          const decoded = api.registry.findMetaError(dispatchError.asModule);
+          const { docs, name, section } = decoded;
+  
+          console.log(`${section}.${name}: ${docs.join(' ')}`);
+  
+          resolve({'status': false,'message': name});
+        } else {
+          // Other, CannotLookup, BadOrigin, no extra info
+          console.log(dispatchError.toString());
+        }
+      } else {
+        console.log("Success");
+        events.forEach(({ phase, event: { data, method, section } }) => {
+          console.log(`\t' ${phase}: ${section}.${method}:: ${data}`);
+          resolve({'status': true,'message': 'Registration completed successfully'});
+        });
+      }
+      
+    });
+  });
 }
 
 /**
@@ -695,7 +829,10 @@ export default {
   addSignatureAndSend,
   registerSel11,
   changePasswordSel13,
-  loginAccessSel12
+  loginAccessSel12,
+  setReferalSel12,
+  createWeb3linkSel,
+  transfer
   //signTxAsExtension,
   //signBytesAsExtension,
   //verifySignature,

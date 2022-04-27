@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/column_info_c.dart';
+import 'package:student_id/components/text_c.dart';
+import 'package:student_id/main.dart';
 import 'package:student_id/models/asset_list_m.dart';
 import 'package:student_id/models/dashboard_m.dart';
 import 'package:student_id/provider/identifier_p.dart';
@@ -9,6 +13,8 @@ import 'package:student_id/screens/dashboard/edit_info.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/screens/identifier/identifier_option.dart';
+import 'package:student_id/theme/theme.dart';
 
 class PhraseInput extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -695,6 +701,7 @@ class EditButton extends StatelessWidget {
 }
 
 class DashboardOptions extends StatelessWidget {
+  
   const DashboardOptions({Key? key}) : super(key: key);
 
   @override
@@ -841,32 +848,159 @@ class PersonlInfo extends StatelessWidget {
     );
   }
 
+  Widget _dobInfo(String? text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Phone Number', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
+    );
+  }
+
+  Widget _nationalInfo(String? text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text('Nationality', style: TextStyle(color: greyColor)),
+          Text(text!,
+            style: TextStyle(color: blackColor, fontWeight: FontWeight.w700)
+          ),
+        ]
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Info(model: model,)
-        ), 
-        IconButton(
-          onPressed: (){
-            edit!();
-          }, 
-          icon: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey[300]
-            ),
-            padding: const EdgeInsets.all(5),
-            child: model!.isEditing ? const Icon(Icons.edit_off_outlined) : const Icon(Icons.edit_outlined) ,
-          )
-        )
+    return SingleChildScrollView(
+      child: Column(
+        children: [
 
-      ],
-    )
-    ;
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Info(model: model,)
+              ), 
+
+              IconButton(
+                onPressed: (){
+                  edit!();
+                }, 
+                icon: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.grey[300]
+                  ),
+                  padding: const EdgeInsets.all(5),
+                  child: model!.isEditing ? const Icon(Icons.edit_off_outlined) : const Icon(Icons.edit_outlined) ,
+                )
+              )
+
+            ],
+          ),
+
+          model!.isEditing == true 
+          ? Padding(
+            padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+            child: Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: (){
+                  edit!();
+                }, 
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    HexColor(AppColors.primary)
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13)
+                    )
+                  ),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12)
+                  ),
+                  alignment: Alignment.center,
+                  child: MyText(
+                    text: "Submit Edit",
+                    fontWeight: FontWeight.w600,
+                    color2: Colors.white,
+                  )
+                )
+              ),
+            )
+          ) 
+          : Container(),
+
+          Consumer<IdentifierProvider>(
+            builder: (context, provider, widget){
+              return model!.isEditing == false 
+              ? Padding(
+                padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shadowColor: MaterialStateProperty.all(
+                      Colors.transparent
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      Colors.red.withOpacity(0.2)
+                    ),
+                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(13)
+                      )
+                    ),
+                  ),
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const IDOption()));
+                  }, 
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    // decoration: BoxDecoration(
+                    //   borderRadius: BorderRadius.circular(12),
+                    // ),
+                    alignment: Alignment.center,
+                    child: MyText(
+                      text: "Get your digital ID",
+                      fontWeight: FontWeight.w600,
+                      color2: Colors.red,
+                    )
+                  )
+                )
+              )
+
+              : Container()
+              // : Card(
+              //   child: Column(
+              //     children: [
+              //       Image.file(File(provider.identifierModel!.frontImage!), width: 400, height: 200,)
+              //     ],
+              //   ),
+              // )
+              ;
+            },
+          ),
+        ]
+      )
+    );
   }
 }
 

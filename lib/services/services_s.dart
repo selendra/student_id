@@ -2,6 +2,15 @@ import 'package:image_picker/image_picker.dart';
 
 class Services {
 
+  static ImagePicker imagePicker = ImagePicker();
+
+  static Future pickImage(ImageSource source) async {
+
+    final pickedFile = await imagePicker.pickImage(source: source, imageQuality: 90);
+    
+    return pickedFile;
+  }
+
 //   static int myNumCount = 0;
 
 //   static Future noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {

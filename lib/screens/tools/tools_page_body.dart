@@ -37,21 +37,22 @@ class ToolsPageBody extends StatelessWidget {
                   //   text: 'Add Services',
                   //   onPressed: () {},
                   // ),
-                  Row(  
-                    children: [
-                      MyText(
-                        text: "Wallet:"
-                      ),
-                      Expanded(
-                        child: MyText(
-                          textAlign: TextAlign.end,
-                          text: provider.accountM.address ?? '',
-                          color2: Colors.grey,
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      ),
-                    ]
-                  ),
+
+                  // Row(  
+                  //   children: [
+                  //     MyText(
+                  //       text: "Wallet:"
+                  //     ),
+                  //     Expanded(
+                  //       child: MyText(
+                  //         textAlign: TextAlign.end,
+                  //         text: provider.accountM.address ?? '',
+                  //         color2: Colors.grey,
+                  //         overflow: TextOverflow.ellipsis,
+                  //       )
+                  //     ),
+                  //   ]
+                  // ),
 
                   // Consumer<WalletConnectComponent>(
                   //   builder: (context, provider, widget){

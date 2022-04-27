@@ -21,10 +21,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case signUpRoute:
         return MaterialPageRoute(builder: (_) => const SignUpPage());
-      case navbarRoute:
-        return MaterialPageRoute(builder: (_) => const Navbar());
+      // case navbarRoute:
+      //   return MaterialPageRoute(builder: (_) => const Navbar());
       case verifyRoute:
-        return MaterialPageRoute(builder: (_) => const OTPVerifyPage());
+        return MaterialPageRoute(builder: (_) => OTPVerifyPage());
       case setupRoute:
         return MaterialPageRoute(builder: (_) => const SetupPage());
       case createWalletRoute:

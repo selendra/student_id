@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/core/config/app_config.dart';
+import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/otp_verify/body_otp_verify_page.dart';
 import 'package:student_id/services/storage.dart';
+import 'package:encrypt/encrypt.dart';
 
 
 class OTPVerifyPage extends StatefulWidget {
-  const OTPVerifyPage({Key? key}) : super(key: key);
 
   @override
   _OTPVerifyPageState createState() => _OTPVerifyPageState();
@@ -37,10 +41,24 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
         String decrypt = Encryption().decryptAES(otp);
         if (value == decrypt){
 
-          await MyDialog().customDialog(context, "Message", "Successfully verify");
+          RegistrationProvider _registerProvider = Provider.of<RegistrationProvider>(context, listen: false);
+
+          Map<String, dynamic>? map = {
+            'usrName': '',
+            'email': _registerProvider.email,
+            'password': _registerProvider.password,
+            'seed': verifyInputController.text
+          };
           
-          // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const SetupPage()));
+          // Encrypt Data
+          Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
+          await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
+
+          await MyDialog().customDialog(context, "Message", "Successfully verify");
+          await StorageServices.storeData(true, DbKey.login);
+          
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => const SetupPage()));
         } else {
           await MyDialog().customDialog(context, "Oops", "Incorrect code");
         }

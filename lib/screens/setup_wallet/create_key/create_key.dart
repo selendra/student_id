@@ -12,8 +12,7 @@ class CreateWalletPage extends StatefulWidget {
   const CreateWalletPage({Key? key}) : super(key: key);
 
   @override
-  _CreateWalletPagetScreenState createState() =>
-      _CreateWalletPagetScreenState();
+  _CreateWalletPagetScreenState createState() => _CreateWalletPagetScreenState();
 }
 
 class _CreateWalletPagetScreenState extends State<CreateWalletPage> {
@@ -52,7 +51,7 @@ class _CreateWalletPagetScreenState extends State<CreateWalletPage> {
 
   @override
   void initState() {
-    // generateKey();
+    generateKey();
     super.initState();
   }
 

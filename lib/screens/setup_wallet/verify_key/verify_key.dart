@@ -92,7 +92,7 @@ class _VerifyPassphraseState extends State<VerifyPassphrase> {
         
         // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
         await StorageServices.storeData(true, DbKey.login);
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
       });
       // Navigator.pushReplacementNamed(context, navbarRoute);
     } else {

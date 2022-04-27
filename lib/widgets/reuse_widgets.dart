@@ -178,8 +178,7 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
               ),
         action: () async {
           print("Cover");
-          await Components().imageOption(
-              context: context, getImage: pickImage, label: "cover");
+          await Components().imageOption(context: context, getImage: pickImage, label: "cover");
         },
       ),
       SizedBox(
@@ -256,7 +255,7 @@ Widget divider(String title) {
   );
 }
 
-Widget titleDashboard(String title, BuildContext context, {String? title2}) {
+Widget titleDashboard(String title, BuildContext context, {String? title2, TabController? tabController}) {
   return Container(
     padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
     width: MediaQuery.of(context).size.width,
@@ -266,6 +265,7 @@ Widget titleDashboard(String title, BuildContext context, {String? title2}) {
         MyText(
           text: title,
           color2: greyColor,
+          // color2: greyColor,
           fontWeight: FontWeight.w700,
           right: 5,
           fontSize: 16,
@@ -284,7 +284,6 @@ Widget titleDashboard(String title, BuildContext context, {String? title2}) {
             ? MyText(
                 left: 5,
                 text: title2,
-                color2: Colors.blue,
                 fontWeight: FontWeight.w700,
                 fontSize: 16)
             : Container()

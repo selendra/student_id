@@ -15,11 +15,11 @@ class _NavbarState extends State<Navbar>
   int _selectedIndex = 0;
 
   static const List<Widget> _options  = <Widget> [
-    DashboardPage(),
-    AccountPage(),
-    CryptosPage(),
-    StoragesPage(),
-    ToolsPage(),
+    // DashboardPage(),
+    // AccountPage(),
+    // CryptosPage(),
+    // StoragesPage(),
+    // ToolsPage(),
   ];
 
   void _onItemTap(int index){

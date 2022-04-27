@@ -5,6 +5,7 @@ import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/registration_p.dart';
+import 'package:student_id/screens/identifier/id_card/identifier.dart';
 import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/services/storage.dart';
 
@@ -39,8 +40,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void isLogin() async {
+
     await StorageServices.fetchData(DbKey.login).then((value) {
-      if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
+      print("Login $value");
+      if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
+      // if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Identifier(title: "",)), (route) => false);
     });
 
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ImportAccount()), (route) => false);

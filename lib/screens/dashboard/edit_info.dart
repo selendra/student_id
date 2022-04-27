@@ -42,6 +42,7 @@ class InfoState extends State<Info>{
                 controller: widget.model!.nameController,
               ),
             ),
+
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: TextFormField(
@@ -78,12 +79,51 @@ class InfoState extends State<Info>{
                 controller: widget.model!.nationalityController,
               )
             ),
+
             Padding(
               padding: EdgeInsets.only(bottom: 5),
               child: TextFormField(
                 style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
                   label: MyText(text: "Phone Number", color2: greyColor),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+
+                  //Style
+                  labelStyle: TextStyle(color: greyColor),
+                  enabledBorder: widget.model!.isEditing == false ? UnderlineInputBorder(borderSide: BorderSide.none) : UnderlineInputBorder(),
+                  border: widget.model!.isEditing == false ? UnderlineInputBorder(borderSide: BorderSide.none) : UnderlineInputBorder(),
+
+                  enabled: widget.model!.isEditing,
+                ),
+                controller: widget.model!.phoneNumController,
+              )
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(bottom: 5),
+              child: TextFormField(
+                style: TextStyle(fontWeight: FontWeight.w700),
+                decoration: InputDecoration(
+                  label: MyText(text: "Country", color2: greyColor),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+
+                  //Style
+                  labelStyle: TextStyle(color: greyColor),
+                  enabledBorder: widget.model!.isEditing == false ? UnderlineInputBorder(borderSide: BorderSide.none) : UnderlineInputBorder(),
+                  border: widget.model!.isEditing == false ? UnderlineInputBorder(borderSide: BorderSide.none) : UnderlineInputBorder(),
+
+                  enabled: widget.model!.isEditing,
+                ),
+                controller: widget.model!.phoneNumController,
+              )
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(bottom: 5),
+              child: TextFormField(
+                style: TextStyle(fontWeight: FontWeight.w700),
+                decoration: InputDecoration(
+                  label: MyText(text: "Date of birth", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
                   //Style

@@ -44,18 +44,18 @@ class _ScanConnectState extends State<ScanConnect> {
     }
   }
 
-  void isLogin() async {
-    // await StorageServices.fetchData(DbKey.login).then((value) {
-    //   if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
-    // });
+  // void isLogin() async {
+  //   // await StorageServices.fetchData(DbKey.login).then((value) {
+  //   //   if (value != null) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navbar()), (route) => false);
+  //   // });
 
-    // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ImportAccount()), (route) => false);
-    // await Future.delayed(Duration(seconds: 1), (){});
-    // Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
-    setState(() {
-      checkLogin = false;
-    });
-  }
+  //   // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ImportAccount()), (route) => false);
+  //   // await Future.delayed(Duration(seconds: 1), (){});
+  //   // Provider.of<ApiProvider>(context, listen: false).initApi(context: context);
+  //   setState(() {
+  //     checkLogin = false;
+  //   });
+  // }
 
   Future<void> submitLogin() async {
 

@@ -21,9 +21,14 @@ import 'package:polkawallet_sdk/storage/types/keyPairData.dart';
 import 'package:polkawallet_sdk/api/apiKeyring.dart';
 import 'package:polkawallet_sdk/utils/localStorage.dart';
 import 'package:provider/provider.dart';
+import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/models/account_m.dart';
+import 'package:student_id/provider/home_p.dart';
+import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/services/apiKeyring.dart';
 // import 'package:bitcoin_flutter/bitcoin_flutter.dart';
+import 'package:encrypt/encrypt.dart';
+import 'package:student_id/services/storage.dart';
 
 class ApiProvider with ChangeNotifier {
   
@@ -80,7 +85,9 @@ class ApiProvider with ChangeNotifier {
         _jsCode = js;
       });
       await _keyring.init([42]);
+      print("finish init keyring");
       await _sdk.init(_keyring, jsCode: _jsCode);
+      print("finish init sdk");
       _apiKeyring = MyApiKeyring(_sdk.api, _sdk.api.keyring.service!);
       await connectNode(context: context);
 
@@ -364,11 +371,10 @@ class ApiProvider with ChangeNotifier {
       // node.endpoint = 'wss://rpc1-mainnet.selendra.org/';//isMainnet ? AppConfig.networkList[0].wsUrlMN : AppConfig.networkList[0].wsUrlTN;
       // node.ss58 = 972;//isMainnet ? AppConfig.networkList[0].ss58MN : AppConfig.networkList[0].ss58;
 
-      final res = await _sdk.api.connectNode(_keyring, [node]);
-      print("My res $res");
-      // .then((value) async {
-      //   await addAcc(context: context);
-      // });
+      final res = await _sdk.api.connectNode(_keyring, [node]).then((value) async {
+        // await addAcc(context: context);
+        await _autoGenerateAcc(context: context);
+      });
 
       // final res = await _sdk.webView!.evalJavascript("settings.connect(${jsonEncode([node].map((e) => e.endpoint).toList())})");
 
@@ -381,6 +387,34 @@ class ApiProvider with ChangeNotifier {
       // print("Error connectSELNode $e");
     }
     return null;
+  }
+
+  Future<void> _autoGenerateAcc({BuildContext? context}) async {
+    print("_autoGenerateAcc");
+
+    try {
+
+      String _seed = await Provider.of<ApiProvider>(context!, listen: false).generateMnemonic();
+      print("_Seed $_seed");
+      RegistrationProvider _registration = Provider.of<RegistrationProvider>(context, listen: false);
+      await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context, usrName: '', password: "1234", seed: _seed).then((value) async {
+
+        // Encode Data
+        Map<String, dynamic>? map = {
+          'usrName': '',
+          'email': _registration.email,
+          'password': "1234",
+          'seed': _seed
+        };
+        
+        // Encrypt Data
+        Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
+        await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
+      });
+    } catch (e){
+      print("Error _autoGenerateAcc $e");
+    }
+
   }
 
   Future<void> addAcc({@required BuildContext? context, required String? usrName, required String? password, required String? seed}) async {
@@ -407,6 +441,10 @@ class ApiProvider with ChangeNotifier {
       password: password,
     ).then((value) {
       print("addAccount $value");
+    });
+
+    await getCurrentAccount(funcName: "keyring").then((value) {
+      Provider.of<HomeProvider>(context!, listen: false).setWallet = accountM.address!;
     });
   }
 
@@ -661,7 +699,9 @@ class ApiProvider with ChangeNotifier {
 
   /// Generate a set of new mnemonic.
   Future<String> generateMnemonic() async {
+    print("generateMnemonic");
     final Map<String, dynamic> acc = await _sdk.webView!.evalJavascript('keyring.gen()');
+    print("acc['mnemonic'] ${acc['mnemonic']}");
     return acc['mnemonic'];
   }
 

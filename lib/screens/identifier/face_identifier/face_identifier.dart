@@ -49,7 +49,7 @@ class _IdentifierState extends State<IdentifierFace> {
 
       Navigator.pushAndRemoveUntil(
         context, 
-        MaterialPageRoute(builder: (context) => const Navbar()), 
+        MaterialPageRoute(builder: (context) => DashboardPage()), 
         (route) => false
       );
     });

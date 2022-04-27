@@ -7,6 +7,7 @@ import 'package:student_id/components/text_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/models/identifier_m.dart';
+import 'package:student_id/services/services_s.dart';
 
 class IdentifierFaceBody extends StatelessWidget {
 
@@ -76,11 +77,13 @@ class IdentifierFaceBody extends StatelessWidget {
                         onPressed: () async {
                           try {
 
-                            final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
+                            // final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
+
+                            final pickedFile = await Services.pickImage(ImageSource.camera);
                             if (model!.frontFaceImage == ''){
-                              await pickImage!(img, 'front');
+                              await pickImage!(pickedFile, 'front');
                             } else {
-                              await pickImage!(img, 'back');
+                              await pickImage!(pickedFile, 'back');
                             }
                           } catch (e){
                             print("Error $e");
@@ -90,7 +93,7 @@ class IdentifierFaceBody extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Icons.camera),
+                            // Icon(Icons.camera),
                             MyText(
                               text: "Take a photo"
                             )
@@ -103,11 +106,18 @@ class IdentifierFaceBody extends StatelessWidget {
                         onPressed: () async {
                           try {
 
-                            final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                            if (model!.frontFaceImage == ''){
-                              await pickImage!(image!.path, 'front');
+                            // final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                            // if (model!.frontFaceImage == ''){
+                            //   await pickImage!(image!.path, 'front');
+                            // } else {
+                            //   await pickImage!(image!.path, 'back');
+                            // }
+
+                            final pickedFile = await Services.pickImage(ImageSource.gallery);
+                            if (model!.frontFaceImage == '') {
+                              await pickImage!(pickedFile!.path, 'front');
                             } else {
-                              await pickImage!(image!.path, 'back');
+                              await pickImage!(pickedFile!.path, 'back');
                             }
                           } catch (e){
 
@@ -117,7 +127,7 @@ class IdentifierFaceBody extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Icons.upload),
+                            // Icon(Icons.upload),
                             MyText(
                               text: "Upload image"
                             )

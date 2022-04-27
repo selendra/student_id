@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,35 +11,37 @@ import 'package:student_id/main.dart';
 import 'package:student_id/models/dashboard_m.dart';
 import 'package:student_id/models/identifier_m.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/dashboard/body_dashboard.dart';
+import 'package:student_id/services/services_s.dart';
 import 'package:student_id/services/storage.dart';
 
-
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _DashboardPageState extends State<DashboardPage> with TickerProviderStateMixin {
   
   TextEditingController phraseKey = TextEditingController();
-  DashBoardModel dashBoardM = DashBoardModel();
+  DashBoardModel _dashBoardM = DashBoardModel();
   IdentifierModel _identifierModel = IdentifierModel();
+  TabController? _tabController;
 
   Future pickImage(ImageSource source, String? label) async {
 
-    final pickedFile = await ImagePicker.platform.pickImage(source: source);
+    final pickedFile = await Services.pickImage(source);
     
     if (pickedFile != null){
       setState(() {
         if (label == 'cover'){
-          dashBoardM.cover = pickedFile.path;
+          _dashBoardM.cover = pickedFile.path;
         } else {
 
-          dashBoardM.profile = pickedFile.path;
+          _dashBoardM.profile = pickedFile.path;
         }
       });
     }
@@ -46,69 +49,75 @@ class _DashboardPageState extends State<DashboardPage> {
   
   void edit(){
     setState(() {
-      dashBoardM.isEditing = !dashBoardM.isEditing;
-      if (dashBoardM.isEditing == false) resetEdit();
+      _dashBoardM.isEditing = !_dashBoardM.isEditing;
+      if (_dashBoardM.isEditing == false) resetEdit();
     });
   }
 
   void resetEdit(){
     setState(() {
       
-      dashBoardM.nameController.text = dashBoardM.name;
-      dashBoardM.emailController.text = dashBoardM.email;
-      dashBoardM.nationalityController.text = dashBoardM.nationality;
-      dashBoardM.phoneNumController.text = dashBoardM.phoneNum;
+      _dashBoardM.nameController.text = _dashBoardM.name;
+      _dashBoardM.emailController.text = _dashBoardM.email;
+      _dashBoardM.nationalityController.text = _dashBoardM.nationality;
+      _dashBoardM.phoneNumController.text = _dashBoardM.phoneNum;
+    });
+  }
+
+  void onTab(int index){
+    setState(() {
+      if (index == 0){
+        _dashBoardM.titlePage = "Basic Info";
+      } else if (index == 1) {
+        String _wallet = Provider.of<HomeProvider>(context, listen: false).homeModel.wallet;
+        _dashBoardM.titlePage = "Your wallet address: ${_wallet.replaceRange( 5, _wallet.length - 5, ".....")}";
+      }
     });
   }
 
   @override
   void initState() {
-    dashBoardM.name = "Rithy THUL";
-    dashBoardM.email = "rithythul@gmail.com";
-    dashBoardM.nationality = "Cambodian";
-    dashBoardM.phoneNum = "+855-77-202-202";
-
-    dashBoardM.nameController.text = "Rithy THUL";
-    dashBoardM.emailController.text = "rithythul@gmail.com";
-    dashBoardM.nationalityController.text = "Cambodian";
-    dashBoardM.phoneNumController.text = "+855-77-202-202";
+    _tabController = TabController(length: 3, vsync: this);
+    _dashBoardM = Provider.of<HomeProvider>(context, listen: false).homeModel;
     // StorageServices.removeKey(DbKey.idKey);
     initId();
     super.initState();
   }
 
+  /// For Check Identity Setup (National ID, Student)
   initId() async {
     await StorageServices.fetchData(DbKey.idKey).then((value) {
       if (value != null){
         _identifierModel = IdentifierModel().fromDb(value);
         Provider.of<IdentifierProvider>(context, listen: false).setSetup = true;
-        setState(() {
-        });
+        setState(() { });
       }
     });
 
-
     await StorageServices.fetchData(DbKey.sensitive).then((value) async {
+      print("fetchData $value");
+      if (value != null){
 
-      Map<String, dynamic> data = await json.decode(Encryption().decryptAES(value));
+        Map<String, dynamic> data = await json.decode(Encryption().decryptAES(value));
 
-      print(data);
+        print(data);
 
-      dashBoardM.name = data['usrName'];
-      dashBoardM.email = data['email'];
-      dashBoardM.nameController.text = data['usrName'];
-      dashBoardM.emailController.text = data['email'];
+        _dashBoardM.name = data['usrName'] == "" ? "None" : data['usrName'];
+        _dashBoardM.email = data['email'] == "" ? "None" : data['email'];
+        _dashBoardM.nameController.text = data['usrName'] == "" ? "None" : data['usrName'];
+        _dashBoardM.emailController.text = data['email'] == "" ? "None" : data['email'];
+      }
       
     });
     setState(() { });
   }
 
   void submitEdit(){
-    dashBoardM.name = dashBoardM.nameController.text;
-    dashBoardM.email = dashBoardM.emailController.text;
-    dashBoardM.nationality = dashBoardM.nationalityController.text;
-    dashBoardM.phoneNum = dashBoardM.phoneNumController.text;
-    dashBoardM.isEditing = false;
+    _dashBoardM.name = _dashBoardM.nameController.text;
+    _dashBoardM.email = _dashBoardM.emailController.text;
+    _dashBoardM.nationality = _dashBoardM.nationalityController.text;
+    _dashBoardM.phoneNum = _dashBoardM.phoneNumController.text;
+    _dashBoardM.isEditing = false;
 
     setState(() {
       
@@ -122,6 +131,16 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DashBoardBody(dashModel: dashBoardM, idModel: _identifierModel, edit: edit, pickImage: pickImage, submitEdit: submitEdit);
+    return DefaultTabController(
+      length: 3, 
+      child: DashBoardBody(
+        dashModel: _dashBoardM,
+        onTab: onTab,
+        tabController: _tabController, 
+        idModel: _identifierModel, 
+        edit: edit, 
+        pickImage: pickImage, submitEdit: submitEdit
+      )
+    );
   }
 }

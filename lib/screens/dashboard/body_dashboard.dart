@@ -7,13 +7,18 @@ import 'package:student_id/main.dart';
 import 'package:student_id/models/dashboard_m.dart';
 import 'package:student_id/models/identifier_m.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/screens/dashboard/indentityInfo.dart';
 import 'package:student_id/screens/identifier/identifier_option.dart';
+import 'package:student_id/screens/mint_data/mint_data.dart';
 
 class DashBoardBody extends StatelessWidget {
 
   final DashBoardModel? dashModel;
   final IdentifierModel? idModel;
+  final TabController? tabController;
+  final Function? onTab;
   final Function? edit;
   final Function? pickImage;
   final Function? submitEdit;
@@ -22,6 +27,8 @@ class DashBoardBody extends StatelessWidget {
     Key? key, 
     required this.dashModel, 
     required this.idModel, 
+    this.tabController,
+    required this.onTab,
     required this.edit, 
     required this.pickImage, 
     required this.submitEdit 
@@ -32,128 +39,114 @@ class DashBoardBody extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-          width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                
-                profileWidget(context, model: dashModel, pickImage: pickImage),
-                const DashboardOptions(),
-                titleDashboard('Basic Info', context, title2: "Identities"),
-                
-                PersonlInfo(model: dashModel, edit: edit),
-              
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: paddingSize),
-                    child: Divider(
-                    height: 1,
-                    color: Colors.grey
-                  )
-                ),
+      body: Consumer<HomeProvider>(
+        builder: (context, provider, widget){
+          return SafeArea(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  
+                  profileWidget(context, model: dashModel, pickImage: pickImage),
 
-                Consumer<IdentifierProvider>(
-                  builder: (context, provider, widget){
-                    return provider.alreadySetup == true 
-                    ? MyText(
-                      text: provider.identifierModel!.title, 
-                      textAlign: TextAlign.left, 
-                      fontWeight: FontWeight.w600,
-                      top: paddingSize,
-                      left: paddingSize,
-                    ) 
-                    : Container();
-                  }
-                ),
-                Consumer<IdentifierProvider>(
-                  builder: (context, provider, widget){
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
-                      child: provider.alreadySetup == false 
-                      ? ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            Colors.transparent
-                          ),
-                          side: MaterialStateProperty.all(
-                            BorderSide()
-                          ),
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(13)
-                            )
-                          ),
-                        ),
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const IDOption()));
-                        }, 
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12)
-                          ),
-                          alignment: Alignment.center,
-                          child: MyText(
-                            text: "Setup your ID",
-                            fontWeight: FontWeight.w600,
-                            color2: Colors.white,
-                          )
-                        )
-                      )
-                      : Card(
-                        child: Column(
-                          children: [
-                            Image.file(File(provider.identifierModel!.frontImage!), width: 400, height: 200,)
-                          ],
-                        ),
-                      )
-                    );
-                  },
-                ),
+                  TabBar(
+                    controller: tabController,
+                    onTap: (index){
+                      onTab!(index);
+                    },
+                    tabs: [
+                      
+                      Consumer<IdentifierProvider>(
+                        builder: (context, provider, widget){
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
 
-                dashModel!.isEditing == true 
-                ? Padding(
-                  padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: (){
-                        submitEdit!();
-                      }, 
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13)
-                          )
-                        ),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+
+                                  Icon(Icons.people_alt_outlined, size: 40, color: provider.alreadySetup! ? Colors.blue : greyColor,),
+
+                                  provider.alreadySetup! 
+                                  ? const Positioned(
+                                    child: Icon(Icons.check, size: 20, color: Colors.blue),
+                                    right: 0,
+                                    bottom: 0,
+                                  ) 
+                                  : Container()
+                                ],
+                              ),
+                              Text(
+                                'Verify',
+                                style: TextStyle(color: provider.alreadySetup! ? Colors.blue : greyColor, fontWeight: FontWeight.w600),
+                              )
+                            ],
+                          );
+                        },
                       ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12)
-                        ),
-                        alignment: Alignment.center,
-                        child: MyText(
-                          text: "Submit Edit",
-                          fontWeight: FontWeight.w600,
-                          color2: Colors.white,
-                        )
-                      )
-                    ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.qr_code_2_outlined, size: 40, color: greyColor,),
+                          Text(
+                            'Wallet ID',
+                            style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              qrCodeAlertDialog(context);
+                            },
+                            icon: const Icon(Icons.share_outlined),
+                            iconSize: 40,
+                            color: greyColor,
+                          ),
+                          Text(
+                            'Share',
+                            style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
+
+                    ]
+                  ),
+
+                  titleDashboard(dashModel!.titlePage, context),
+
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: TabBarView(
+                        controller: tabController,
+                        children: [
+                          PersonlInfo(model: dashModel, edit: edit),
+                          IdentityInfo(dashBoardModel: dashModel, submitEdit: edit),
+                          IdentityInfo(dashBoardModel: dashModel, submitEdit: edit),
+                        ]
+                      ),
+                    )
                   )
-                ) 
-                : Container(),
-              ],
+
+                ],
+              )
             )
-          )
-        ),
-      ),
+          );
+        }
+      )
     );
   }
 }
