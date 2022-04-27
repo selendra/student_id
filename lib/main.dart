@@ -8,6 +8,8 @@ import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/identifier_p.dart';
 import 'package:student_id/provider/registration_p.dart';
 
+import 'screens/test_screen_ui.dart';
+
 void main() {
   // FlutterNativeSplash.removeAfter(initialization);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -30,7 +32,7 @@ void main() {
           create: (context) => HomeProvider(),
         ),
       ],
-      child: MyApp()
+      child: const MyApp()
     )
   );
 }
@@ -102,7 +104,8 @@ class _MyAppState extends State<MyApp> {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: DashboardPage(),//CreateWalletPage(),
+      home:  const LoginPage(),
+      //LoginPage(),//CreateWalletPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

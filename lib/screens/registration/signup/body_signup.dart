@@ -3,6 +3,8 @@ import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
 import 'package:student_id/models/sign_up_m.dart';
 
+import '../../../shared/typography.dart';
+
 class SignUpPageBody extends StatelessWidget {
 
   final SignUpModel? signUpModel;
@@ -25,7 +27,7 @@ class SignUpPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -40,19 +42,16 @@ class SignUpPageBody extends StatelessWidget {
                     const SizedBox(height: 20),
                     selLogo(context),
                     const SizedBox(height: 20),
-                    const Text('Sign Up',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                    Text('Sign Up',
+                      style: TypographyHelper.titleTextStyleBlack.copyWith(fontSize: 20, fontWeight: FontWeight.bold)
                     ),
                     const SizedBox(height: 15),
-                    const Text(
-                      'One account. One place to manage it all.\n Welcome to you account dashboard.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey
-                      )
-                    ),
+                    Text(
+                        'One account. One place to manage it all.\n Welcome to you account dashboard.',
+                        textAlign: TextAlign.center,
+                        style:TypographyHelper.subTitleTextStyleBlack.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey)),
                     const SizedBox(height: 20),
                     const GoogleBtn(
                       title: 'Login with Google',
@@ -60,11 +59,25 @@ class SignUpPageBody extends StatelessWidget {
                     // const FacebookBtn(
                     //   title: 'Login with META',
                     // ),
+                    // const CustomBtn(
+                    //   title: 'Login with Meta',
+                    //   logo: 'meta.svg',
+                    // ),
+                    // const CustomBtn(
+                    //   title: 'Login with Metamask',
+                    //   logo: 'metamask.svg',
+                    // ),
+                    // const CustomBtn(
+                    //   title: 'Login with Trust',
+                    //   logo: 'trust.svg',
+                    // ),
                     const CustomBtn(
-                      title: 'Login with Meta',
-                      logo: 'meta.svg',
+                      title: 'Login with Bitriel',
+                      logo: 'bitriel.svg',
                     ),
+                    const SizedBox(height: 8.0),
                     divider('or Sign up with Email'),
+                    const SizedBox(height: 8.0),
                     MyInput(
                       label: 'Full name',
                       textEditingController: signUpModel!.userNameController, 
@@ -122,7 +135,6 @@ class SignUpPageBody extends StatelessWidget {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 20),
                     SubmitButton(
                       text: 'Submit',
                       onPressed: () async {

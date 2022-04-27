@@ -7,6 +7,7 @@ import 'package:student_id/components/components_c.dart';
 import 'package:student_id/components/image_edit_c.dart';
 import 'package:student_id/components/text_c.dart';
 import 'package:student_id/models/dashboard_m.dart';
+import 'package:student_id/shared/typography.dart';
 
 // =============================== Reuse Widget ===============================
 void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
@@ -232,7 +233,7 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
 
 Widget divider(String title) {
   return Container(
-    color: Colors.white,
+    color: Colors.white.withOpacity(0.5),
     child: Row(children: <Widget>[
       Expanded(
         child: Container(
@@ -242,7 +243,7 @@ Widget divider(String title) {
               height: 50,
             )),
       ),
-      Text(title, style: const TextStyle(color: Colors.grey)),
+      Text(title, style:TypographyHelper.subTitleTextStyleBlack.copyWith(fontWeight: FontWeight.w400,color: Colors.grey)),
       Expanded(
         child: Container(
             margin: const EdgeInsets.only(left: 15.0, right: 10.0),

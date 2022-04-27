@@ -12,6 +12,8 @@ import 'package:student_id/models/sign_up_m.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/services/storage.dart';
 
+import '../../test_screen_ui.dart';
+
 class VerifyAcc extends StatefulWidget {
 
   final SignUpModel? signUpModel;
@@ -64,23 +66,25 @@ class _VerifyAccState extends State<VerifyAcc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MyText(
-            width: MediaQuery.of(context).size.width / 1.3,
-            text: "We sent a verify link in your email\nTo able to go next please check and verify your account!",
-            bottom: paddingSize,
-          ),
+      body: TestGlasUI(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyText(
+              width: MediaQuery.of(context).size.width / 1.3,
+              text: "We sent a verify link in your email\nTo able to go next please check and verify your account!",
+              bottom: paddingSize,
+            ),
 
-          SubmitButton(
-            text: 'Submit',
-            onPressed: () async {
-              await verifyAcc();
-            },
-          )
-        ],
+            SubmitButton(
+              text: 'Submit',
+              onPressed: () async {
+                await verifyAcc();
+              },
+            )
+          ],
+        ),
       ),
     );
   }
