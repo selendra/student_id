@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/column_info_c.dart';
@@ -9,6 +10,8 @@ import 'package:student_id/screens/dashboard/edit_info.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:student_id/all_export.dart';
+
+import '../shared/typography.dart';
 
 class PhraseInput extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -109,58 +112,57 @@ class EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            controller: textEditingController,
-            onChanged: (value) {
-              //Do something wi
-            },
-            validator: (value) {
-              // Check if this field is empty
-              if (value == null || value.isEmpty) {
-                return 'This field is required';
-              }
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+      child: TextFormField(
+        controller: textEditingController,
+        onChanged: (value) {
+          //Do something wi
+        },
+        validator: (value) {
+          // Check if this field is empty
+          if (value == null || value.isEmpty) {
+            return 'This field is required';
+          }
 
-              // using regular expression
-              if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                return "Please enter a valid email address";
-              }
+          // using regular expression
+          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+            return "Please enter a valid email address";
+          }
 
-              // the email is valid
-              return null;
-            },
-            onFieldSubmitted: (String value){
-              onFieldSubmitted!();
-            },
-            keyboardType: TextInputType.emailAddress,
-            style: const TextStyle(fontSize: 14, color: Colors.black),
-            decoration: InputDecoration(
-              label: const Text("Email"),
-              labelStyle: const TextStyle(color: Colors.grey),
-              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-              contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              ),
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.red, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              ),
-            ),
+          // the email is valid
+          return null;
+        },
+        onFieldSubmitted: (String value){
+          onFieldSubmitted!();
+        },
+        keyboardType: TextInputType.emailAddress,
+        style: TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.black87),
+        decoration: InputDecoration(
+          // label: const Text("Email"),
+          //labelStyle: const TextStyle(color: Colors.grey),
+          fillColor: Colors.white,
+          filled: true, 
+          hintText: "Email",
+          hintStyle:TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.grey.withOpacity(.75)),
+          isDense: true, 
+          contentPadding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
+          border:  OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(50.0)),
           ),
-        ],
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+          ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          ),
+          enabledBorder:  OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+          ),
+        ),
       ),
     );
   }
@@ -186,7 +188,7 @@ class PassInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -214,27 +216,31 @@ class PassInput extends StatelessWidget {
               onFieldSubmitted!();
             },
             keyboardType: TextInputType.emailAddress,
-            style: const TextStyle(fontSize: 14, color: Colors.black),
+            style: TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.black87),
             decoration: InputDecoration(
-              label: Text(label!),
-              labelStyle: const TextStyle(color: Colors.grey),
-              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-              contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              // label: Text(label!),
+              // labelStyle: const TextStyle(color: Colors.grey),
+              fillColor: Colors.white,
+              filled: true, 
+              hintText: label!,
+              hintStyle:TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.grey.withOpacity(.75)),
+              isDense: true, 
+              contentPadding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+                borderRadius:const  BorderRadius.all(Radius.circular(50.0)),
               ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+                borderRadius: const BorderRadius.all(Radius.circular(50.0)),
               ),
               errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              enabledBorder:  OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+                borderRadius: const BorderRadius.all(Radius.circular(50.0)),
               ),
             ),
           ),
@@ -257,7 +263,7 @@ class MyInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -273,27 +279,31 @@ class MyInput extends StatelessWidget {
             onFieldSubmitted: (String value){
               onFieldSubmitted!();
             },
-            style: const TextStyle(fontSize: 14, color: Colors.black),
+            style: TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.black87),
             decoration: InputDecoration(
-              label: Text("$label"),
-              labelStyle: const TextStyle(color: Colors.grey),
-              hintStyle: TextStyle(color: Colors.grey.withOpacity(.75)),
-              contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              // label: Text("$label"),
+              // labelStyle: const TextStyle(color: Colors.grey),
+              fillColor: Colors.white,
+              filled: true, 
+              hintText: label,
+              hintStyle:TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.grey.withOpacity(.75)),
+              isDense: true, 
+              contentPadding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
+              border:  OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+                borderRadius:const BorderRadius.all(Radius.circular(50.0)),
               ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              focusedBorder:  OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+                borderRadius:const BorderRadius.all(Radius.circular(50.0)),
               ),
               errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(50.0)),
               ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              enabledBorder:  OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+                borderRadius:const BorderRadius.all(Radius.circular(50.0)),
               ),
             ),
           ),
@@ -324,39 +334,30 @@ class _VerifyInputState extends State<VerifyInput> {
         keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly
-        ], // Only n
+        ], 
+        style: TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.black87),// Only n
         decoration: InputDecoration(
-          label: const Text("Verify"),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
-          labelStyle: const TextStyle(color: Colors.grey),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.red,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
+          fillColor: Colors.white,
+          filled: true, 
+          hintText: "Verify",
+          hintStyle:TypographyHelper.titleTextStyleBlack.copyWith(color: Colors.grey.withOpacity(.75)),
+          isDense: true, 
+          contentPadding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
+          border:  OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(50.0)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(50.0),
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+          ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          ),
+          enabledBorder:  OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.0),
+            borderRadius: const BorderRadius.all(Radius.circular(50.0)),
           ),
         ),
         onChanged: widget.onChanged,
@@ -397,27 +398,32 @@ class GoogleBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 54,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      height: 65,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
+        border: Border.all(width: 0.5, color: Colors.grey.withOpacity(0.2)),
         color: Colors.white,
       ),
       child: TextButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.grey),
+            side: BorderSide(color: Colors.grey.withOpacity(0.2)),
             borderRadius: BorderRadius.circular(50))
           )
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/logos/google-icon.png', width: 20),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(title!, style: const TextStyle(color: Colors.black, fontSize: 16)),
+            Expanded(
+              flex: 2,
+              child: Image.asset('assets/logos/google-icon.png',height: 30, width: 30)),
+            // const SizedBox(
+            //   width: 10,
+            // ),
+            Expanded(
+              flex: 4,
+              child: Text(title!,textAlign: TextAlign.start, style: TypographyHelper.titleTextStyleBlack.copyWith(fontWeight: FontWeight.w600))),
           ],
         ),
         onPressed: onPressed,
@@ -439,27 +445,35 @@ class CustomBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 54,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      height: 65,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
+        border: Border.all(width: 0.5, color: Colors.grey.withOpacity(0.2)),
         color: Colors.white,
       ),
       child: TextButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.grey),
+            side:  BorderSide(color: Colors.grey.withOpacity(0.2)),
             borderRadius: BorderRadius.circular(50))
           )
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/logos/$logo', width: 20),
-            const SizedBox(
-              width: 10,
+            Expanded(
+              flex: 2,
+              child: SvgPicture.asset('assets/logos/$logo', width: 30)
             ),
-            Text(title!, style: const TextStyle(color: Colors.black, fontSize: 16)),
+            // const SizedBox(
+            //   width: 10,
+            // ),
+            Expanded(
+              flex: 4,
+              child: Text(title!,textAlign: TextAlign.start, style: TypographyHelper.titleTextStyleBlack.copyWith(fontWeight: FontWeight.w600))
+            ),
           ],
         ),
         onPressed: onPressed,
@@ -549,7 +563,7 @@ class SubmitButton extends StatelessWidget {
               onPressed: onPressed,
               child: Text(
                 text!,
-                style: const TextStyle(color: accentColor, fontSize: 16),
+                style: TypographyHelper.titleTextStyleBlack.copyWith(color: accentColor,fontSize: 18,fontWeight: FontWeight.w600),
               ),
             )),
       ),

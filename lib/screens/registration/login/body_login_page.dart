@@ -7,6 +7,8 @@ import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
 import 'package:student_id/screens/wallet_connect/wallet_connect.dart';
 import 'package:wallet_connect/wallet_connect.dart';
 
+import '../../../shared/typography.dart';
+
 class LoginPageBody extends StatelessWidget {
 
   final TextEditingController emailInputController;
@@ -31,7 +33,7 @@ class LoginPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -46,15 +48,14 @@ class LoginPageBody extends StatelessWidget {
                     const SizedBox(height: 20),
                     selLogo(context),
                     const SizedBox(height: 20),
-                    const Text('Login',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                    Text('Login',
+                      style: TypographyHelper.titleTextStyleBlack.copyWith(fontSize: 20, fontWeight: FontWeight.bold)
                     ),
                     const SizedBox(height: 15),
-                    const Text(
+                    Text(
                         'One account. One place to manage it all.\n Welcome to you account dashboard.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15,
+                        style:TypographyHelper.subTitleTextStyleBlack.copyWith(
                             fontWeight: FontWeight.w400,
                             color: Colors.grey)),
                     const SizedBox(height: 20),
@@ -64,23 +65,25 @@ class LoginPageBody extends StatelessWidget {
                     // const FacebookBtn(
                     //   title: 'Login with META',
                     // ),
-                    const CustomBtn(
-                      title: 'Login with Meta',
-                      logo: 'meta.svg',
-                    ),
+                    // const CustomBtn(
+                    //   title: 'Login with Meta',
+                    //   logo: 'meta.svg',
+                    // ),
                     const CustomBtn(
                       title: 'Login with Metamask',
                       logo: 'metamask.svg',
                     ),
-                    const CustomBtn(
-                      title: 'Login with Trust',
-                      logo: 'trust.svg',
-                    ),
+                    // const CustomBtn(
+                    //   title: 'Login with Trust',
+                    //   logo: 'trust.svg',
+                    // ),
                     const CustomBtn(
                       title: 'Login with Bitriel',
                       logo: 'bitriel.svg',
                     ),
+                    const SizedBox(height: 8.0),
                     divider('or Login with Email'),
+                    const SizedBox(height: 8.0),
                     EmailInput(
                       textEditingController: emailInputController, 
                       onFieldSubmitted: (){
@@ -95,7 +98,7 @@ class LoginPageBody extends StatelessWidget {
                       },
                     ),
                     SubmitButton(
-                      text: 'Login',
+                      text: 'Submit',
                       onPressed: () async {
                         // validator!();
                         await submitLogin!();

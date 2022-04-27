@@ -1,5 +1,5 @@
 import 'package:student_id/all_export.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 class MyText extends StatelessWidget{
 
   final String? text; 
@@ -40,11 +40,15 @@ class MyText extends StatelessWidget{
         height: height,
         child: Text(
           text!,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontWeight: fontWeight,
             color: color2 ?? HexColor(color!),
-            fontSize: fontSize,
-          ),
+            fontSize: fontSize,),
+          // TextStyle(
+          //   fontWeight: fontWeight,
+          //   color: color2 ?? HexColor(color!),
+          //   fontSize: fontSize,
+          // ),
           textAlign: textAlign,
           overflow: overflow,
         )

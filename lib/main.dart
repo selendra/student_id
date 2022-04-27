@@ -10,6 +10,8 @@ import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
 import 'package:student_id/screens/registration/signup/signup.dart';
 
+import 'screens/test_screen_ui.dart';
+
 void main() {
   // FlutterNativeSplash.removeAfter(initialization);
   runApp(
@@ -28,7 +30,7 @@ void main() {
           create: (context) => WalletConnectComponent(),
         ),
       ],
-      child: MyApp()
+      child: const MyApp()
     )
   );
 }
@@ -100,7 +102,8 @@ class _MyAppState extends State<MyApp> {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: LoginPage(),//CreateWalletPage(),
+      home:  const SetupPage(),
+      //LoginPage(),//CreateWalletPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

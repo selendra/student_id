@@ -8,6 +8,8 @@ import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/services/storage.dart';
 
+import '../../test_screen_ui.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -63,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> submitLogin() async {
-
     MyDialog().dialogLoading(context);
     print("submitLogin");
     try {
@@ -87,8 +88,28 @@ class _LoginPageState extends State<LoginPage> {
               await MyDialog().customDialog(context, "Message", "We sent you 4 digit OTP code.\nPlease check your email.");
             }
           });
-
-          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage())); 
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => const OTPVerifyPage())); 
+          return showModalBottomSheet(
+              useRootNavigator: true,
+              isScrollControlled: true,
+              context: context,
+              clipBehavior: Clip.antiAlias,
+              shape: const RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(
+                  top: Radius.circular(24),
+                ),
+              ),
+              builder: (context) {
+                return StatefulBuilder(builder:
+                    (context, setModalState) {
+                  return  SizedBox(
+                    height: MediaQuery.of(context).size.height -200,
+                    child: const OTPVerifyPage()
+                  );
+                });
+              }
+            );
           // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");
@@ -117,14 +138,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return checkLogin == false 
-    ? LoginPageBody(
-      emailInputController: emailInputController,
-      passwordInputController: passwordInputController,
-      handleRememberMe: handleRememberMe,
-      isChecked: isChecked,
-      formKey: formKey,
-      validator: validator,
-      submitLogin: submitLogin
+    ? TestGlasUI(
+      body: LoginPageBody(
+        emailInputController: emailInputController,
+        passwordInputController: passwordInputController,
+        handleRememberMe: handleRememberMe,
+        isChecked: isChecked,
+        formKey: formKey,
+        validator: validator,
+        submitLogin: submitLogin
+      ),
     ) 
     : const Scaffold(body: Center(
       child: CircularProgressIndicator(),
