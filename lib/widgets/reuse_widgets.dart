@@ -197,7 +197,7 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 3.3,
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withOpacity(0.4),
               child: MyText(text: "+ Upload image", color2: Colors.white, top: paddingSize*2,),
             ),
           )
@@ -243,7 +243,7 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
                   },
                   child: CircleAvatar(
                     radius: 60,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.black.withOpacity(0.4),
                     child: ClipOval(
                       child: Container(
                         height: 110,
@@ -307,18 +307,12 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
                           // Clear Cache Data
                           await StorageServices.clearAllData();
 
-                          print("finish clear all data");
-
                           // Delete Account From Substrate
                           ApiProvider _api = Provider.of<ApiProvider>(context, listen: false);
                           await _api.apiKeyring.deleteAccount(
                             _api.getKeyring,
                             _api.getKeyring.current,
                           );
-                          print("_api.getKeyring ${_api.getKeyring}");
-                          print("_api.accountM.currentAcc! ${_api.getKeyring.current}");
-
-                          print("finish clear _api.apiKeyring");
 
                           final home = Provider.of<HomeProvider>(context, listen: false);
                           home.homeModel = DashBoardModel();

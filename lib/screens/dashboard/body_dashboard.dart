@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
+import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/screens/dashboard/indentityInfo.dart';
 import 'package:student_id/services/services_s.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DashBoardBody extends StatelessWidget {
 
@@ -64,11 +66,11 @@ class DashBoardBody extends StatelessWidget {
                                 alignment: Alignment.center,
                                 children: [
 
-                                  Icon(Icons.people_alt_outlined, size: 40, color: provider.successSubmitToBlockchain ? Colors.blue : greyColor,),
+                                  Icon(Icons.people_alt_outlined, size: 40, color: greyColor,),
 
                                   provider.successSubmitToBlockchain
-                                  ? const Positioned(
-                                    child: Icon(Icons.check_circle, size: 20, color: Colors.green),
+                                  ? Positioned(
+                                    child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
                                     right: 0,
                                     bottom: 0
                                   ) 
@@ -77,7 +79,7 @@ class DashBoardBody extends StatelessWidget {
                               ),
                               Text(
                                 'Verify',
-                                style: TextStyle(color: provider.successSubmitToBlockchain ? Colors.blue : greyColor, fontWeight: FontWeight.w600),
+                                style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                               )
                             ],
                           );
