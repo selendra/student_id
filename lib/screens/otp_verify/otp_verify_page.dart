@@ -12,6 +12,9 @@ import 'package:student_id/screens/otp_verify/body_otp_verify_page.dart';
 import 'package:student_id/services/storage.dart';
 import 'package:encrypt/encrypt.dart';
 
+import '../../widgets/build_line_top.dart';
+import '../../shared/bg_shared.dart';
+
 
 class OTPVerifyPage extends StatefulWidget {
 
@@ -100,11 +103,15 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return OTPVerifyPageBody(
-      verifyInputController: verifyInputController,
-      formKey: formKey,
-      onChanged: onChanged,
-      validator: validator
+    return Scaffold(
+      body: TestGlasUI(
+        body: OTPVerifyPageBody(
+              verifyInputController: verifyInputController,
+              formKey: formKey,
+              onChanged: onChanged,
+              validator: validator
+            ),
+      ),
     );
   }
 }

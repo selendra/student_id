@@ -3,6 +3,8 @@ import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
 import 'package:student_id/models/sign_up_m.dart';
 
+import '../../../shared/typography.dart';
+
 class SignUpPageBody extends StatelessWidget {
 
   final SignUpModel? signUpModel;

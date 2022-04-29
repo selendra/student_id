@@ -52,6 +52,11 @@ dependencies:
   walletconnect_dart:
   web3dart:
   eth_sig_util:
+  polkawallet_sdk: 0.4.2
+
+  # Apply glass for ui
+  glassmorphism:
+  google_fonts: 
   cupertino_stepper:
   flutter_share:
   carousel_slider:

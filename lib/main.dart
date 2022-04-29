@@ -8,6 +8,8 @@ import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/provider/registration_p.dart';
 
+import 'shared/bg_shared.dart';
+
 void main() {
   // FlutterNativeSplash.removeAfter(initialization);
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +33,7 @@ void main() {
           create: (context) => HomeProvider(),
         ),
       ],
-      child: MyApp()
+      child: const MyApp()
     )
   );
 }
@@ -106,7 +108,8 @@ class _MyAppState extends State<MyApp> {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home: LoginPage(),//CreateWalletPage(),
+      home:  const LoginPage(),
+      //LoginPage(),//CreateWalletPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,
     );

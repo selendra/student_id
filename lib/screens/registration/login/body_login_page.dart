@@ -7,6 +7,8 @@ import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
 import 'package:student_id/screens/wallet_connect/wallet_connect.dart';
 import 'package:wallet_connect/wallet_connect.dart';
 
+import '../../../shared/typography.dart';
+
 class LoginPageBody extends StatelessWidget {
 
   final TextEditingController emailInputController;
@@ -31,7 +33,7 @@ class LoginPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

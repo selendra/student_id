@@ -103,15 +103,7 @@ class DashBoardBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          IconButton(
-                            padding: EdgeInsets.zero,
-                            onPressed: () {
-                              // Services().qrShare(scaffoldKey!, "hello");
-                            },
-                            icon: const Icon(Icons.contact_page_outlined),
-                            iconSize: 40,
-                            color: greyColor,
-                          ),
+                          Icon(Icons.contact_page_outlined, size: 40, color: greyColor,),
                           Text(
                             'Accounts',
                             style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
