@@ -4,9 +4,17 @@ class HomeProvider with ChangeNotifier{
 
   DashBoardModel homeModel = DashBoardModel();
 
+  bool successSubmitToBlockchain = false;
+  bool readyToSubmit = false;
+
   set setWallet(String value) {
     homeModel.wallet = value;
     // notifyListeners();
+  }
+
+  set setSuccessSubmitToBlockchain(bool value) {
+    successSubmitToBlockchain = value;
+    notifyListeners();
   }
 
   HomeProvider(){
@@ -24,6 +32,10 @@ class HomeProvider with ChangeNotifier{
     homeModel.phoneNum = model.phoneNumController.text;
     homeModel.cover = model.cover;  
     homeModel.profile = model.profile;
+    notifyListeners();
+  }
+
+  void notify(){
     notifyListeners();
   }
 }

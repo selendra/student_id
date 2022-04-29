@@ -1,13 +1,23 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/components/components_c.dart';
 import 'package:student_id/components/image_edit_c.dart';
+import 'package:student_id/components/qr_scanner/qr_scanner.dart';
 import 'package:student_id/components/text_c.dart';
+import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/models/dashboard_m.dart';
-import 'package:student_id/shared/typography.dart';
+import 'package:student_id/models/digital_id_m.dart';
+import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/digital_id_p.dart';
+import 'package:student_id/provider/home_p.dart';
+import 'package:student_id/services/storage.dart';
+
+import '../shared/typography.dart';
 
 // =============================== Reuse Widget ===============================
 void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
@@ -163,56 +173,94 @@ Widget selLogo(BuildContext context) {
 Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @required Function? pickImage}) {
   return Stack(
     children: <Widget>[
-      ImageEditComponent(
-        image: model!.cover.contains("https")
-            ? Image.network(
-                model.cover,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3.2,
-                fit: BoxFit.cover,
-              )
-            : Image.file(
-                File(model.cover),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3.2,
-                fit: BoxFit.cover,
-              ),
-        action: () async {
-          print("Cover");
-          await Components().imageOption(context: context, getImage: pickImage, label: "cover");
-        },
+
+      Stack(
+        children: [
+
+          model!.cover.contains("https")
+          ? Image.network(
+            model.cover,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 3.3,
+            fit: BoxFit.cover,
+          )
+          : Image.file(
+            File(model.cover),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 3.3,
+            fit: BoxFit.cover,
+          ),
+          
+          if (model.isEditing)
+          InkWell(
+            onTap: () async {
+              await Components().imageOption(context: context, getImage: pickImage, label: "cover");
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 3.3,
+              color: Colors.black.withOpacity(0.4),
+              child: MyText(text: "+ Upload image", color2: Colors.white, top: paddingSize*2,),
+            ),
+          )
+        ],
       ),
+      
       SizedBox(
         width: (MediaQuery.of(context).size.width),
-        height: MediaQuery.of(context).size.height / 3.2,
+        height: MediaQuery.of(context).size.height / 3.3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
 
-            ImageEditComponent(
-              image: CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.white,
-                child: ClipOval(
-                    child: model.profile.contains("https")
+            Stack(
+              children: [
+
+                ImageEditComponent(
+                  image: CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.white,
+                    child: ClipOval(
+                      child: model.profile.contains("https")
                         ? Image.network(
-                            model.profile,
-                            height: 110,
-                            width: 110,
-                            fit: BoxFit.cover,
-                          )
+                          model.profile,
+                          height: 110,
+                          width: 110,
+                          fit: BoxFit.cover,
+                        )
                         : Image.file(
-                            File(model.profile),
-                            height: 110,
-                            width: 110,
-                            fit: BoxFit.cover,
-                          )),
-              ),
-              action: () async {
-                await Components().imageOption(
-                    context: context, getImage: pickImage, label: "profile");
-              },
+                          File(model.profile),
+                          height: 110,
+                          width: 110,
+                          fit: BoxFit.cover,
+                        )
+                      ),
+                  ),
+                ),
+                
+                if (model.isEditing)
+                InkWell(
+                  onTap: () async {
+                    await Components().imageOption(context: context, getImage: pickImage, label: "profile");
+                  },
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.black.withOpacity(0.4),
+                    child: ClipOval(
+                      child: Container(
+                        height: 110,
+                        width: 110,
+                        color: Colors.black.withOpacity(0.5),
+                        child: Center(
+                          child: MyText(text: "Upload image", color2: Colors.white),
+                        ),
+                      ),
+                    )
+                  ),
+                )
+              ],
             ),
+
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
               child: Text(
@@ -227,6 +275,108 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
           ],
         ),
       ),
+
+      // AppBar
+      Positioned(
+        top: 5,
+        left: 5,
+        right: 5,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+
+              Padding(
+                padding: EdgeInsets.only(left: 5),
+                child: IconButton(
+                  iconSize: 40,
+                  onPressed: () async {
+
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => ToolsPage()));
+                    await MyDialog().customDialog(
+                      context, 
+                      'Delete account', 
+                      'Are you sure to delete your account?',
+                      btn2: TextButton(
+                        onPressed: () async {
+
+                          WalletConnectComponent _session = Provider.of<WalletConnectComponent>(context, listen: false);
+                          if ( _session.sessionStore != null){
+                            _session.wcClient.killSession();
+                          }
+                          MyDialog().dialogLoading(context);
+
+                          // Clear Cache Data
+                          await StorageServices.clearAllData();
+
+                          // Delete Account From Substrate
+                          ApiProvider _api = Provider.of<ApiProvider>(context, listen: false);
+                          await _api.apiKeyring.deleteAccount(
+                            _api.getKeyring,
+                            _api.getKeyring.current,
+                          );
+
+                          final home = Provider.of<HomeProvider>(context, listen: false);
+                          home.homeModel = DashBoardModel();
+                          home.readyToSubmit = false; 
+                          home.setSuccessSubmitToBlockchain = false; 
+                          home.setWallet = ''; 
+                          final digital = Provider.of<DigitalIDProvider>(context, listen: false);
+                          digital.identifierModel = DigitalIDModel();
+
+                          await Future.delayed(Duration(seconds: 1), (){
+
+                          }); 
+                          Navigator.pushNamedAndRemoveUntil(context, loginRoute, (route) => false);
+                        },
+                        child: MyText(
+                          text: 'Delete',
+                          color2: Colors.red,
+                          fontWeight: FontWeight.w700
+                        ),
+                      ),
+                    );
+                  }, 
+                  icon: Row(
+                    children: [
+                      
+                      Icon(
+                        Icons.account_circle_outlined,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+
+                      MyText(
+                        text: Provider.of<ApiProvider>(context, listen: false).accountM.name ?? "",
+                        color2: Colors.white,
+                      )
+                    ]
+                  ),
+                ),
+              ),
+
+              Expanded(child: Container()),
+
+              Padding(
+                padding: EdgeInsets.only(right: 5),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    onPressed: () async {
+                      String result = await Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => QrScanner())
+                      );
+                    }, 
+                    icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white,)
+                  ),
+                ),
+              )
+            ]
+          ),
+        )
+      )
+
     ],
   );
 }
@@ -256,7 +406,7 @@ Widget divider(String title) {
   );
 }
 
-Widget titleDashboard(String title, BuildContext context, {String? title2, TabController? tabController}) {
+Widget titleDashboard(String title, BuildContext context, {Widget? title2, TabController? tabController}) {
   return Container(
     padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
     width: MediaQuery.of(context).size.width,
@@ -272,22 +422,10 @@ Widget titleDashboard(String title, BuildContext context, {String? title2, TabCo
           fontSize: 16,
         ),
         title2 != null
-            ? Container(
-                height: 20,
-                child: const VerticalDivider(
-                  width: 5,
-                  thickness: 1,
-                  color: Colors.grey,
-                  indent: 2,
-                ))
-            : Container(),
-        title2 != null
-            ? MyText(
-                left: 5,
-                text: title2,
-                fontWeight: FontWeight.w700,
-                fontSize: 16)
-            : Container()
+        ? Expanded(
+          child: title2
+        )
+        : Container()
       ],
     ),
   );

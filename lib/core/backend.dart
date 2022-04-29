@@ -200,7 +200,7 @@ class Backend {
     print("getOtp");
     _bodyEncode = json.encode({ /* Convert to Json String */
       "sender": { 
-        "name": "Sender Alex", 
+        "name": "StudentID's Admin", 
         "email":"condaveat@gmail.com" 
       }, "to":[ { "email": "$email", "name":"John Doe" } ], 
       "subject": "Hello", 
@@ -208,6 +208,7 @@ class Backend {
     });
     _res = await _http.post(Uri.parse("https://api.sendinblue.com/v3/smtp/email"), headers: _conceteHeader(key: 'api-key', value: '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'), body: _bodyEncode);
     print("_res ${_res!.body}");
+
     return _res!;
   }
 }

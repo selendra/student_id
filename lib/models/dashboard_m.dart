@@ -21,20 +21,20 @@ class DashBoardModel {
   TextEditingController emailController = TextEditingController();
   TextEditingController nationalityController = TextEditingController();
   TextEditingController phoneNumController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   TextEditingController dobController = TextEditingController();
-  TextEditingController nationalController = TextEditingController();
 
   initData(){
 
-    name = "None";
-    email = "None";
-    nationality = "None";
-    phoneNum = "None";
-    nameController.text = "None";
-    
-    emailController.text = "None";
-    nationalityController.text = "None";
-    phoneNumController.text = "None";
+    name = "";
+    email = "";
+    nationality = "";
+    phoneNum = "";
+    nameController.text = "";
+  
+    emailController.text = "";
+    nationalityController.text = "";
+    phoneNumController.text = "";
     isInit = true;
   }
 

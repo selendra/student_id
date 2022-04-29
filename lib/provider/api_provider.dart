@@ -373,7 +373,13 @@ class ApiProvider with ChangeNotifier {
 
       final res = await _sdk.api.connectNode(_keyring, [node]).then((value) async {
         // await addAcc(context: context);
-        await _autoGenerateAcc(context: context);
+        // Check If Not Yet Login Not Allow To Auto Gernate Account
+        await StorageServices.fetchData(DbKey.login).then((value) async {
+          print("value != null && _keyring.allAccounts.isEmpty ${value != null && _keyring.allAccounts.isEmpty}");
+          if (value != null && _keyring.allAccounts.isEmpty){
+            await autoGenerateAcc(context: context);
+          }
+        });
       });
 
       // final res = await _sdk.webView!.evalJavascript("settings.connect(${jsonEncode([node].map((e) => e.endpoint).toList())})");
@@ -389,8 +395,8 @@ class ApiProvider with ChangeNotifier {
     return null;
   }
 
-  Future<void> _autoGenerateAcc({BuildContext? context}) async {
-    print("_autoGenerateAcc");
+  Future<void> autoGenerateAcc({BuildContext? context}) async {
+    print("autoGenerateAcc");
 
     try {
 
@@ -401,9 +407,9 @@ class ApiProvider with ChangeNotifier {
 
         // Encode Data
         Map<String, dynamic>? map = {
-          'usrName': '',
+          'usrName': _registration.usrName,
           'email': _registration.email,
-          'password': "1234",
+          'password': _registration.password,
           'seed': _seed
         };
         
@@ -412,7 +418,7 @@ class ApiProvider with ChangeNotifier {
         await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
       });
     } catch (e){
-      print("Error _autoGenerateAcc $e");
+      print("Error autoGenerateAcc $e");
     }
 
   }
@@ -441,10 +447,6 @@ class ApiProvider with ChangeNotifier {
       password: password,
     ).then((value) {
       print("addAccount $value");
-    });
-
-    await getCurrentAccount(funcName: "keyring").then((value) {
-      Provider.of<HomeProvider>(context!, listen: false).setWallet = accountM.address!;
     });
   }
 

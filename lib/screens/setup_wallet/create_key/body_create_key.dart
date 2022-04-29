@@ -61,11 +61,12 @@ class CreateKeyBody extends StatelessWidget {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            SvgPicture.asset(AppConfig.illusPath+"warning.svg", width: MediaQuery.of(context).size.width/2.5)
+                                            SvgPicture.asset(AppConfig.illusPath+"warning.svg", width: MediaQuery.of(context).size.width/3)
                                           ],
                                         ),
 
                                         MyText(
+                                          textAlign: TextAlign.start,
                                           text: 'Backup Recovery Key Phrase Before logout or uninstall app',
                                           fontSize: 22,
                                           fontWeight: FontWeight.w700,
@@ -77,8 +78,9 @@ class CreateKeyBody extends StatelessWidget {
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400,
-                                            color: blackColor
+                                            color: blackColor,
                                           ),
+                                          textAlign: TextAlign.start,
                                         ),
                                       ],
                                     ),

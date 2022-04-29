@@ -5,7 +5,10 @@ import 'package:student_id/all_export.dart';
 import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/digital_id_p.dart';
+import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/registration_p.dart';
+import 'package:student_id/screens/setup_wallet/success.dart';
 import 'package:student_id/services/storage.dart';
 import 'package:encrypt/encrypt.dart';
 
@@ -44,6 +47,7 @@ class _VerifyPassphraseState extends State<VerifyPassphrase> {
   }
 
   void _randomThreeEachNumber(){
+
     _rd1 = Random().nextInt(12).toString();
     while(_rd1 == "0"){
       _rd1 = Random().nextInt(12).toString();
@@ -68,33 +72,34 @@ class _VerifyPassphraseState extends State<VerifyPassphrase> {
     List<String> _tmp = passphraseController.text.split(" ");
     print("_tmp $_tmp");
     if (
-      _tmp[0] == _lsSeed![int.parse(_rd1!) - 1] &&
-      _tmp[1] == _lsSeed![int.parse(_rd2!) - 1] && 
-      _tmp[2] == _lsSeed![int.parse(_rd3!) - 1]
+      _tmp[0] == _lsSeed![int.parse(_rd1!) - 1]
+      // _tmp[1] == _lsSeed![int.parse(_rd2!) - 1] && 
+      // _tmp[2] == _lsSeed![int.parse(_rd3!) - 1]
     ){
     // Show Loading
       MyDialog().dialogLoading(context);
-      await _apiProvider!.addAcc(context: context, usrName: _registerProvider!.usrName, password: _registerProvider!.password, seed: widget.seed).then((value) async {
+      // await _apiProvider!.addAcc(context: context, usrName: _registerProvider!.usrName, password: _registerProvider!.password, seed: widget.seed).then((value) async {
 
         // Encode Data
-        Map<String, dynamic>? map = {
-          'usrName': _registerProvider!.usrName,
-          'email': _registerProvider!.email,
-          'password': _registerProvider!.password,
-          'seed': widget.seed
-        };
+        // Map<String, dynamic>? map = {
+        //   'usrName': _registerProvider!.usrName,
+        //   'email': _registerProvider!.email,
+        //   'password': _registerProvider!.password,
+        //   'seed': widget.seed
+        // };
+
+        Provider.of<HomeProvider>(context, listen: false).setSuccessSubmitToBlockchain = true;
         
         // Encrypt Data
-        Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
+        Encrypted _encrypted = Encryption().encryptAES(json.encode(Provider.of<DigitalIDProvider>(context, listen: false).blochainData));
         await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
+        await StorageServices.storeData(true, DbKey.blochchainData);
 
-        await MyDialog().customDialog(context, "Message", "Successfully created");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SuccessSubmit()));
         
-        // Navigator.pushNamedAndRemoveUntil(context, navbarRoute, (route) => false);
-        await StorageServices.storeData(true, DbKey.login);
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
-      });
-      // Navigator.pushReplacementNamed(context, navbarRoute);
+        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
+      // });
+
     } else {
       await MyDialog().customDialog(context, "Oops", "Incorrect seed!\nplease try again");
     }
@@ -102,7 +107,6 @@ class _VerifyPassphraseState extends State<VerifyPassphrase> {
 
   void _splitSeed(){
     _lsSeed = widget.seed!.split(" ");
-    print("_splitSeed $_lsSeed");
   }
 
   @override
@@ -110,9 +114,7 @@ class _VerifyPassphraseState extends State<VerifyPassphrase> {
     return VerifyPassphraseBody(
       verify: _verify,
       phraseKey: passphraseController,
-      rd1: _rd1,
-      rd2: _rd2,
-      rd3: _rd3,
+      rd1: _rd1
     );
   }
 }

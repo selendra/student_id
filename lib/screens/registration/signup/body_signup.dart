@@ -72,6 +72,10 @@ class SignUpPageBody extends StatelessWidget {
                     //   logo: 'trust.svg',
                     // ),
                     const CustomBtn(
+                      title: 'Login with Metamask',
+                      logo: 'metamask.svg',
+                    ),
+                    const CustomBtn(
                       title: 'Login with Bitriel',
                       logo: 'bitriel.svg',
                     ),

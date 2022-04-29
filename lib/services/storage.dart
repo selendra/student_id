@@ -37,6 +37,8 @@ class StorageServices {
   }
 
   static Future<SharedPreferences> storeData(dynamic _data, String _path) async {
+    print("storeData $_data");
+    
     try {
 
       _preferences = await SharedPreferences.getInstance();
@@ -102,6 +104,11 @@ class StorageServices {
       return jsonDecode(value);
     }
     return {};
+  }
+
+  static Future<void> clearAllData() async {
+    _preferences = await SharedPreferences.getInstance();
+    await _preferences!.clear();
   }
 }
 

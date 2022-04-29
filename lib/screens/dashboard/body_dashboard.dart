@@ -1,22 +1,20 @@
-import 'dart:io';
+import 'dart:developer';
 
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
-import 'package:student_id/main.dart';
-import 'package:student_id/models/dashboard_m.dart';
-import 'package:student_id/models/identifier_m.dart';
-import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/core/config/app_config.dart';
+import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/provider/home_p.dart';
-import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/screens/dashboard/indentityInfo.dart';
-import 'package:student_id/screens/identifier/identifier_option.dart';
-import 'package:student_id/screens/mint_data/mint_data.dart';
+import 'package:student_id/services/services_s.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DashBoardBody extends StatelessWidget {
 
   final DashBoardModel? dashModel;
-  final IdentifierModel? idModel;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final TabController? tabController;
   final Function? onTab;
   final Function? edit;
@@ -25,8 +23,8 @@ class DashBoardBody extends StatelessWidget {
 
   const DashBoardBody({ 
     Key? key, 
+    this.scaffoldKey,
     required this.dashModel, 
-    required this.idModel, 
     this.tabController,
     required this.onTab,
     required this.edit, 
@@ -42,9 +40,7 @@ class DashBoardBody extends StatelessWidget {
       body: Consumer<HomeProvider>(
         builder: (context, provider, widget){
           return SafeArea(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -59,7 +55,7 @@ class DashBoardBody extends StatelessWidget {
                     },
                     tabs: [
                       
-                      Consumer<IdentifierProvider>(
+                      Consumer<HomeProvider>(
                         builder: (context, provider, widget){
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,20 +66,20 @@ class DashBoardBody extends StatelessWidget {
                                 alignment: Alignment.center,
                                 children: [
 
-                                  Icon(Icons.people_alt_outlined, size: 40, color: provider.alreadySetup! ? Colors.blue : greyColor,),
+                                  Icon(Icons.people_alt_outlined, size: 40, color: greyColor,),
 
-                                  provider.alreadySetup! 
-                                  ? const Positioned(
-                                    child: Icon(Icons.check, size: 20, color: Colors.blue),
+                                  provider.successSubmitToBlockchain
+                                  ? Positioned(
+                                    child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
                                     right: 0,
-                                    bottom: 0,
+                                    bottom: 0
                                   ) 
                                   : Container()
                                 ],
                               ),
                               Text(
                                 'Verify',
-                                style: TextStyle(color: provider.alreadySetup! ? Colors.blue : greyColor, fontWeight: FontWeight.w600),
+                                style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                               )
                             ],
                           );
@@ -109,14 +105,14 @@ class DashBoardBody extends StatelessWidget {
                           IconButton(
                             padding: EdgeInsets.zero,
                             onPressed: () {
-                              qrCodeAlertDialog(context);
+                              // Services().qrShare(scaffoldKey!, "hello");
                             },
-                            icon: const Icon(Icons.share_outlined),
+                            icon: const Icon(Icons.contact_page_outlined),
                             iconSize: 40,
                             color: greyColor,
                           ),
                           Text(
-                            'Share',
+                            'Accounts',
                             style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                           )
                         ],
@@ -125,20 +121,28 @@ class DashBoardBody extends StatelessWidget {
                     ]
                   ),
 
-                  titleDashboard(dashModel!.titlePage, context),
+                  titleDashboard(
+                    dashModel!.titlePage, 
+                    context, 
+                    title2: tabController!.index == 0 ? InkWell(
+                      onTap: (){
+                        edit!();
+                      }, 
+                      child: MyText(text: dashModel!.isEditing ? "Un-do" : "Edit", fontWeight: FontWeight.bold, textAlign: TextAlign.right, right: paddingSize, color2: Colors.blue,)
+                    ) : Container()
+                  ),
 
-                  Expanded(
-                    child: Container(
-                      color: Colors.white,
-                      child: TabBarView(
-                        controller: tabController,
-                        children: [
-                          PersonlInfo(model: dashModel, edit: edit),
-                          IdentityInfo(dashBoardModel: dashModel, submitEdit: edit),
-                          IdentityInfo(dashBoardModel: dashModel, submitEdit: edit),
-                        ]
-                      ),
-                    )
+                  Container(
+                    color: Colors.white,
+                    height: MediaQuery.of(context).size.height / 1.2,
+                    child: TabBarView(
+                      controller: tabController,
+                      children: [
+                        PersonlInfo(model: dashModel, edit: edit, submitEdit: submitEdit),
+                        IdentityInfo(dashBoardModel: dashModel, submitEdit: edit),
+                        Container(),
+                      ]
+                    ),
                   )
 
                 ],

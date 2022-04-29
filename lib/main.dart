@@ -5,19 +5,20 @@ import 'package:provider/provider.dart';
 import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/home_p.dart';
-import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/provider/registration_p.dart';
 
 import 'screens/test_screen_ui.dart';
 
 void main() {
   // FlutterNativeSplash.removeAfter(initialization);
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<IdentifierProvider>(
-          create: (context) => IdentifierProvider(),
+        ChangeNotifierProvider<DigitalIDProvider>(
+          create: (context) => DigitalIDProvider(),
         ),
         ChangeNotifierProvider<ApiProvider>(
           create: (context) => ApiProvider(),
@@ -41,8 +42,6 @@ void initialization(BuildContext context) async {
   // This is where you can initialize the resources needed by your app while
   // the splash screen is displayed.
 }
-
-double paddingSize = 20;
 class MyApp extends StatefulWidget {
 
   const MyApp({Key? key}) : super(key: key);
@@ -67,7 +66,11 @@ class _MyAppState extends State<MyApp> {
     
     _apiProvider.initApi(context: context).then((value) async {
       if (_apiProvider.getKeyring.keyPairs.isNotEmpty) {
-        await Provider.of<ApiProvider>(context, listen: false).getAddressIcon();
+        await _apiProvider.getAddressIcon();
+
+        await _apiProvider.getCurrentAccount(funcName: "keyring").then((value) {
+          Provider.of<HomeProvider>(context, listen: false).setWallet = _apiProvider.accountM.address!;
+        });
       }
       // await Provider.of<ApiProvider>(context, listen: false).getCurrentAccount();
     });
@@ -79,6 +82,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Student ID',
       theme: ThemeData(
+        fontFamily: "Quicksand",
         scaffoldBackgroundColor: HexColor("#F3F3F3"),
         // This is the theme of your application.
         //

@@ -1,10 +1,10 @@
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
-import 'package:student_id/main.dart';
-import 'package:student_id/screens/identifier/id_card/identifier.dart';
+import 'package:student_id/screens/digital_id/front_side/body_front_side.dart';
+import 'package:student_id/screens/digital_id/front_side/front_side.dart';
 
-class IDOption extends StatelessWidget {
-  const IDOption({ Key? key }) : super(key: key);
+class DigitalIDOption extends StatelessWidget {
+  const DigitalIDOption({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class IDOption extends StatelessWidget {
           // Hint To upload Card
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const Identifier(title: 'National ID',)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const FrontSide()));
             },
             child: Card(
               margin: EdgeInsets.all(paddingSize),
@@ -33,7 +33,7 @@ class IDOption extends StatelessWidget {
           ),
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const Identifier(title: 'Passport',)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const FrontSide()));
             },
             child: Card(
               margin: EdgeInsets.all(paddingSize),
@@ -50,7 +50,7 @@ class IDOption extends StatelessWidget {
           ),
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const Identifier(title: 'Student ID',)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const FrontSide()));
             },
             child: Card(
               margin: EdgeInsets.all(paddingSize),

@@ -28,8 +28,8 @@ class VerifyPassphraseBody extends StatelessWidget {
           child: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? correctHeight
-                  : MediaQuery.of(context).size.height * 2,
+                ? correctHeight
+                : MediaQuery.of(context).size.height * 2,
               child: Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(children: <Widget>[
@@ -67,7 +67,7 @@ class VerifyPassphraseBody extends StatelessWidget {
                               ),
                               const SizedBox(height: 20),
                               Text(
-                                "Word #$rd1, Word #$rd2, and Word #$rd3",
+                                "Word #$rd1",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

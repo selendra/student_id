@@ -3,9 +3,11 @@ import 'package:student_id/all_export.dart';
 import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/core/backend.dart';
 import 'package:student_id/core/config/app_config.dart';
+import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/digital_id_p.dart';
+import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/registration_p.dart';
-import 'package:student_id/screens/identifier/id_card/identifier.dart';
 import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/services/storage.dart';
 
@@ -128,9 +130,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    // initialize();
     isLogin();
-    emailInputController.text = "condaveat@gmail.com";
-    passwordInputController.text = "123456";
+    // emailInputController.text = "condaveat@gmail.com";
+    // passwordInputController.text = "123456";
     super.initState();
   }
 

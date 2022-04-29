@@ -9,14 +9,15 @@ import 'package:student_id/components/text_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/models/dashboard_m.dart';
-import 'package:student_id/models/identifier_m.dart';
+import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/home_p.dart';
-import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/dashboard/body_dashboard.dart';
 import 'package:student_id/services/services_s.dart';
 import 'package:student_id/services/storage.dart';
+import 'package:encrypt/encrypt.dart';
 
 class DashboardPage extends StatefulWidget {
 
@@ -28,8 +29,9 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
   
   TextEditingController phraseKey = TextEditingController();
   DashBoardModel _dashBoardM = DashBoardModel();
-  IdentifierModel _identifierModel = IdentifierModel();
   TabController? _tabController;
+  final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+  DigitalIDProvider? _digitalIDProvider;
 
   Future pickImage(ImageSource source, String? label) async {
 
@@ -70,7 +72,12 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
         _dashBoardM.titlePage = "Basic Info";
       } else if (index == 1) {
         String _wallet = Provider.of<HomeProvider>(context, listen: false).homeModel.wallet;
-        _dashBoardM.titlePage = "Your wallet address: ${_wallet.replaceRange( 5, _wallet.length - 5, ".....")}";
+        if (_wallet != ""){
+
+          _dashBoardM.titlePage = "Your wallet address";
+        }
+      } else {
+        _dashBoardM.titlePage = "Link Accounts";
       }
     });
   }
@@ -78,49 +85,86 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
+    _tabController!.addListener(() {
+      onTab(_tabController!.index);
+    });
     _dashBoardM = Provider.of<HomeProvider>(context, listen: false).homeModel;
+    _digitalIDProvider = Provider.of<DigitalIDProvider>(context, listen: false);
     // StorageServices.removeKey(DbKey.idKey);
-    initId();
+    initBlockchainData();
+    initDigitalId();
     super.initState();
   }
 
-  /// For Check Identity Setup (National ID, Student)
-  initId() async {
-    await StorageServices.fetchData(DbKey.idKey).then((value) {
+  initBlockchainData() async {
+    await StorageServices.fetchData(DbKey.blochchainData).then((value) async {
+      print("blochchainData $value");
       if (value != null){
-        _identifierModel = IdentifierModel().fromDb(value);
-        Provider.of<IdentifierProvider>(context, listen: false).setSetup = true;
-        setState(() { });
+        Provider.of<HomeProvider>(context, listen: false).setSuccessSubmitToBlockchain = true;
+      } else {
+        Provider.of<HomeProvider>(context, listen: false).setSuccessSubmitToBlockchain = false;
       }
+      print("Provider.of<HomeProvider>(context, listen: false).successSubmitToBlockchain ${Provider.of<HomeProvider>(context, listen: false).successSubmitToBlockchain}");
     });
+  }
+
+  /// For Check Identity Setup (National ID, Student)
+  initDigitalId() async {
+    print("initDigitalId");
+    
+    await Provider.of<DigitalIDProvider>(context, listen: false).fetchID();
 
     await StorageServices.fetchData(DbKey.sensitive).then((value) async {
-      print("fetchData $value");
+      print("sensitive $value");
       if (value != null){
 
         Map<String, dynamic> data = await json.decode(Encryption().decryptAES(value));
+        print("data ${data}");
 
-        print(data);
+        _dashBoardM.name = data['name'] == "" || data['name'] == null ? "" : data['name'];
+        _dashBoardM.email = data['email'] == "" || data['email'] == null ? "" : data['email'];
+        _dashBoardM.dob = data['dob'] == "" || data['dob'] == null ? "" : data['dob'];
+        _dashBoardM.nationality = data['nationality'] == "" || data['nationality'] == null ? "" : data['nationality'];
+        _dashBoardM.phoneNum = data['phoneNum'] == "" || data['phoneNum'] == null ? "" : data['phoneNum'];
+        _dashBoardM.country = data['country'] == "" || data['country'] == null ? "" : data['country'];
 
-        _dashBoardM.name = data['usrName'] == "" ? "None" : data['usrName'];
-        _dashBoardM.email = data['email'] == "" ? "None" : data['email'];
-        _dashBoardM.nameController.text = data['usrName'] == "" ? "None" : data['usrName'];
-        _dashBoardM.emailController.text = data['email'] == "" ? "None" : data['email'];
+        _dashBoardM.nameController.text = data['name'] == "" || data['name'] == null ? "" : data['name'];
+        _dashBoardM.emailController.text = data['email'] == "" || data['email'] == null ? "" : data['email'];
+        _dashBoardM.dobController.text = data['dob'] == "" || data['dob'] == null ? "" : data['dob'];
+        _dashBoardM.nationalityController.text = data['nationality'] == "" || data['nationality'] == null ? "" : data['nationality'];
+        _dashBoardM.phoneNumController.text = data['phoneNum'] == "" || data['phoneNum'] == null ? "" : data['phoneNum'];
+        _dashBoardM.countryController.text = data['country'] == "" || data['country'] == null ? "" : data['country'];
+
+        _digitalIDProvider!.isAbleSubmitToBlockchain(context: context);
       }
       
     });
     setState(() { });
   }
 
-  void submitEdit(){
+  void submitEdit() async {
     _dashBoardM.name = _dashBoardM.nameController.text;
     _dashBoardM.email = _dashBoardM.emailController.text;
     _dashBoardM.nationality = _dashBoardM.nationalityController.text;
     _dashBoardM.phoneNum = _dashBoardM.phoneNumController.text;
+    _dashBoardM.country = _dashBoardM.countryController.text;
+    _dashBoardM.dob = _dashBoardM.dobController.text;
     _dashBoardM.isEditing = false;
 
+    print(_dashBoardM.name);
+    print(_dashBoardM.email);
+    print(_dashBoardM.nationality);
+    print(_dashBoardM.phoneNum);
+    print(_dashBoardM.country);
+    print(_dashBoardM.dob);
+    print(_dashBoardM.isEditing);
+    Provider.of<DigitalIDProvider>(context, listen: false).isAbleSubmitToBlockchain(context: context);
+
+    Encrypted _encrypted = Encryption().encryptAES(json.encode(Provider.of<DigitalIDProvider>(context, listen: false).blochainData));
+    await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
+
     setState(() {
-      
+      _dashBoardM.isEditing = false;
     });
   }
 
@@ -136,10 +180,11 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
       child: DashBoardBody(
         dashModel: _dashBoardM,
         onTab: onTab,
-        tabController: _tabController, 
-        idModel: _identifierModel, 
+        tabController: _tabController,
         edit: edit, 
-        pickImage: pickImage, submitEdit: submitEdit
+        pickImage: pickImage, 
+        submitEdit: submitEdit,
+        scaffoldKey: globalKey,
       )
     );
   }
