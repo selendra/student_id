@@ -34,7 +34,6 @@ class _ImportAccountState extends State<ImportAccount> {
   }
 
   Future<void> submitSeed() async {
-    // final form = formKey.currentState!;
 
     // Show Loading
     MyDialog().dialogLoading(context);

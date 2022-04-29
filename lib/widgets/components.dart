@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/column_info_c.dart';
@@ -8,12 +8,11 @@ import 'package:student_id/components/text_c.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/models/asset_list_m.dart';
 import 'package:student_id/models/dashboard_m.dart';
-import 'package:student_id/provider/identifier_p.dart';
+import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/screens/dashboard/edit_info.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:student_id/all_export.dart';
-import 'package:student_id/screens/identifier/identifier_option.dart';
 import 'package:student_id/theme/theme.dart';
 
 class PhraseInput extends StatelessWidget {
@@ -711,7 +710,7 @@ class DashboardOptions extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Consumer<IdentifierProvider>(
+          Consumer<DigitalIDProvider>(
             builder: (context, provider, widget){
               return Column(
                 children: [
@@ -721,10 +720,10 @@ class DashboardOptions extends StatelessWidget {
                         onPressed: () {},
                         icon: const Icon(Icons.people_alt_outlined),
                         iconSize: 40,
-                        color: provider.alreadySetup! ? Colors.blue : greyColor,
+                        color: provider.identifierModel!.completedSetpUpID! ? Colors.blue : greyColor,
                       ),
 
-                      provider.alreadySetup! 
+                      provider.identifierModel!.completedSetpUpID!
                       ? const Positioned(
                         child: Icon(Icons.check, size: 20, color: Colors.blue),
                         right: 0,
@@ -735,7 +734,7 @@ class DashboardOptions extends StatelessWidget {
                   ),
                   Text(
                     'Verify',
-                    style: TextStyle(color: provider.alreadySetup! ? Colors.blue : greyColor, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: provider.identifierModel!.completedSetpUpID! ? Colors.blue : greyColor, fontWeight: FontWeight.w600),
                   )
                 ],
               );
@@ -781,8 +780,9 @@ class PersonlInfo extends StatelessWidget {
 
   final DashBoardModel? model;
   final Function? edit;
+  final Function? submitEdit;
   
-  PersonlInfo({Key? key, this.model, this.edit}) : super(key: key);
+  PersonlInfo({Key? key, this.model, this.edit, this.submitEdit}) : super(key: key);
 
   Widget _nameInfo(String? text) {
     return Padding(
@@ -882,124 +882,158 @@ class PersonlInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
+    return Column(
+      children: [
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Info(model: model,)
-              ), 
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Info(model: model,)
+            ), 
 
-              IconButton(
-                onPressed: (){
-                  edit!();
-                }, 
-                icon: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey[300]
-                  ),
-                  padding: const EdgeInsets.all(5),
-                  child: model!.isEditing ? const Icon(Icons.edit_off_outlined) : const Icon(Icons.edit_outlined) ,
+          ],
+        ),
+
+        // Show Button When Editing
+        model!.isEditing == true 
+        ? Padding(
+          padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+          child: Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              onPressed: (){
+                submitEdit!();
+              }, 
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  HexColor(AppColors.primary)
+                ),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(13)
+                  )
+                ),
+              ),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                alignment: Alignment.center,
+                child: MyText(
+                  text: "Submit Edit",
+                  fontWeight: FontWeight.w600,
+                  color2: Colors.white,
                 )
               )
+            ),
+          )
+        ) 
+        : Container(),
 
-            ],
-          ),
-
-          model!.isEditing == true 
-          ? Padding(
-            padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
-            child: Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                onPressed: (){
-                  edit!();
-                }, 
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    HexColor(AppColors.primary)
+        Consumer<DigitalIDProvider>(
+          builder: (context, provider, widget){
+            
+            if (provider.identifierModel!.completedSetpUpID == true && model!.isEditing == false)
+            return Container(
+              padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
+              width: MediaQuery.of(context).size.width,
+              color: greyBackgroundColor,
+              child: Row(
+                children: [
+                  MyText(
+                    text: "Your digital ID",
+                    color2: greyColor,
+                    // color2: greyColor,
+                    fontWeight: FontWeight.w700,
+                    right: 5,
+                    fontSize: 16,
                   ),
+                ],
+              ),
+            );
+
+            return Container();
+          }
+        ),
+
+        Consumer<DigitalIDProvider>(
+          builder: (context, provider, widget){
+            
+            if (provider.identifierModel!.completedSetpUpID == false && model!.isEditing == false)
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  shadowColor: MaterialStateProperty.all(
+                    Colors.transparent
+                  ),
+                  backgroundColor: MaterialStateProperty.all(
+                    Colors.red.withOpacity(0.2)
+                  ),
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13)
                     )
                   ),
                 ),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DigitalIDOption()));
+                }, 
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12)
-                  ),
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(12),
+                  // ),
                   alignment: Alignment.center,
                   child: MyText(
-                    text: "Submit Edit",
+                    text: "Get your digital ID",
                     fontWeight: FontWeight.w600,
-                    color2: Colors.white,
-                  )
-                )
-              ),
-            )
-          ) 
-          : Container(),
-
-          Consumer<IdentifierProvider>(
-            builder: (context, provider, widget){
-              return model!.isEditing == false 
-              ? Padding(
-                padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shadowColor: MaterialStateProperty.all(
-                      Colors.transparent
-                    ),
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.red.withOpacity(0.2)
-                    ),
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13)
-                      )
-                    ),
-                  ),
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const IDOption()));
-                  }, 
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    // decoration: BoxDecoration(
-                    //   borderRadius: BorderRadius.circular(12),
-                    // ),
-                    alignment: Alignment.center,
-                    child: MyText(
-                      text: "Get your digital ID",
-                      fontWeight: FontWeight.w600,
-                      color2: Colors.red,
-                    )
+                    color2: Colors.red,
                   )
                 )
               )
+            );
 
-              : Container()
-              // : Card(
-              //   child: Column(
-              //     children: [
-              //       Image.file(File(provider.identifierModel!.frontImage!), width: 400, height: 200,)
-              //     ],
-              //   ),
-              // )
-              ;
-            },
-          ),
-        ]
-      )
+            if (provider.identifierModel!.completedSetpUpID == true && model!.isEditing == false)
+            return CarouselSlider.builder(
+              options: CarouselOptions(height: 200.0),
+              itemCount: provider.identifierModel!.lsIDCard!.length,
+              itemBuilder: (context, i, j) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    color: Colors.grey.withOpacity(0.5),
+                    image: DecorationImage(
+                      image: FileImage(File(provider.identifierModel!.lsIDCard![i]))
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    // color: Colors.amber
+                  ),
+                );
+              }
+            );
+            
+            return Container();
+            
+            // : Card(
+            //   child: Column(
+            //     children: [
+            //       Image.file(File(provider.identifierModel!.frontImage!), width: 400, height: 200,)
+            //     ],
+            //   ),
+            // )
+          },
+        ),
+      ]
     );
   }
 }

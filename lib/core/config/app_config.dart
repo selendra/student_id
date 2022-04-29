@@ -12,4 +12,5 @@ class DbKey {
   static String token = "token";
   static String otpCode = "otpCode";
   static String sensitive = "sensitive";
+  static String blochchainData = "blochchainData";
 }

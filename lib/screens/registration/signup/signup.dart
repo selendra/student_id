@@ -69,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
         if (value['status'] == true) {
           await Backend().getOtp(_signUpModel.emailInputController.text).then((otpMsg) async {
-            if (value.statusCode == 201){
+            if (otpMsg.statusCode == 201){
               await MyDialog().customDialog(context, "${value['message']}", "We sent you 4 digit OTP code.\nPlease check your email.");
             }
           });
@@ -102,10 +102,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
-    _signUpModel.userNameController.text = "Rithy THUL";
-    _signUpModel.emailInputController.text = "rithythul@gmail.com";
-    _signUpModel.passwordInputController.text = "123456";
-    _signUpModel.conPasController.text = "123456";
+    // _signUpModel.userNameController.text = "Rithy THUL";
+    // _signUpModel.emailInputController.text = "rithythul@gmail.com";
+    // _signUpModel.passwordInputController.text = "123456";
+    // _signUpModel.conPasController.text = "123456";
     _registrationProvider = Provider.of<RegistrationProvider>(context, listen: false);
     super.initState();
   }

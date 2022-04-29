@@ -61,21 +61,6 @@ class LoginPageBody extends StatelessWidget {
                     const GoogleBtn(
                       title: 'Login with Google',
                     ),
-                    // const FacebookBtn(
-                    //   title: 'Login with META',
-                    // ),
-                    const CustomBtn(
-                      title: 'Login with Meta',
-                      logo: 'meta.svg',
-                    ),
-                    const CustomBtn(
-                      title: 'Login with Metamask',
-                      logo: 'metamask.svg',
-                    ),
-                    const CustomBtn(
-                      title: 'Login with Trust',
-                      logo: 'trust.svg',
-                    ),
                     const CustomBtn(
                       title: 'Login with Bitriel',
                       logo: 'bitriel.svg',

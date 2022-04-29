@@ -104,7 +104,23 @@ class ToolsPageBody extends StatelessWidget {
                           _session.wcClient.killSession();
                         }
                         MyDialog().dialogLoading(context);
-                        await StorageServices.removeKey(DbKey.login);
+
+                        // Clear Cache Data
+                        await StorageServices.clearAllData();
+
+                        print("finish clear all data");
+
+                        // Delete Account From Substrate
+                        ApiProvider _api = Provider.of<ApiProvider>(context, listen: false);
+                        await _api.apiKeyring.deleteAccount(
+                          _api.getKeyring,
+                          _api.getKeyring.current,
+                        );
+                        print("_api.getKeyring ${_api.getKeyring}");
+                        print("_api.accountM.currentAcc! ${_api.getKeyring.current}");
+
+                        print("finish clear _api.apiKeyring");
+
                         await Future.delayed(Duration(seconds: 1), (){
 
                         }); 

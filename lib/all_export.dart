@@ -33,9 +33,12 @@ export 'package:student_id/screens/setup_wallet/setup_page/setup_page.dart';
 export 'package:student_id/screens/setup_wallet/setup_page/setup_page_body.dart';
 export 'package:student_id/screens/setup_wallet/create_key/create_key.dart';
 export 'package:student_id/screens/setup_wallet/create_key/body_create_key.dart';
-export 'package:student_id/screens/setup_wallet/verify_key/verify_key.dart';
-export 'package:student_id/screens/setup_wallet/verify_key/verify_key_body.dart';
+export 'package:student_id/screens/setup_wallet/verify_seed/verify_seed.dart';
+export 'package:student_id/screens/setup_wallet/verify_seed/body_verify_seed.dart';
+
+export 'package:student_id/screens/digital_id/digital_id_option.dart';
 
 /// Model
 /// 
 export 'package:student_id/models/dashboard_m.dart';
+double paddingSize = 20;

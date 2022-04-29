@@ -1,14 +1,16 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/text_c.dart';
+import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/provider/home_p.dart';
-import 'package:student_id/provider/identifier_p.dart';
-import 'package:student_id/screens/identifier/identifier_option.dart';
+import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/theme/theme.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share/share.dart';
 class IdentityInfo extends StatelessWidget{
 
   final DashBoardModel? dashBoardModel;
@@ -26,11 +28,33 @@ class IdentityInfo extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: (){
+                    Share.share(Provider.of<HomeProvider>(context, listen: false).homeModel.wallet);
+                  }, 
+                  icon: Icon(Icons.share)
+                ),
+                IconButton(
+                  onPressed: (){
+
+                    Clipboard.setData(
+                      ClipboardData(text: Provider.of<HomeProvider>(context, listen: false).homeModel.wallet),
+                    );
+                    /* Copy Text */
+                    ScaffoldMessenger(child: MyText(text: "Copied"));
+                  }, 
+                  icon: Icon(Icons.copy)
+                ),
+              ],
+            ),
+
             Container(
-              margin: EdgeInsets.symmetric(vertical: paddingSize),
+              margin: EdgeInsets.symmetric(vertical: paddingSize*2),
               child: Consumer<HomeProvider>(
                 builder: (context, provider, widget){
-                  print("HomeProvider ${provider.homeModel.wallet}");
                   return Column(
                     children: [
                       QrImage(
@@ -38,7 +62,7 @@ class IdentityInfo extends StatelessWidget{
                         version: QrVersions.auto,
                         size: 250,
                         gapless: false,
-                        embeddedImage: const AssetImage('assets/logos/telegram-logo.png'),
+                        // embeddedImage: const AssetImage('assets/logos/selendra.png'),
                         embeddedImageStyle: QrEmbeddedImageStyle(
                           size: const Size(80, 80),
                         ),
@@ -69,20 +93,20 @@ class IdentityInfo extends StatelessWidget{
             //   }
             // ),
 
-            Consumer<IdentifierProvider>(
+            Consumer<HomeProvider>(
               builder: (context, provider, widget){
+
+                print(provider.successSubmitToBlockchain);
+                if (provider.successSubmitToBlockchain == false) 
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
-                  child: 
-                  // provider.alreadySetup == false 
-                  // ? 
-                  ElevatedButton(
+                  child: ElevatedButton(
                     style: ButtonStyle(
                       shadowColor: MaterialStateProperty.all(
                         Colors.transparent
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        HexColor(AppColors.primary).withOpacity(0.2)
+                        provider.readyToSubmit ? HexColor(AppColors.primary).withOpacity(0.2) : Colors.grey[350]
                       ),
                       padding: MaterialStateProperty.all(EdgeInsets.zero),
                       shape: MaterialStateProperty.all(
@@ -91,9 +115,9 @@ class IdentityInfo extends StatelessWidget{
                         )
                       ),
                     ),
-                    onPressed: (){
+                    onPressed: provider.readyToSubmit ? (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateWalletPage()));
-                    }, 
+                    } : null, 
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
@@ -104,7 +128,7 @@ class IdentityInfo extends StatelessWidget{
                       child: MyText(
                         text: "Submit to Blockchain",
                         fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
+                        color: provider.readyToSubmit ? AppColors.primary : "#000000",
                       )
                     )
                   )
@@ -117,28 +141,42 @@ class IdentityInfo extends StatelessWidget{
                   //   ),
                   // )
                 );
+
+                if (provider.successSubmitToBlockchain == true)
+                return Column(
+                  children: [
+                    SvgPicture.asset(AppConfig.iconPath+"link.svg", width: 50,),
+                    MyText(text: "Your account is minted with blockchain", color: AppColors.primary)
+                  ],
+                );
+
+                return Container();
               },
             ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MyText(
-                  text: "Please get your "
-                ),
-                TextButton(
-                  onPressed: (){
-                    
-                  }, 
-                  child: MyText(
-                    text: "Digital ID",
-                    color: AppColors.primary,
-                  ),
-                ),
-                MyText(
-                  text: "before continue"
-                ),
-              ],
+            Consumer<DigitalIDProvider>(
+              builder: (context, provider, widget){
+                return provider.identifierModel!.completedSetpUpID == false ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyText(
+                      text: "Please get your "
+                    ),
+                    TextButton(
+                      onPressed: (){
+                        
+                      }, 
+                      child: MyText(
+                        text: "Digital ID",
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    MyText(
+                      text: "before continue"
+                    ),
+                  ],
+                ) : Container();
+              }
             )
 
           ],

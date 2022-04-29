@@ -61,8 +61,12 @@ class SignUpPageBody extends StatelessWidget {
                     //   title: 'Login with META',
                     // ),
                     const CustomBtn(
-                      title: 'Login with Meta',
-                      logo: 'meta.svg',
+                      title: 'Login with Metamask',
+                      logo: 'metamask.svg',
+                    ),
+                    const CustomBtn(
+                      title: 'Login with Bitriel',
+                      logo: 'bitriel.svg',
                     ),
                     divider('or Sign up with Email'),
                     MyInput(

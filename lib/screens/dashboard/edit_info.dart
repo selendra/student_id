@@ -29,6 +29,7 @@ class InfoState extends State<Info>{
               child: TextFormField(
                 style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
+                  hintText: "N/A",
                   label: MyText(text: "Name", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -48,6 +49,7 @@ class InfoState extends State<Info>{
               child: TextFormField(
                 style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
+                  hintText: "N/A",
                   label: MyText(text: "Email", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -66,6 +68,7 @@ class InfoState extends State<Info>{
               child: TextFormField(
                 style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
+                  hintText: "N/A",
                   label: MyText(text: "Nationality", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -85,6 +88,7 @@ class InfoState extends State<Info>{
               child: TextFormField(
                 style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
+                  hintText: "N/A",
                   label: MyText(text: "Phone Number", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -104,6 +108,7 @@ class InfoState extends State<Info>{
               child: TextFormField(
                 style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
+                  hintText: "N/A",
                   label: MyText(text: "Country", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -114,7 +119,7 @@ class InfoState extends State<Info>{
 
                   enabled: widget.model!.isEditing,
                 ),
-                controller: widget.model!.phoneNumController,
+                controller: widget.model!.countryController,
               )
             ),
 
@@ -123,6 +128,7 @@ class InfoState extends State<Info>{
               child: TextFormField(
                 style: TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(
+                  hintText: "N/A",
                   label: MyText(text: "Date of birth", color2: greyColor),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -133,7 +139,7 @@ class InfoState extends State<Info>{
 
                   enabled: widget.model!.isEditing,
                 ),
-                controller: widget.model!.phoneNumController,
+                controller: widget.model!.dobController,
               )
             ),
           ],

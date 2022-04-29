@@ -1,14 +1,41 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:student_id/all_export.dart';
+import 'package:student_id/provider/api_provider.dart';
 
 class Services {
 
   static ImagePicker imagePicker = ImagePicker();
 
-  static Future pickImage(ImageSource source) async {
+  static Future<XFile> pickImage(ImageSource source) async {
 
     final pickedFile = await imagePicker.pickImage(source: source, imageQuality: 90);
     
-    return pickedFile;
+    return pickedFile!;
+  }
+
+  Future<void> qrShare(GlobalKey globalKey, String _wallet) async {
+    try {
+      final RenderRepaintBoundary boundary = globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+
+      final image = await boundary.toImage(pixelRatio: 5.0);
+      final ByteData? byteData = await image.toByteData(format: ImageByteFormat.png);
+      final Uint8List pngBytes = byteData!.buffer.asUint8List();
+      final tempDir = await getTemporaryDirectory();
+      final file = await File("${tempDir.path}/selendra.png").create();
+      await file.writeAsBytes(pngBytes);
+
+      FlutterShare.share(title: file.path, text: _wallet);
+    } catch (e) {
+      // if (ApiProvider().isDebug == false) print("Error qrShare ${e.toString()}");
+    }
   }
 
 //   static int myNumCount = 0;
