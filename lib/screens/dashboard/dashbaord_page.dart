@@ -121,14 +121,14 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
         Map<String, dynamic> data = await json.decode(Encryption().decryptAES(value));
         print("data ${data}");
 
-        _dashBoardM.name = data['usrName'] == "" || data['usrName'] == null ? "" : data['usrName'];
+        _dashBoardM.name = data['name'] == "" || data['name'] == null ? "" : data['name'];
         _dashBoardM.email = data['email'] == "" || data['email'] == null ? "" : data['email'];
         _dashBoardM.dob = data['dob'] == "" || data['dob'] == null ? "" : data['dob'];
         _dashBoardM.nationality = data['nationality'] == "" || data['nationality'] == null ? "" : data['nationality'];
         _dashBoardM.phoneNum = data['phoneNum'] == "" || data['phoneNum'] == null ? "" : data['phoneNum'];
         _dashBoardM.country = data['country'] == "" || data['country'] == null ? "" : data['country'];
 
-        // _dashBoardM.nameController.text = data['usrName'] == "" || data['usrName'] == null ? "" : data['usrName'];
+        _dashBoardM.nameController.text = data['name'] == "" || data['name'] == null ? "" : data['name'];
         _dashBoardM.emailController.text = data['email'] == "" || data['email'] == null ? "" : data['email'];
         _dashBoardM.dobController.text = data['dob'] == "" || data['dob'] == null ? "" : data['dob'];
         _dashBoardM.nationalityController.text = data['nationality'] == "" || data['nationality'] == null ? "" : data['nationality'];
