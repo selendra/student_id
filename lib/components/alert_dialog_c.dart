@@ -34,7 +34,7 @@ class MyDialog{
             btn2 ?? Container(),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: MyText(text: 'Close'),
+              child: MyText(text: 'Close', fontWeight: FontWeight.bold,),
             ),
           ],
         );

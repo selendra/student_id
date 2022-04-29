@@ -7,6 +7,7 @@ import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/digital_id_p.dart';
+import 'package:student_id/screens/dashboard/account_linked.dart';
 import 'package:student_id/screens/dashboard/indentityInfo.dart';
 import 'package:student_id/services/services_s.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -140,7 +141,7 @@ class DashBoardBody extends StatelessWidget {
                       children: [
                         PersonlInfo(model: dashModel, edit: edit, submitEdit: submitEdit),
                         IdentityInfo(dashBoardModel: dashModel, submitEdit: edit),
-                        Container(),
+                        AccountLinked(),
                       ]
                     ),
                   )

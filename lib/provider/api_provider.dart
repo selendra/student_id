@@ -374,11 +374,13 @@ class ApiProvider with ChangeNotifier {
       final res = await _sdk.api.connectNode(_keyring, [node]).then((value) async {
         // await addAcc(context: context);
         // Check If Not Yet Login Not Allow To Auto Gernate Account
-        await StorageServices.fetchData(DbKey.login).then((value) async {
+        await StorageServices.fetchData(DbKey.login).then((login) async {
           print("value != null && _keyring.allAccounts.isEmpty ${value != null && _keyring.allAccounts.isEmpty}");
-          if (value != null && _keyring.allAccounts.isEmpty){
-            await autoGenerateAcc(context: context);
-          }
+          await StorageServices.fetchData(DbKey.sensitive).then((sensitive) async {
+            if (value != null && sensitive != null && _keyring.allAccounts.isEmpty){
+              await autoGenerateAcc(context: context);
+            }
+          });
         });
       });
 
@@ -515,7 +517,7 @@ class ApiProvider with ChangeNotifier {
     print("createWeb3linkSel15");
     try {
 
-      return await _sdk.api.service.webView!.evalJavascript('keyring.createWeb3linkSel(api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV")').then((value) async {
+      return await _sdk.api.service.webView!.evalJavascript('keyring.createWeb3linkSel()').then((value) async { // api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV"
         print("registerSel11 $value");
         print(value['status']);
         return value;

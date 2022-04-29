@@ -25,7 +25,7 @@ export 'package:student_id/screens/storages/storages_page_body.dart';
 export 'package:qr_flutter/qr_flutter.dart';
 
 export 'package:student_id/screens/tools/tools_page.dart';
-export 'package:student_id/screens/tools/tools_page_body.dart';
+export 'package:student_id/screens/tools/body_account.dart';
 
 export 'package:student_id/routes/route_generator.dart';
 

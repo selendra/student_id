@@ -261,8 +261,8 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
 
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(
-                model.name,
+              child: Text(  
+                model.name == '' ? "N/A" : model.name,
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -290,50 +290,7 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
                   iconSize: 40,
                   onPressed: () async {
 
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => ToolsPage()));
-                    await MyDialog().customDialog(
-                      context, 
-                      'Delete account', 
-                      'Are you sure to delete your account?',
-                      btn2: TextButton(
-                        onPressed: () async {
-
-                          WalletConnectComponent _session = Provider.of<WalletConnectComponent>(context, listen: false);
-                          if ( _session.sessionStore != null){
-                            _session.wcClient.killSession();
-                          }
-                          MyDialog().dialogLoading(context);
-
-                          // Clear Cache Data
-                          await StorageServices.clearAllData();
-
-                          // Delete Account From Substrate
-                          ApiProvider _api = Provider.of<ApiProvider>(context, listen: false);
-                          await _api.apiKeyring.deleteAccount(
-                            _api.getKeyring,
-                            _api.getKeyring.current,
-                          );
-
-                          final home = Provider.of<HomeProvider>(context, listen: false);
-                          home.homeModel = DashBoardModel();
-                          home.readyToSubmit = false; 
-                          home.setSuccessSubmitToBlockchain = false; 
-                          home.setWallet = ''; 
-                          final digital = Provider.of<DigitalIDProvider>(context, listen: false);
-                          digital.identifierModel = DigitalIDModel();
-
-                          await Future.delayed(Duration(seconds: 1), (){
-
-                          }); 
-                          Navigator.pushNamedAndRemoveUntil(context, loginRoute, (route) => false);
-                        },
-                        child: MyText(
-                          text: 'Delete',
-                          color2: Colors.red,
-                          fontWeight: FontWeight.w700
-                        ),
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
                   }, 
                   icon: Row(
                     children: [
@@ -365,6 +322,7 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
                         context, 
                         MaterialPageRoute(builder: (context) => QrScanner())
                       );
+                      print("result $result");
                     }, 
                     icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white,)
                   ),

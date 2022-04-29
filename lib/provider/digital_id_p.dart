@@ -12,12 +12,14 @@ class DigitalIDProvider extends ChangeNotifier{
   Map<String, dynamic>? _dataToBlockchain = {};
   
   Map<String, dynamic> get blochainData => _dataToBlockchain!;
+  set setBlockChainData(Map<String, dynamic> data) => _dataToBlockchain!;
 
   set setSetup(bool value) {
     fetchID();
     notifyListeners();
   }
 
+  /// This Function used for fetch Cache Digital ID
   Future<void> fetchID()async {
 
     await StorageServices.fetchData(DbKey.idKey).then((value) {
@@ -58,19 +60,7 @@ class DigitalIDProvider extends ChangeNotifier{
         _api.homeModel.cover != "" &&
         _api.homeModel.profile != ""
       ){
-        _dataToBlockchain = {
-          "backImage": identifierModel!.backImage,
-          "frontImage": identifierModel!.frontImage,
-          "selfieImage": identifierModel!.selfieImage,
-          "email": _api.homeModel.email,
-          "country": _api.homeModel.country,
-          "dob": _api.homeModel.dob,
-          "name": _api.homeModel.name,
-          "nationality": _api.homeModel.nationality,
-          "phoneNum": _api.homeModel.phoneNum,
-          "cover": _api.homeModel.cover,
-          "profile": _api.homeModel.profile
-        };
+        _dataToBlockchain = toJson(_api.homeModel);
         
         Provider.of<HomeProvider>(context, listen: false).readyToSubmit = true;
         print("finish finish");
@@ -86,5 +76,21 @@ class DigitalIDProvider extends ChangeNotifier{
 
   void notify(){
     notifyListeners();
+  }
+
+  Map<String, dynamic> toJson(DashBoardModel homeModel){
+    return {
+      "backImage": identifierModel!.backImage,
+      "frontImage": identifierModel!.frontImage,
+      "selfieImage": identifierModel!.selfieImage,
+      "email": homeModel.email,
+      "country": homeModel.country,
+      "dob": homeModel.dob,
+      "name": homeModel.name,
+      "nationality": homeModel.nationality,
+      "phoneNum": homeModel.phoneNum,
+      "cover": homeModel.cover,
+      "profile": homeModel.profile
+    };
   }
 }

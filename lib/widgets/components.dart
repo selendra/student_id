@@ -940,6 +940,7 @@ class PersonlInfo extends StatelessWidget {
             if (provider.identifierModel!.completedSetpUpID == true && model!.isEditing == false)
             return Container(
               padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
+              margin: EdgeInsets.only(bottom: paddingSize),
               width: MediaQuery.of(context).size.width,
               color: greyBackgroundColor,
               child: Row(

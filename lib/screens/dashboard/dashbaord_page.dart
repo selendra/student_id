@@ -93,9 +93,11 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
     // StorageServices.removeKey(DbKey.idKey);
     initBlockchainData();
     initDigitalId();
+
     super.initState();
   }
 
+  // When Account Already Mint
   initBlockchainData() async {
     await StorageServices.fetchData(DbKey.blochchainData).then((value) async {
       print("blochchainData $value");
@@ -111,7 +113,6 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
   /// For Check Identity Setup (National ID, Student)
   initDigitalId() async {
     print("initDigitalId");
-    
     await Provider.of<DigitalIDProvider>(context, listen: false).fetchID();
 
     await StorageServices.fetchData(DbKey.sensitive).then((value) async {
@@ -136,6 +137,7 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
         _dashBoardM.countryController.text = data['country'] == "" || data['country'] == null ? "" : data['country'];
 
         _digitalIDProvider!.isAbleSubmitToBlockchain(context: context);
+        print( Provider.of<DigitalIDProvider>(context, listen: false).blochainData);
       }
       
     });
@@ -143,6 +145,7 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
   }
 
   void submitEdit() async {
+    
     _dashBoardM.name = _dashBoardM.nameController.text;
     _dashBoardM.email = _dashBoardM.emailController.text;
     _dashBoardM.nationality = _dashBoardM.nationalityController.text;
@@ -158,9 +161,12 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
     print(_dashBoardM.country);
     print(_dashBoardM.dob);
     print(_dashBoardM.isEditing);
-    Provider.of<DigitalIDProvider>(context, listen: false).isAbleSubmitToBlockchain(context: context);
 
-    Encrypted _encrypted = Encryption().encryptAES(json.encode(Provider.of<DigitalIDProvider>(context, listen: false).blochainData));
+    Provider.of<DigitalIDProvider>(context, listen: false).isAbleSubmitToBlockchain(context: context);
+    print("Encode ${json.encode(_digitalIDProvider!.toJson(_dashBoardM))}");
+    _digitalIDProvider!.setBlockChainData = _digitalIDProvider!.toJson(_dashBoardM);
+    print("_digitalIDProvider!.setBlockChainData ${_digitalIDProvider!.blochainData}");
+    Encrypted _encrypted = Encryption().encryptAES(json.encode(_digitalIDProvider!.toJson(_dashBoardM)));
     await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
 
     setState(() {
