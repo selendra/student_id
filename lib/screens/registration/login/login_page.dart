@@ -11,7 +11,7 @@ import 'package:student_id/provider/registration_p.dart';
 import 'package:student_id/screens/otp_verify/otp_verify_page.dart';
 import 'package:student_id/services/storage.dart';
 
-import '../../test_screen_ui.dart';
+import '../../../shared/bg_shared.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

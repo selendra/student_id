@@ -13,7 +13,7 @@ import 'package:student_id/services/storage.dart';
 import 'package:encrypt/encrypt.dart';
 
 import '../../widgets/build_line_top.dart';
-import '../test_screen_ui.dart';
+import '../../shared/bg_shared.dart';
 
 
 class OTPVerifyPage extends StatefulWidget {

@@ -12,7 +12,7 @@ import 'package:student_id/models/sign_up_m.dart';
 import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/services/storage.dart';
 
-import '../../test_screen_ui.dart';
+import '../../../shared/bg_shared.dart';
 
 class VerifyAcc extends StatefulWidget {
 

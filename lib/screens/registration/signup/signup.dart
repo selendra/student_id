@@ -15,7 +15,7 @@ import 'package:student_id/screens/registration/signup/body_signup.dart';
 import 'package:student_id/screens/registration/verfiyAcc/verifyAcc.dart';
 import 'package:student_id/services/storage.dart';
 
-import '../../test_screen_ui.dart';
+import '../../../shared/bg_shared.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);

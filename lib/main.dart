@@ -8,7 +8,7 @@ import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/provider/registration_p.dart';
 
-import 'screens/test_screen_ui.dart';
+import 'shared/bg_shared.dart';
 
 void main() {
   // FlutterNativeSplash.removeAfter(initialization);
