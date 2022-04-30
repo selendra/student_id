@@ -253,26 +253,12 @@ async function createWeb3linkSel(){ //api: ApiPromise, email:string, address: st
 
 
   record = await api.query.identity.studentidOf(email);
-  // if(record.inspect().inner) {
-  //   let recordp = JSON.parse(record);
-  //   console.log("Email " + email + " registered with " + recordp.accountId);
-
-  // }else {
-  //   console.log("Email "+ email + "  not registered" );
-  //   process.exit();
-  // }
-
 
   // Check if the given user is already linked
 
   record = await api.query.identity.emailId(idtolink);
     console.log(JSON.stringify(record));
 
-  // if(record.inspect().inner) {
-  //   console.log(JSON.stringify(record));
-  //   let recordp = JSON.parse(record);
-  //   console.log("Id "+ idtolink + " linked to Email ");
-  // }else {
     console.log("Id "+ idtolink + " Linking with Email ");
       
     const referal = (Math.random() + 1).toString(36).substring(7);
@@ -290,8 +276,6 @@ async function createWeb3linkSel(){ //api: ApiPromise, email:string, address: st
     const linkedweb3 = api.tx.identity.createWeb3linkSel15(email, idtolink, referal);
     await linkedweb3.signAndSend(alice);
     console.log("Referal linked ");
-
-  // }
 
   record = await api.query.identity.emailId(idtolink);
 

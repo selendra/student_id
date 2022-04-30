@@ -190,6 +190,12 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
             height: MediaQuery.of(context).size.height / 3.3,
             fit: BoxFit.cover,
           ),
+
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 3.3,
+            color: Colors.black.withOpacity(0.4),
+          ),
           
           if (model.isEditing)
           InkWell(
@@ -263,13 +269,12 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
 
             Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(  
-                model.name == '' ? "N/A" : model.name,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: MyText(  
+                text: model.name == '' ? "N/A" : model.name,
+                fontSize: 20,
+                width: 200,
+                color2: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             )
           ],
@@ -286,33 +291,36 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
           child: Row(
             children: [
 
-              Padding(
-                padding: EdgeInsets.only(left: 5),
-                child: IconButton(
-                  iconSize: 40,
-                  onPressed: () async {
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 5),
+                  child: IconButton(
+                    iconSize: 40,
+                    onPressed: () async {
 
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
-                  }, 
-                  icon: Row(
-                    children: [
-                      
-                      Icon(
-                        Icons.account_circle_outlined,
-                        color: Colors.white,
-                        size: 30,
-                      ),
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
+                    }, 
+                    icon: Row(
+                      children: [
+                        
+                        Icon(
+                          Icons.account_circle_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
 
-                      MyText(
-                        text: Provider.of<ApiProvider>(context, listen: false).accountM.name ?? "",
-                        color2: Colors.white,
-                      )
-                    ]
+                        MyText(
+                          textAlign: TextAlign.left,
+                          left: 10,
+                          width: 200,
+                          text: model.name == '' ? "N/A" : model.name,
+                          color2: Colors.white,
+                        )
+                      ]
+                    ),
                   ),
-                ),
+                )
               ),
-
-              Expanded(child: Container()),
 
               Padding(
                 padding: EdgeInsets.only(right: 5),
@@ -446,11 +454,12 @@ class SetupProgressIndicator extends StatelessWidget with PreferredSizeWidget {
   }
 }
 
-PreferredSizeWidget appbarCustom(String title, BuildContext context) {
+PreferredSizeWidget appbarCustom(String title, BuildContext context, {bool? centerTitle: false}) {
   return AppBar(
+    centerTitle: centerTitle,
     title: Text(
       title,
-      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
     ),
     backgroundColor: Colors.transparent,
     elevation: 0,

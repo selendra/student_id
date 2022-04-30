@@ -5,6 +5,7 @@ import 'package:student_id/components/qr_scanner.dart';
 import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/screens/registration/scan_connect/scan_page.dart';
 import 'package:student_id/screens/wallet_connect/wallet_connect.dart';
+import 'package:student_id/theme/theme.dart';
 import 'package:wallet_connect/wallet_connect.dart';
 
 import '../../../shared/typography.dart';
@@ -33,7 +34,7 @@ class LoginPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: HexColor(AppColors.bgColor),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

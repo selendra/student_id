@@ -2,8 +2,8 @@ import 'package:student_id/all_export.dart';
 
 class DashBoardModel {
   
-  String profile = 'https://images.unsplash.com/photo-1597466765990-64ad1c35dafc';
-  String cover = 'https://avatars.githubusercontent.com/u/49308834?s=200&v=4';
+  String profile = 'https://icon-library.com/images/student-icon-png/student-icon-png-9.jpg';
+  String cover = 'https://media.istockphoto.com/vectors/back-to-school-seamless-pattern-from-education-science-objects-vector-id692479436?k=20&m=692479436&s=612x612&w=0&h=6ZBQ08aqP_xqmS4oeOffARBd-9pbm3f9xTJpHPgr-WM=';
 
   String name = '';
   String email = '';

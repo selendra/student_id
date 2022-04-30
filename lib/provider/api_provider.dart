@@ -405,11 +405,11 @@ class ApiProvider with ChangeNotifier {
       String _seed = await Provider.of<ApiProvider>(context!, listen: false).generateMnemonic();
       print("_Seed $_seed");
       RegistrationProvider _registration = Provider.of<RegistrationProvider>(context, listen: false);
-      await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context, usrName: '', password: "1234", seed: _seed).then((value) async {
+      await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context, usrName: _registration.usrName, password: "1234", seed: _seed).then((value) async {
 
         // Encode Data
         Map<String, dynamic>? map = {
-          'usrName': _registration.usrName,
+          'name': _registration.usrName,
           'email': _registration.email,
           'password': _registration.password,
           'seed': _seed

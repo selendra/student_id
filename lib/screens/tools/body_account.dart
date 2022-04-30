@@ -58,6 +58,7 @@ class AccountBody extends StatelessWidget {
                   
                   Consumer<HomeProvider>(
                     builder: (context, provider, widget){
+                      print("provider.homeModel.profile ${provider.homeModel.profile}");
                       return Padding(
                         padding: EdgeInsets.only(left: paddingSize, top: paddingSize, bottom: paddingSize),
                         child: Row(
@@ -74,14 +75,18 @@ class AccountBody extends StatelessWidget {
 
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 MyText(
+                                  fontSize: 15,
                                   textAlign: TextAlign.start,
                                   text: provider.homeModel.name == '' ? "N/A" : provider.homeModel.name,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 MyText(
                                   text: provider.homeModel.email,
+                                  color: "#535763",
+                                  fontSize: 12,
                                 )
                               ],
                             ),
@@ -104,6 +109,7 @@ class AccountBody extends StatelessWidget {
                                     left: 10,
                                     text: provider.successSubmitToBlockchain ? "Verified" : "Not verify",
                                     fontWeight: FontWeight.bold,
+                                    fontSize: 12,
                                     color2: provider.successSubmitToBlockchain ? HexColor("#3DDAB4") : Colors.red,
                                   ),
                                 ],

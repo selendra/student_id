@@ -20,42 +20,41 @@ class OTPVerifyPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: SizedBox(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height:5),  
-              BuildLineTop(context:context),
-              const SizedBox(height: 20),
-              selLogo(context),
-              const SizedBox(height: 20),
-              Text('Verify',
-                style: TypographyHelper.titleTextStyleBlack.copyWith(fontSize: 20, fontWeight: FontWeight.bold)
-              ),
-              const SizedBox(height: 15),
-              Text(
-                'One account. One place to manage it all.\n Welcome to you account dashboard.',
-                textAlign: TextAlign.center,
-                style: TypographyHelper.subTitleTextStyleBlack.copyWith(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey)
-              ),
-              const SizedBox(height: 20),
-              VerifyInput(textEditingController: verifyInputController, onChanged: onChanged),
-              const SizedBox(height: 25),
-              SubmitButton(
-                text: 'Verify',
-                onPressed: () {
-                  validator!();
-                },
-              ),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: HexColor(AppColors.bgColor),
+      body: Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(height:5),  
+            BuildLineTop(context:context),
+            const SizedBox(height: 20),
+            selLogo(context),
+            const SizedBox(height: 20),
+            Text('Verify',
+              style: TypographyHelper.titleTextStyleBlack.copyWith(fontSize: 20, fontWeight: FontWeight.bold)
+            ),
+            const SizedBox(height: 15),
+            Text(
+              'One account. One place to manage it all.\n Welcome to you account dashboard.',
+              textAlign: TextAlign.center,
+              style: TypographyHelper.subTitleTextStyleBlack.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey)
+            ),
+            const SizedBox(height: 20),
+            VerifyInput(textEditingController: verifyInputController, onChanged: onChanged),
+            const SizedBox(height: 25),
+            SubmitButton(
+              text: 'Verify',
+              onPressed: () {
+                validator!();
+              },
+            ),
+          ],
         ),
-      ),
+      )
     );
   }
 }

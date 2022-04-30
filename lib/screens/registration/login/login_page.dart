@@ -94,28 +94,28 @@ class _LoginPageState extends State<LoginPage> {
               await MyDialog().customDialog(context, "Message", "We sent you 4 digit OTP code.\nPlease check your email.");
             }
           });
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => const OTPVerifyPage())); 
-          return showModalBottomSheet(
-              useRootNavigator: true,
-              isScrollControlled: true,
-              context: context,
-              clipBehavior: Clip.antiAlias,
-              shape: const RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.vertical(
-                  top: Radius.circular(24),
-                ),
-              ),
-              builder: (context) {
-                return StatefulBuilder(builder:
-                    (context, setModalState) {
-                  return  SizedBox(
-                    height: MediaQuery.of(context).size.height -200,
-                    child: OTPVerifyPage()
-                  );
-                });
-              }
-            );
+          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage())); 
+          // return showModalBottomSheet(
+          //     useRootNavigator: true,
+          //     isScrollControlled: true,
+          //     context: context,
+          //     clipBehavior: Clip.antiAlias,
+          //     shape: const RoundedRectangleBorder(
+          //       borderRadius:
+          //           BorderRadius.vertical(
+          //         top: Radius.circular(24),
+          //       ),
+          //     ),
+          //     builder: (context) {
+          //       return StatefulBuilder(builder:
+          //           (context, setModalState) {
+          //         return  SizedBox(
+          //           height: MediaQuery.of(context).size.height -200,
+          //           child: OTPVerifyPage()
+          //         );
+          //       });
+          //     }
+          //   );
           // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");
@@ -145,8 +145,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return checkLogin == false 
-    ? TestGlasUI(
-      body: LoginPageBody(
+    // ? TestGlasUI(
+    //   body: 
+     ? LoginPageBody(
         emailInputController: emailInputController,
         passwordInputController: passwordInputController,
         handleRememberMe: handleRememberMe,
@@ -154,8 +155,8 @@ class _LoginPageState extends State<LoginPage> {
         formKey: formKey,
         validator: validator,
         submitLogin: submitLogin
-      ),
-    ) 
+      )
+    // ) 
     : const Scaffold(body: Center(
       child: CircularProgressIndicator(),
     ),);

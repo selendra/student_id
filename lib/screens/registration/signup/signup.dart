@@ -73,10 +73,10 @@ class _SignUpPageState extends State<SignUpPage> {
           await Backend().getOtp(_signUpModel.emailInputController.text).then((otpMsg) async {
             if (otpMsg.statusCode == 201){
               await MyDialog().customDialog(context, "${value['message']}", "We sent you 4 digit OTP code.\nPlease check your email.");
+              Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage()));
             }
           });
 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage()));
         } else {
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }

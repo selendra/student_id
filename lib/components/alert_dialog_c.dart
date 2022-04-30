@@ -24,7 +24,7 @@ class MyDialog{
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           title: Align(
-            child: Text(title, style: TextStyle(fontWeight: FontWeight.w600)),
+            child: Text(title, style: TextStyle(fontWeight: FontWeight.w600), textAlign: TextAlign.center,),
           ),
           content: Padding(
             padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),

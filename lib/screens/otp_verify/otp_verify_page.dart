@@ -103,15 +103,11 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: TestGlasUI(
-        body: OTPVerifyPageBody(
-              verifyInputController: verifyInputController,
-              formKey: formKey,
-              onChanged: onChanged,
-              validator: validator
-            ),
-      ),
+    return OTPVerifyPageBody(
+      verifyInputController: verifyInputController,
+      formKey: formKey,
+      onChanged: onChanged,
+      validator: validator
     );
   }
 }

@@ -38,6 +38,8 @@ export 'package:student_id/screens/setup_wallet/verify_seed/body_verify_seed.dar
 
 export 'package:student_id/screens/digital_id/digital_id_option.dart';
 
+export 'package:student_id/theme/theme.dart';
+
 /// Model
 /// 
 export 'package:student_id/models/dashboard_m.dart';

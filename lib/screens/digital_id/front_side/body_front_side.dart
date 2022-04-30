@@ -22,9 +22,10 @@ class FrontSideBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarCustom("Front Side", context),
+      appBar: appbarCustom("Front Side", context, centerTitle: true),
       body: Stack(
         children: [
+          
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -95,6 +96,8 @@ class FrontSideBody extends StatelessWidget {
               MyText(
                 top: paddingSize,
                 bottom: paddingSize,
+                width: 311,
+                fontWeight: FontWeight.bold,
                 text: "Position your document inside the frame. Make sure that all the data is clearly visible."
               ),
 
@@ -172,21 +175,32 @@ class FrontSideBody extends StatelessWidget {
             right: paddingSize,
             bottom: paddingSize,
             child: Container(
-                height: 60,
+                height: 56,
                 width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14)
+                ),
                 child: ElevatedButton(
-                    onPressed: model!.frontImage == '' ? null : () {
-                      Navigator.push(
-                        context,
-                      MaterialPageRoute(
-                        builder: (context) => BackSide()
-                        )
-                      );
-                    },
-                    child: MyText(
-                      text: "Next",
-                      color2: Colors.white,
-                    ))),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14)),
+                    ),
+                  ),
+                  onPressed: model!.frontImage == '' ? null : () {
+                    Navigator.push(
+                      context,
+                    MaterialPageRoute(
+                      builder: (context) => BackSide()
+                      )
+                    );
+                  },
+                  child: MyText(
+                    text: "Next Step",
+                    color2: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ))),
           )
         ],
       ),

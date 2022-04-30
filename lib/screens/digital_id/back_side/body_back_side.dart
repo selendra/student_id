@@ -21,7 +21,7 @@ class BackSideBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarCustom("Back Side", context),
+      appBar: appbarCustom("Back Side", context, centerTitle: true),
       body: Stack(
         children: [
           Column(
@@ -92,6 +92,8 @@ class BackSideBody extends StatelessWidget {
               MyText(
                 top: paddingSize,
                 bottom: paddingSize,
+                width: 311,
+                fontWeight: FontWeight.bold,
                 text: "Position your document inside the frame. Make sure that all the data is clearly visible."
               ),
 
@@ -168,9 +170,18 @@ class BackSideBody extends StatelessWidget {
             right: paddingSize,
             bottom: paddingSize,
             child: Container(
-                height: 60,
+                height: 56,
                 width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14)
+                ),
                 child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14)),
+                    ),
+                  ),
                     onPressed:  model!.backImage == '' ? null : () {
                       Navigator.push(
                           context,
@@ -179,8 +190,10 @@ class BackSideBody extends StatelessWidget {
                                 );
                     },
                     child: MyText(
-                      text: "Next",
+                      text: "Next Step",
                       color2: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ))),
           )
         ],

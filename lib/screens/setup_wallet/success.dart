@@ -5,6 +5,10 @@ import 'package:student_id/theme/theme.dart';
 
 class SuccessSubmit extends StatelessWidget{
 
+  final Function? method;
+
+  SuccessSubmit({this.method});
+
   Widget build(BuildContext context){
     return Scaffold(
       body: SafeArea(
@@ -58,7 +62,12 @@ class SuccessSubmit extends StatelessWidget{
                       ),
                     ),
                     onPressed: () async {
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
+                      if (method != null) {
+                        await method!();
+                      } else {
+
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
+                      }
                     },
                   ),
                 ),

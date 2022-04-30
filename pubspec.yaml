@@ -121,7 +121,7 @@ flutter:
     - family: Quicksand
       fonts:
         - asset: assets/fonts/Quicksand/Quicksand-Regular.ttf
-        - asset: assets/fonts/Quicksand/Quicksand-Regular.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-Bold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
