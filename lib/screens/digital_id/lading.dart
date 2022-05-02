@@ -33,6 +33,7 @@ class _LandingState extends State<Landing> {
       body: Stack(
         children: <Widget>[
           PageView.builder(
+            physics: NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             onPageChanged: _onchanged,
             controller: _controller,
@@ -45,20 +46,22 @@ class _LandingState extends State<Landing> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List<Widget>.generate(_pages.length, (int index) {
-                    return AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        height: 10,
-                        width: (index == _currentPage) ? 30 : 10,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 30),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: (index == _currentPage)
-                                ? Colors.blue
-                                : Colors.blue.withOpacity(0.5)));
-                  })),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List<Widget>.generate(_pages.length, (int index) {
+                  return AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    height: 10,
+                    width: (index == _currentPage) ? 30 : 10,
+                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: (index == _currentPage)
+                        ? Colors.blue
+                        : Colors.blue.withOpacity(0.5)
+                    )
+                  );
+                })
+              ),
               SizedBox(
                 height: 70,
               )
