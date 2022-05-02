@@ -122,6 +122,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Quicksand/Quicksand-Regular.ttf
         - asset: assets/fonts/Quicksand/Quicksand-Bold.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-Light.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-Medium.ttf
+        - asset: assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

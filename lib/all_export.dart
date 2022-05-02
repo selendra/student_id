@@ -44,3 +44,4 @@ export 'package:student_id/theme/theme.dart';
 /// 
 export 'package:student_id/models/dashboard_m.dart';
 double paddingSize = 20;
+double btnHeight = 60;

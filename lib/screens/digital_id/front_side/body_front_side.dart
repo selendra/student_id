@@ -25,7 +25,7 @@ class FrontSideBody extends StatelessWidget {
       appBar: appbarCustom("Front Side", context, centerTitle: true),
       body: Stack(
         children: [
-          
+
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -174,33 +174,33 @@ class FrontSideBody extends StatelessWidget {
             left: paddingSize,
             right: paddingSize,
             bottom: paddingSize,
-            child: Container(
-                height: 56,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14)
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14)),
                 ),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                    ),
-                  ),
-                  onPressed: model!.frontImage == '' ? null : () {
-                    Navigator.push(
-                      context,
-                    MaterialPageRoute(
-                      builder: (context) => BackSide()
-                      )
-                    );
-                  },
-                  child: MyText(
-                    text: "Next Step",
-                    color2: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ))),
+              ),
+              onPressed: model!.frontImage == '' ? null : () {
+                Navigator.push(
+                  context,
+                MaterialPageRoute(
+                  builder: (context) => BackSide()
+                  )
+                );
+              },
+              child: Container(
+                height: btnHeight,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+                child: MyText(
+                  text: "Next Step",
+                  color2: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )
+              )
+            ),
           )
         ],
       ),

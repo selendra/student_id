@@ -252,14 +252,14 @@ class AccountBody extends StatelessWidget {
                       }, 
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 50,
+                        height: btnHeight,
                         // decoration: BoxDecoration(
                         //   borderRadius: BorderRadius.circular(12),
                         // ),
                         alignment: Alignment.center,
                         child: MyText(
                           text: "Log Out",
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                           color2: Colors.black,
                         )
                       )

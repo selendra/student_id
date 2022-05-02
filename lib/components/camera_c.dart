@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'package:flutter/services.dart';
 import 'package:student_id/all_export.dart';
 
 List<CameraDescription> cameras = [];
@@ -14,7 +15,7 @@ class CameraApp extends StatefulWidget {
   _CameraAppState createState() => _CameraAppState();
 }
 
-class _CameraAppState extends State<CameraApp> {
+class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   int index = 0;
@@ -23,6 +24,7 @@ class _CameraAppState extends State<CameraApp> {
   void initState() {
     initCamera();
     super.initState();
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   initCamera() async {
@@ -43,12 +45,23 @@ class _CameraAppState extends State<CameraApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+SystemChrome.setPreferredOrientations(orientation == Orientation.portrait
+    ? [
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.portraitUp,
+      ]
+    : [
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
     return FutureBuilder<void>(
       future: _initializeControllerFuture,
       builder: (context, snapshot) {

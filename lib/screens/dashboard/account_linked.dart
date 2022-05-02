@@ -25,11 +25,11 @@ class AccountLinked extends StatelessWidget {
 
                   Padding(
                     padding: EdgeInsets.only(bottom: paddingSize),
-                    child: Image.asset(AppConfig.logoPath+"MoEY.png", width: 80,),
+                    child: Image.asset(AppConfig.logoPath+"mptc.png", width: 80,),
                   ),
 
                   MyText(
-                    text: "MoEYs",
+                    text: "Ministry of Post and Telecommunication",
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
                     bottom: paddingSize+paddingSize
@@ -43,7 +43,7 @@ class AccountLinked extends StatelessWidget {
                       Expanded(
                         child: MyText(
                           textAlign: TextAlign.end,
-                          text: "MoEYs Wordpress",
+                          text: "MPTC",
                           color2: Colors.grey,
                           overflow: TextOverflow.ellipsis,
                         )

@@ -63,6 +63,7 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
               const SizedBox(height: 30),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 3,
+                height: btnHeight,
                 child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -82,11 +83,16 @@ void showAlertDialog(TextEditingController phraseKey, BuildContext context) {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      child: MyText(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        text: "Submit",
+                        color2: Colors.white,
+                        fontWeight: FontWeight.bold
                       ),
-                    )),
+                    )
+                  ),
               ),
             ],
           ),
@@ -152,10 +158,14 @@ void qrCodeAlertDialog(BuildContext context) {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text(
-                        'OK',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
+                      child: MyText(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        text: "Submit",
+                        color2: Colors.white,
+                        fontWeight: FontWeight.bold
+                      )
                     )),
               ),
             ],
@@ -285,60 +295,52 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
       Positioned(
         top: 5,
         left: 5,
-        right: 5,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Row(
+        child: IconButton(
+          constraints: BoxConstraints(
+            minWidth: 200, maxWidth: 300
+          ),
+          iconSize: 40,
+          onPressed: () async {
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
+          }, 
+          icon: Row(
             children: [
-
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 5),
-                  child: IconButton(
-                    iconSize: 40,
-                    onPressed: () async {
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Account()));
-                    }, 
-                    icon: Row(
-                      children: [
-                        
-                        Icon(
-                          Icons.account_circle_outlined,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-
-                        MyText(
-                          textAlign: TextAlign.left,
-                          left: 10,
-                          width: 200,
-                          text: model.name == '' ? "N/A" : model.name,
-                          color2: Colors.white,
-                        )
-                      ]
-                    ),
-                  ),
-                )
+              
+              Icon(
+                Icons.account_circle_outlined,
+                color: Colors.white,
+                size: 30,
               ),
 
-              Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    onPressed: () async {
-                      String result = await Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => QrScanner())
-                      );
-                      print("result $result");
-                    }, 
-                    icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white,)
-                  ),
-                ),
+              MyText(
+                textAlign: TextAlign.left,
+                left: 10,
+                text: model.name == '' ? "N/A" : model.name,
+                color2: Colors.white,
               )
             ]
+          ),
+        )
+      ),
+
+      Positioned(
+        top: 5,
+        right: 5,
+        child: Padding(
+          padding: EdgeInsets.only(right: 5),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              onPressed: () async {
+                String result = await Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => QrScanner())
+                );
+                print("result $result");
+              }, 
+              icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white,)
+            ),
           ),
         )
       )

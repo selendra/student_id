@@ -15,11 +15,11 @@ class SuccessSubmit extends StatelessWidget{
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.only(top: 63),
           child: Stack(
             children: [
 
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
                   MyText(
@@ -51,14 +51,18 @@ class SuccessSubmit extends StatelessWidget{
                   padding: EdgeInsets.all(paddingSize),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(HexColor(AppColors.primary))
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      ),
                     ),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
-                      width: MediaQuery.of(context).size.width,
-                      child: MyText(
+                    height: btnHeight,
+                    padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+                    width: MediaQuery.of(context).size.width,
+                    child: MyText(
                         text: 'Finish',
                         color2: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     onPressed: () async {

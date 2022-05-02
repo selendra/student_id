@@ -96,6 +96,7 @@ class SelfieSideBody extends StatelessWidget {
                   padding: EdgeInsets.all(paddingSize),
                   child: TextButton(
                     child: MyText(
+                      fontWeight: FontWeight.bold,
                       text: "Take a selfie"
                     ),
                     onPressed: () async {
@@ -126,22 +127,23 @@ class SelfieSideBody extends StatelessWidget {
             left: paddingSize,
             right: paddingSize,
             bottom: paddingSize,
-            child: Container(
-              height: 56,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14)
-              ),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14)),
-                  ),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14)),
                 ),
-                onPressed: model!.selfieImage == '' ? null : () async {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SuccessSubmit(method: () async {await submit!();},)));
-                }, 
+              ),
+              onPressed: model!.selfieImage == '' ? null : () async {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SuccessSubmit(method: () async {await submit!();},)));
+              }, 
+              child: Container(
+                height: btnHeight,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14)
+                ),
+                alignment: Alignment.center,
                 child: MyText(
                   text: "Next Step", color2: Colors.white,
                   fontSize: 20,

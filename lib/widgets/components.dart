@@ -546,30 +546,33 @@ class SubmitButton extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
+        height: btnHeight,
         width: MediaQuery.of(context).size.width,
         child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius),
-              color: primaryColor
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius),
+            color: primaryColor
+          ),
+          child: ElevatedButton(
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                alignment: Alignment.center,
+                padding: MaterialStateProperty.all(
+                    const EdgeInsets.only(top: 15, bottom: 15)),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.transparent),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(borderRadius)),
+                )),
+            onPressed: onPressed,
+            child: MyText(
+              text: text!,
+              color2: accentColor,
+              fontWeight: FontWeight.bold
             ),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0),
-                  alignment: Alignment.center,
-                  padding: MaterialStateProperty.all(
-                      const EdgeInsets.only(top: 15, bottom: 15)),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.transparent),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(borderRadius)),
-                  )),
-              onPressed: onPressed,
-              child: Text(
-                text!,
-                style: TypographyHelper.titleTextStyleBlack.copyWith(color: accentColor,fontSize: 18,fontWeight: FontWeight.w600),
-              ),
-            )),
+          ),
+        ),
       ),
     );
   }
@@ -593,6 +596,7 @@ class CustomButton extends StatelessWidget {
       padding: edgePadding ?? EdgeInsets.zero,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
+        height: btnHeight,
         child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
@@ -611,10 +615,13 @@ class CustomButton extends StatelessWidget {
                 )
               ),
               onPressed: onPressed,
-              child: Text(
-                text!,
-                style: TextStyle(color: colorText, fontSize: 16),
-              ),
+              child: MyText(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              text: text!,
+              fontWeight: FontWeight.bold
+            ),
             )),
       )
     );
@@ -642,6 +649,7 @@ class CustomButtonIcon extends StatelessWidget {
 
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2.75,
+      height: btnHeight,
       child: DecoratedBox(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
@@ -660,9 +668,12 @@ class CustomButtonIcon extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 icon!,
-                Text(
-                  text!,
-                  style: TextStyle(color: colorText, fontSize: 14),
+                MyText(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  text: text!,
+                  fontWeight: FontWeight.bold
                 ),
               ],
             ),
@@ -685,7 +696,7 @@ class EditButton extends StatelessWidget {
 
     return SizedBox(
       width: MediaQuery.of(context).size.width / 5,
-      height: MediaQuery.of(context).size.height / 20,
+      height: btnHeight,
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius),
@@ -702,9 +713,10 @@ class EditButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-          child: Text(
-            text!,
-            style: const TextStyle(color: accentColor, fontSize: 14),
+          child: MyText(
+            text: text!,
+            color2: accentColor,
+            fontWeight: FontWeight.bold
           ),
         ),
       ),
@@ -931,9 +943,9 @@ class PersonlInfo extends StatelessWidget {
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 50,
+                height: btnHeight,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12)
+                  borderRadius: BorderRadius.circular(14)
                 ),
                 alignment: Alignment.center,
                 child: MyText(
@@ -1000,7 +1012,7 @@ class PersonlInfo extends StatelessWidget {
                 }, 
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 50,
+                  height: btnHeight,
                   // decoration: BoxDecoration(
                   //   borderRadius: BorderRadius.circular(12),
                   // ),
@@ -1250,11 +1262,13 @@ class AddButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(30),
       child: SizedBox(
+        height: btnHeight,
         width: MediaQuery.of(context).size.width,
         child: DecoratedBox(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadius),
-                color: primaryColor),
+              borderRadius: BorderRadius.circular(borderRadius),
+              color: primaryColor
+            ),
             child: ElevatedButton(
               style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),
@@ -1268,9 +1282,13 @@ class AddButton extends StatelessWidget {
                         borderRadius: BorderRadius.circular(borderRadius)),
                   )),
               onPressed: onPressed,
-              child: Text(
-                text!,
-                style: const TextStyle(color: accentColor, fontSize: 18),
+              child: MyText(
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                text: text!,
+                color2: accentColor,
+                fontWeight: FontWeight.w600
               ),
             ),
         ),

@@ -104,10 +104,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
-    _signUpModel.userNameController.text = "Rithy THUL";
-    _signUpModel.emailInputController.text = "rithythul@gmail.com";
-    _signUpModel.passwordInputController.text = "123456";
-    _signUpModel.conPasController.text = "123456";
+    // _signUpModel.userNameController.text = "Rithy THUL";
+    // _signUpModel.emailInputController.text = "rithythul@gmail.com";
+    // _signUpModel.passwordInputController.text = "123456";
+    // _signUpModel.conPasController.text = "123456";
     _registrationProvider = Provider.of<RegistrationProvider>(context, listen: false);
     super.initState();
   }

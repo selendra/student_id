@@ -22,7 +22,7 @@ class DigitalIDOption extends StatelessWidget {
             // Hint To upload Card
             MyText(
               text: "Your document photo helps us prove your identity.It should match the information you have provided in the previous steps.",
-              fontSize: 13,
+              fontSize: 16,
               bottom: 30,
             ),
 
@@ -34,7 +34,7 @@ class DigitalIDOption extends StatelessWidget {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: 15),
-                height: 55,
+                height: btnHeight,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
@@ -65,7 +65,7 @@ class DigitalIDOption extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: 15),
-                height: 55,
+                height: btnHeight,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   color: HexColor("#F3F3F3")
@@ -95,7 +95,7 @@ class DigitalIDOption extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: 15),
-                height: 55,
+                height: btnHeight,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   color: HexColor("#F3F3F3")

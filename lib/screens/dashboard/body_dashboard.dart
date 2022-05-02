@@ -47,7 +47,10 @@ class DashBoardBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   
-                  profileWidget(context, model: dashModel, pickImage: pickImage),
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(25), bottomLeft: Radius.circular(25)),
+                    child: profileWidget(context, model: dashModel, pickImage: pickImage)
+                  ),
 
                   TabBar(
                     controller: tabController,
@@ -56,60 +59,69 @@ class DashBoardBody extends StatelessWidget {
                     },
                     tabs: [
                       
-                      Consumer<HomeProvider>(
-                        builder: (context, provider, widget){
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                      Padding(
+                      padding: EdgeInsets.symmetric(vertical: 18),
+                      child: Consumer<HomeProvider>(
+                          builder: (context, provider, widget){
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
 
-                              Stack(
-                                alignment: Alignment.center,
-                                children: [
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
 
-                                  Icon(Icons.people_alt_outlined, size: 40, color: greyColor,),
+                                    SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: greyColor,),
 
-                                  provider.successSubmitToBlockchain
-                                  ? Positioned(
-                                    child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
-                                    right: 0,
-                                    bottom: 0
-                                  ) 
-                                  : Container()
-                                ],
-                              ),
-                              Text(
-                                'Verify',
-                                style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          );
-                        },
+                                    provider.successSubmitToBlockchain
+                                    ? Positioned(
+                                      child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
+                                      right: 0,
+                                      bottom: 0
+                                    ) 
+                                    : Container()
+                                  ],
+                                ),
+                                Text(
+                                  'Verify',
+                                  style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                                )
+                              ],
+                            );
+                          },
+                        ),
                       ),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.qr_code_2_outlined, size: 40, color: greyColor,),
-                          Text(
-                            'Wallet ID',
-                            style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-                          )
-                        ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.qr_code_2_outlined, size: 40, color: greyColor,),
+                            Text(
+                              'Wallet ID',
+                              style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        )
                       ),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.contact_page_outlined, size: 40, color: greyColor,),
-                          Text(
-                            'Accounts',
-                            style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-                          )
-                        ],
-                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.contact_page_outlined, size: 40, color: greyColor,),
+                            Text(
+                              'Accounts',
+                              style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
+                      )
 
                     ]
                   ),

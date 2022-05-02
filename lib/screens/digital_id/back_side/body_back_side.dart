@@ -169,32 +169,35 @@ class BackSideBody extends StatelessWidget {
             left: paddingSize,
             right: paddingSize,
             bottom: paddingSize,
-            child: Container(
-                height: 56,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14)),
+                ),
+              ),
+                onPressed:  model!.backImage == '' ? null : () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SelfieSide())
+                            );
+                },
+                child: Container(
+                height: btnHeight,
                 width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14)
                 ),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                    ),
-                  ),
-                    onPressed:  model!.backImage == '' ? null : () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SelfieSide())
-                                );
-                    },
-                    child: MyText(
-                      text: "Next Step",
-                      color2: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ))),
+                child: MyText(
+                  text: "Next Step",
+                  color2: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )
+              )
+            ),
           )
         ],
       ),
