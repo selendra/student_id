@@ -5,6 +5,8 @@ import 'package:student_id/screens/digital_id/front_side/body_front_side.dart';
 import 'package:student_id/screens/digital_id/front_side/front_side.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'lading.dart';
+
 class DigitalIDOption extends StatelessWidget {
   const DigitalIDOption({ Key? key }) : super(key: key);
 
@@ -30,7 +32,7 @@ class DigitalIDOption extends StatelessWidget {
 
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const FrontSide()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Landing()));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: 15),
@@ -50,8 +52,7 @@ class DigitalIDOption extends StatelessWidget {
                       text: "National ID"
                     ),
                     Expanded(child: Container()),
-
-                    Icon(Icons.arrow_forward_outlined, size: 24,)
+                    const Icon(Icons.arrow_forward_outlined, size: 24,)
                   ],
                 ),
               ),
@@ -60,7 +61,7 @@ class DigitalIDOption extends StatelessWidget {
 
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const FrontSide()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Landing()));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -90,7 +91,7 @@ class DigitalIDOption extends StatelessWidget {
             
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const FrontSide()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const Landing()));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,

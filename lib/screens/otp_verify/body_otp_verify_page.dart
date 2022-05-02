@@ -27,8 +27,8 @@ class OTPVerifyPageBody extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height:5),  
-            BuildLineTop(context:context),
+            // const SizedBox(height:5),  
+            // BuildLineTop(context:context),
             const SizedBox(height: 20),
             selLogo(context),
             const SizedBox(height: 20),
