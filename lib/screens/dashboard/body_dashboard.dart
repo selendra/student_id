@@ -60,28 +60,31 @@ class DashBoardBody extends StatelessWidget {
                     tabs: [
                       
                       Padding(
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      child: Consumer<HomeProvider>(
+                        padding: EdgeInsets.symmetric(vertical: 18),
+                        child: Consumer<HomeProvider>(
                           builder: (context, provider, widget){
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
 
-                                Stack(
-                                  alignment: Alignment.center,
-                                  children: [
+                                Container(
+                                  width: 50,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
 
-                                    SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: greyColor,),
+                                      SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: greyColor,),
 
-                                    provider.successSubmitToBlockchain
-                                    ? Positioned(
-                                      child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
-                                      right: 0,
-                                      bottom: 0
-                                    ) 
-                                    : Container()
-                                  ],
+                                      provider.successSubmitToBlockchain
+                                      ? Positioned(
+                                        child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
+                                        right: 0,
+                                        bottom: 0
+                                      ) 
+                                      : Container()
+                                    ],
+                                  ),
                                 ),
                                 Text(
                                   'Verify',

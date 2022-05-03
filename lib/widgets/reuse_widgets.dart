@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -187,15 +188,23 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
       Stack(
         children: [
 
-          model!.cover.contains("https")
-          ? Image.network(
+          if (model!.cover.contains("https"))
+          Image.network(
             model.cover,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 3.3,
             fit: BoxFit.cover,
-          )
-          : Image.file(
+          ),
+          if (!model.cover.contains("https") && !model.cover.contains("assets/images")) 
+          Image.file(
             File(model.cover),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 3.3,
+            fit: BoxFit.cover,
+          ),
+          if (model.cover.contains("assets/images")) 
+          Image.asset(
+            model.cover,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 3.3,
             fit: BoxFit.cover,
@@ -337,7 +346,10 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
                   context, 
                   MaterialPageRoute(builder: (context) => QrScanner())
                 );
+
                 print("result $result");
+                Provider.of<HomeProvider>(context, listen: false).connectWS(json.decode(result));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => CreateWalletPage()));
               }, 
               icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white,)
             ),

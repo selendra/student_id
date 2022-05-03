@@ -21,6 +21,9 @@ class _IdentifierState extends State<SelfieSide> {
   DigitalIDProvider? provider;
 
   Future pickImage(String? img, String? label) async {
+    print("pickImage");
+    print("img $img");
+    print("label $label");
     try {
       // if (label == 'back'){
       //   widget.model!.backFaceImage = img;

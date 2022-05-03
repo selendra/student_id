@@ -335,6 +335,55 @@ async function createWeb3linkSel(){ //api: ApiPromise, email:string, address: st
   // }
 }
 
+async function simulateScan(id: string) {
+
+  const provider = new WsProvider('wss://student.selendra.org');
+  const api = await ApiPromise.create({ provider });
+  
+  return new Promise( async (resolve, reject) => {
+    let record = await api.query.identity.studentidOf(id, ({ status, events, dispatchError }) => {
+      // status would still be set, but in the case of error we can shortcut
+      // to just check it (so an error would indicate InBlock or Finalized)
+      if (dispatchError) {
+        console.log("dispatchError");
+        if (dispatchError.isModule) {
+          // for module errors, we have the section indexed, lookup
+          const decoded = api.registry.findMetaError(dispatchError.asModule);
+          const { docs, name, section } = decoded;
+  
+          console.log(`${section}.${name}: ${docs.join(' ')}`);
+  
+          // resolve({'status': false,'message': name});
+        } else {
+          // Other, CannotLookup, BadOrigin, no extra info
+          console.log(dispatchError.toString());
+        }
+      } else {
+        console.log("Success");
+        events.forEach(({ phase, event: { data, method, section } }) => {
+          console.log(`\t' ${phase}: ${section}.${method}:: ${data}`);
+          // resolve({'status': true,'message': 'Registration completed successfully'});
+        });
+      }
+      
+    });
+  })
+  // if(record.inspect().inner) {
+  // let recordp = JSON.parse(record);
+  // console.log("Email " + email + " registered with " + recordp.accountId);
+  // console.log(JSON.stringify(recordp));
+  // /*
+  //   if wallet-address matching recordp.accountId then validate success
+  // */
+
+  //  var data = {id: email};
+  //  ssocket.emit("/auth/qr-scan", data);
+
+
+  // }
+
+}
+
 async function transfer(api: ApiPromise, address: string){
 
   let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
@@ -912,7 +961,8 @@ export default {
   loginAccessSel12,
   setReferalSel12,
   createWeb3linkSel,
-  transfer
+  transfer,
+  simulateScan
   //signTxAsExtension,
   //signBytesAsExtension,
   //verifySignature,

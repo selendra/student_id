@@ -4,7 +4,6 @@ import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/services/storage.dart';
-
 class DigitalIDProvider extends ChangeNotifier{
 
   DigitalIDModel? identifierModel = DigitalIDModel();

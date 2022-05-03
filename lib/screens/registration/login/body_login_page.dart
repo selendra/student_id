@@ -52,12 +52,14 @@ class LoginPageBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 const Text(
-                    'One account. One place to manage it all.\n Welcome to you account dashboard.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey)),
+                  'One account. One place to manage it all.\n Welcome to you account dashboard.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey
+                  )
+                ),
                 const SizedBox(height: 20),
                 const GoogleBtn(
                   title: 'Login with Google',

@@ -53,5 +53,7 @@
 		<string>
 			uses the local network to discover Cast-enabled devices on your WiFi network.
 		</string>
+		<key>com.apple.security.network.client</key>
+		<true/>
 	</dict>
 </plist>

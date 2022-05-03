@@ -122,6 +122,11 @@ class AccountBody extends StatelessWidget {
                   ),
 
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"profile2.svg"),
@@ -130,6 +135,11 @@ class AccountBody extends StatelessWidget {
                     )
                   ),
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"wallet2.svg"),
@@ -138,6 +148,11 @@ class AccountBody extends StatelessWidget {
                     )
                   ),
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"auction.svg"),
@@ -146,6 +161,11 @@ class AccountBody extends StatelessWidget {
                     )
                   ),
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"bridge.svg"),
@@ -154,6 +174,11 @@ class AccountBody extends StatelessWidget {
                     )
                   ),
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"exchange.svg"),
@@ -162,6 +187,11 @@ class AccountBody extends StatelessWidget {
                     )
                   ),
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"borrow.svg"),
@@ -170,6 +200,11 @@ class AccountBody extends StatelessWidget {
                     )
                   ),
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"earn.svg"),
@@ -178,6 +213,11 @@ class AccountBody extends StatelessWidget {
                     )
                   ),
                   ListTile(
+                    onTap: () async {
+                      await MyDialog().customDialog(
+                        context, 'Message', 'Profile feature is under construction'
+                      );
+                    },
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"import seed.svg"),

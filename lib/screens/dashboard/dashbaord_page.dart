@@ -33,14 +33,17 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
   TabController? _tabController;
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
   DigitalIDProvider? _digitalIDProvider;
+  
 
   Future pickImage(ImageSource source, String? label) async {
+    print("pickImage");
     XFile? pickedFile;
     if (source == ImageSource.camera){
-      String value = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp()));
+      pickedFile = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp()));
     } else {
       pickedFile = await Services.pickImage(source);
     }
+
     if (pickedFile != null){
       setState(() {
         if (label == 'cover'){

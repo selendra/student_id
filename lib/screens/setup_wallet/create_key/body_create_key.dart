@@ -59,9 +59,12 @@ class CreateKeyBody extends StatelessWidget {
                                       children: [
 
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            SvgPicture.asset(AppConfig.illusPath+"warning.svg", width: MediaQuery.of(context).size.width/3)
+                                            Icon(Icons.warning, color: Colors.yellow[600]),
+                                            MyText(
+                                              text: "Warning"
+                                            )
                                           ],
                                         ),
 
@@ -73,6 +76,7 @@ class CreateKeyBody extends StatelessWidget {
                                           color2: blackColor,
                                           bottom: 5,
                                         ),
+                                        
                                         Text(
                                           'Write down the following words in order and keep them somewhere safe. Anyone with access to it will also have access to your account! You will be asked to verify your passphrase next. Passphrase also known mnemonic.',
                                           style: TextStyle(
@@ -254,14 +258,14 @@ class CreateKeyBody extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 2),
           child: i * 3 + pos + 1 < 10
-              ? Text(
-                  '  ' + (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
-                  style: TextStyle(color: blackColor, fontSize: 14),
-                )
-              : Text(
-                  (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
-                  style: TextStyle(color: blackColor, fontSize: 14),
-                ),
+          ? Text(
+            '  ' + (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
+            style: TextStyle(color: blackColor, fontSize: 14),
+          )
+          : Text(
+            (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
+            style: TextStyle(color: blackColor, fontSize: 14),
+          ),
         ),
       ));
     }

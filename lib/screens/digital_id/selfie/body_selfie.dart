@@ -102,12 +102,12 @@ class SelfieSideBody extends StatelessWidget {
                     onPressed: () async {
                       try {
 
-                        final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
+                        XFile img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp()));
 
                         // final pickedFile = await ;
                         print("Selfie ${img}");
                         if (img != null){
-                          await pickImage!(img, 'front');
+                          await pickImage!(img.path, 'front');
                         }
                         // if (model!.selfieImage == ''){
                         // } else {

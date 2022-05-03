@@ -107,15 +107,16 @@ class BackSideBody extends StatelessWidget {
                           try {
                             // ImagePicker _picker = ImagePicker();
                             // await _picker.pickImage(source: ImageSource.camera);
-                            final img = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CameraApp())) ??
-                                '';
+                            XFile img = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CameraApp()
+                              )
+                            );
                             if (model!.backImage == '') {
-                              await pickImage!(img, 'front');
+                              await pickImage!(img.path, 'front');
                             } else {
-                              await pickImage!(img, 'back');
+                              await pickImage!(img.path, 'back');
                             }
                           } catch (e) {
                             print("Error CameraApp $e");

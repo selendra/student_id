@@ -620,7 +620,8 @@ class CustomButton extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               text: text!,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
+              color2: Colors.white,
             ),
             )),
       )
@@ -669,11 +670,9 @@ class CustomButtonIcon extends StatelessWidget {
               children: [
                 icon!,
                 MyText(
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
                   text: text!,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                  color2: colorText,
                 ),
               ],
             ),
