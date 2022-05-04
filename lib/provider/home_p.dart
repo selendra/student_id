@@ -24,7 +24,7 @@ class HomeProvider with ChangeNotifier{
     notifyListeners();
   }
   // 'http://137.184.224.174:4000'
-  Future<void> connectWS(Map<String, dynamic> result) async{ 
+  Future<void> connectWS(String email, { required BuildContext? context}) async{ 
     print("connectWS");
     try{
       socket = IO.io(
@@ -36,9 +36,11 @@ class HomeProvider with ChangeNotifier{
       );
 
       socket!.onConnect((data) {
-        print('connect $data');
-        print("result['id'] ${result['id']}");
-        socket!.emit("/auth/qr-scan", {"id": result['id']});
+        print('connected');
+        ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
+          content: Text('Connected'),
+        ));
+        socket!.emit("/auth/qr-scan", {"id": email});
       });
       socket!.onConnectError((data) {
         print("onConnectError $data");

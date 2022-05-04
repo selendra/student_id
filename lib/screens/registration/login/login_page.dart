@@ -85,14 +85,19 @@ class _LoginPageState extends State<LoginPage> {
           
           Provider.of<RegistrationProvider>(context, listen: false).email = emailInputController.text;
           Provider.of<RegistrationProvider>(context, listen: false).password = passwordInputController.text;
+          
+          // await _api!.autoGenerateAcc(context: context).then((value) async {
 
-          await _api!.autoGenerateAcc(context: context).then((value) async {
+          //   await _api!.getCurrentAccount();
+          // });
 
-            await _api!.getCurrentAccount();
-          });
+          Map<String, dynamic> result = await _api!.query(email: emailInputController.text);
 
-          Provider.of<HomeProvider>(context, listen: false).setWallet = _api!.accountM.address!;
-
+          Provider.of<HomeProvider>(context, listen: false).setWallet = result['accountId'];//_api!.accountM.address!;
+          _api!.accountM.address = result['accountId'];//_api!.accountM.address!;
+          print(_api!.accountM.address);
+          Provider.of<HomeProvider>(context, listen: false).homeModel.email = emailInputController.text;//_api!.accountM.address!;
+          await _api!.encryptData(context: context);
           await StorageServices.storeData(true, DbKey.login);
 
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
@@ -120,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
           //   );
           // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
+          Navigator.pop(context);
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }
       });

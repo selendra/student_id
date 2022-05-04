@@ -348,7 +348,9 @@ Widget profileWidget(BuildContext context, {@required DashBoardModel? model, @re
                 );
 
                 print("result $result");
-                Provider.of<HomeProvider>(context, listen: false).connectWS(json.decode(result));
+
+                Provider.of<ApiProvider>(context, listen: false).scanQr(result, context: context);
+                // Provider.of<HomeProvider>(context, listen: false).connectWS(json.decode(result), context: context);
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => CreateWalletPage()));
               }, 
               icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white,)

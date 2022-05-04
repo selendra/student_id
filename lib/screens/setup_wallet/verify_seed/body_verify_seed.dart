@@ -4,6 +4,7 @@ import 'package:student_id/components/text_c.dart';
 import 'package:student_id/services/storage.dart';
 
 class VerifyPassphraseBody extends StatelessWidget {
+  
   final TextEditingController phraseKey;
   final String? rd1, rd2, rd3;
   final Function? verify;

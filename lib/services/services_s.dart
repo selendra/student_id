@@ -38,6 +38,30 @@ class Services {
     }
   }
 
+  Future<void> loginEncryption(BuildContext context) async {
+
+
+
+    // Encode Data
+    // Map<String, dynamic>? map = {
+    //   'name': _registration.usrName ?? '',
+    //   'email': _registration.email,
+    //   'password': _registration.password,
+    //   'seed': _seed
+    // };
+    
+    // // Encrypt Data
+    // Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
+    // await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
+
+    // await getCurrentAccount().then((value) async {
+    // print("Finish getCurrentAccount");
+    //   // Make Web3 account Link with Email Address
+    //   await createWeb3linkSel(email: _registration.email);
+    //   print("finish createWeb3linkSel");
+    // });
+  }
+
 //   static int myNumCount = 0;
 
 //   static Future noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {

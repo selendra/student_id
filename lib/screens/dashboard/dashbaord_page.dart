@@ -33,7 +33,6 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
   TabController? _tabController;
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
   DigitalIDProvider? _digitalIDProvider;
-  
 
   Future pickImage(ImageSource source, String? label) async {
     print("pickImage");

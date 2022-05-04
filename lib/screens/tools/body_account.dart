@@ -20,7 +20,10 @@ import 'package:wallet_connect/wallet_connect.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AccountBody extends StatelessWidget {
+  
   const AccountBody({ Key? key }) : super(key: key);
+
+  final double iconSize = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,7 @@ class AccountBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 MyText(
-                                  fontSize: 15,
+                                  fontSize: 17,
                                   textAlign: TextAlign.start,
                                   text: provider.homeModel.name == '' ? "N/A" : provider.homeModel.name,
                                   fontWeight: FontWeight.bold,
@@ -86,7 +89,7 @@ class AccountBody extends StatelessWidget {
                                 MyText(
                                   text: provider.homeModel.email,
                                   color: "#535763",
-                                  fontSize: 12,
+                                  fontSize: 14,
                                 )
                               ],
                             ),
@@ -94,7 +97,7 @@ class AccountBody extends StatelessWidget {
                             Expanded(child: Container()),
                             
                             Container(
-                              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
                                 color: provider.successSubmitToBlockchain ? HexColor("#3DDAB4").withOpacity(0.28) : Colors.red.withOpacity(0.28),
@@ -109,7 +112,7 @@ class AccountBody extends StatelessWidget {
                                     left: 10,
                                     text: provider.successSubmitToBlockchain ? "Verified" : "Not verify",
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     color2: provider.successSubmitToBlockchain ? HexColor("#3DDAB4") : Colors.red,
                                   ),
                                 ],
@@ -129,7 +132,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"profile2.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"profile2.svg", width: iconSize, height: iconSize,),
                         MyText(text: "Profile", textAlign: TextAlign.left, left: 10,)
                       ],
                     )
@@ -142,7 +145,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"wallet2.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"wallet2.svg", width: iconSize, height: iconSize),
                         MyText(text: "Wallet", textAlign: TextAlign.left, left: 10,)
                       ],
                     )
@@ -155,7 +158,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"auction.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"auction.svg", width: iconSize, height: iconSize),
                         MyText(text: "Auction", textAlign: TextAlign.left, left: 10,)
                       ],
                     )
@@ -168,7 +171,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"bridge.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"bridge.svg", width: iconSize, height: iconSize),
                         MyText(text: "Bridge", textAlign: TextAlign.left, left: 10,)
                       ],
                     )
@@ -181,7 +184,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"exchange.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"exchange.svg", width: iconSize, height: iconSize),
                         MyText(text: "Exchange", textAlign: TextAlign.left, left: 10,)
                       ],
                     )
@@ -194,7 +197,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"borrow.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"borrow.svg", width: iconSize, height: iconSize),
                         MyText(text: "Borrow", textAlign: TextAlign.left, left: 10,)
                       ],
                     )
@@ -207,7 +210,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"earn.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"earn.svg", width: iconSize, height: iconSize),
                         MyText(text: "Earn", textAlign: TextAlign.left, left: 10,)
                       ],
                     )
@@ -220,7 +223,7 @@ class AccountBody extends StatelessWidget {
                     },
                     title: Row(
                       children: [
-                        SvgPicture.asset(AppConfig.iconPath+"import seed.svg"),
+                        SvgPicture.asset(AppConfig.iconPath+"import seed.svg", width: iconSize, height: iconSize),
                         MyText(text: "Import seed", textAlign: TextAlign.left, left: 10,)
                       ],
                     )

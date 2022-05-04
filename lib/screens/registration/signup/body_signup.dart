@@ -83,11 +83,6 @@ class SignUpPageBody extends StatelessWidget {
                       return 'This field is required';
                     }
 
-                    // using regular expression
-                    if ( value.length < 6) {
-                      return "Password less than 6 digit";
-                    }
-
                     // the email is valid
                     return null;
                   },
@@ -101,32 +96,32 @@ class SignUpPageBody extends StatelessWidget {
                 PassInput(
                   label: "Password",
                   textEditingController: signUpModel!.passwordInputController, 
-                  onFieldSubmitted: (){
-                    // validator!();
+                  onFieldSubmitted: () async {
+                    await submitSignUp!();
                   },
                 ),
-                PassInput(
-                  label: "Confirm password",
-                  textEditingController: signUpModel!.conPasController, 
-                  onFieldSubmitted: (){
-                    // validator!();
-                  },
-                  validator: (String? value){
+                // PassInput(
+                //   label: "Confirm password",
+                //   textEditingController: signUpModel!.conPasController, 
+                //   onFieldSubmitted: (){
+                //     // validator!();
+                //   },
+                //   validator: (String? value){
 
-                    // Check if this field is empty
-                    if (value == null || value.isEmpty) {
-                      return 'This field is required';
-                    }
+                //     // Check if this field is empty
+                //     if (value == null || value.isEmpty) {
+                //       return 'This field is required';
+                //     }
 
-                    // using regular expression
-                    if ( value.length < 6) {
-                      return "Password less than 6 digit";
-                    }
+                //     // using regular expression
+                //     if ( value.length < 6) {
+                //       return "Password less than 6 digit";
+                //     }
 
-                    // the password is valid
-                    return null;
-                  },
-                ),
+                //     // the password is valid
+                //     return null;
+                //   },
+                // ),
                 const SizedBox(height: 20),
                 SubmitButton(
                   text: 'Submit',

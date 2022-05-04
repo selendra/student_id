@@ -74,7 +74,7 @@ class DashBoardBody extends StatelessWidget {
                                     alignment: Alignment.center,
                                     children: [
 
-                                      SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: greyColor,),
+                                      SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: tabController!.index == 0 ? Colors.black : greyColor,),
 
                                       provider.successSubmitToBlockchain
                                       ? Positioned(
@@ -86,9 +86,12 @@ class DashBoardBody extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Text(
-                                  'Verify',
-                                  style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                                MyText(
+                                  fontSize: 16,
+                                  top: 5,
+                                  text: 'Verify',
+                                  color2: tabController!.index == 0 ? Colors.black : greyColor, 
+                                  fontWeight: tabController!.index == 0 ? FontWeight.bold : FontWeight.w600
                                 )
                               ],
                             );
@@ -102,10 +105,12 @@ class DashBoardBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.qr_code_2_outlined, size: 40, color: greyColor,),
-                            Text(
-                              'Wallet ID',
-                              style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                            Icon(Icons.qr_code_2_outlined, size: 40, color: tabController!.index == 1 ? Colors.black : greyColor,),
+                            MyText(
+                              fontSize: 16,
+                              text: 'Wallet ID',
+                              color2: tabController!.index == 1 ? Colors.black : greyColor, 
+                              fontWeight: tabController!.index == 1 ? FontWeight.bold : FontWeight.w600
                             )
                           ],
                         )
@@ -117,10 +122,13 @@ class DashBoardBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.contact_page_outlined, size: 40, color: greyColor,),
-                            Text(
-                              'Accounts',
-                              style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
+                            Icon(Icons.contact_page_outlined, size: 40, color: tabController!.index == 2 ? Colors.black : greyColor,),
+                            MyText(
+                              fontSize: 16,
+                              top: 5,
+                              text: 'Accounts',
+                              color2: tabController!.index == 2 ? Colors.black: greyColor, 
+                              fontWeight: tabController!.index == 2 ? FontWeight.bold : FontWeight.w600
                             )
                           ],
                         ),

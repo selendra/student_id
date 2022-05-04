@@ -21,6 +21,7 @@ import 'package:polkawallet_sdk/storage/types/keyPairData.dart';
 import 'package:polkawallet_sdk/api/apiKeyring.dart';
 import 'package:polkawallet_sdk/utils/localStorage.dart';
 import 'package:provider/provider.dart';
+import 'package:student_id/components/alert_dialog_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/models/account_m.dart';
 import 'package:student_id/provider/home_p.dart';
@@ -40,6 +41,8 @@ class ApiProvider with ChangeNotifier {
   Keyring get getKeyring => _keyring;
   WalletSDK get getSdk => _sdk;
   MyApiKeyring get apiKeyring => _apiKeyring!;
+  
+  String _defaultAddr = "5HnLfzCVR9vuM1z2fmZqsNazPqw6FzBJwr42HQRebmu6R4hH";
 
   // KeyringStorage _keyringStorage = KeyringStorage();
   // LocalStorage _storageOld = LocalStorage();
@@ -375,7 +378,6 @@ class ApiProvider with ChangeNotifier {
         // await addAcc(context: context);
         // Check If Not Yet Login Not Allow To Auto Gernate Account
         await StorageServices.fetchData(DbKey.login).then((login) async {
-          print("value != null && _keyring.allAccounts.isEmpty ${value != null && _keyring.allAccounts.isEmpty}");
           await StorageServices.fetchData(DbKey.sensitive).then((sensitive) async {
             if (value != null && sensitive != null && _keyring.allAccounts.isEmpty){
               await autoGenerateAcc(context: context);
@@ -406,21 +408,60 @@ class ApiProvider with ChangeNotifier {
       print("_Seed $_seed");
       RegistrationProvider _registration = Provider.of<RegistrationProvider>(context, listen: false);
       await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context, usrName: _registration.usrName ?? '', password: "1234", seed: _seed).then((value) async {
-
-        // Encode Data
-        Map<String, dynamic>? map = {
-          'name': _registration.usrName ?? '',
-          'email': _registration.email,
-          'password': _registration.password,
-          'seed': _seed
-        };
-        
-        // Encrypt Data
-        Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
-        await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
+        await encryptData(context: context, seed: _seed);
       });
     } catch (e){
       print("Error autoGenerateAcc $e");
+    }
+
+  }
+
+  Future<void> encryptData({required BuildContext? context, String? seed = ''}) async {
+
+    RegistrationProvider _registration = Provider.of<RegistrationProvider>(context!, listen: false);
+    // Encode Data
+    Map<String, dynamic>? map = {
+      'name': _registration.usrName ?? '',
+      'email': _registration.email,
+      'password': _registration.password,
+      'seed': seed
+    };
+    
+    // Encrypt Data
+    Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
+    await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
+
+    await getCurrentAccount().then((value) async {
+      // Make Web3 account Link with Email Address
+      await createWeb3linkSel(email: _registration.email);
+    });
+  }
+
+  Future<void> scanQr(String id, {BuildContext? context}) async {
+    id = id.replaceAll('"', "");
+    print("scanQr $id");
+
+    try {
+
+      HomeProvider _provider = Provider.of<HomeProvider>(context!, listen: false);
+
+      await query(email: id).then((value) async {
+        print("query value $value");
+        if(value['accountId'] == _provider.homeModel.wallet){
+          await _provider.connectWS(id, context: context);
+        } else {
+          await MyDialog().customDialog(context!, "Oops", "Something went wrong!");
+        }
+      });
+      // _sdk.api.service.webView!.evalJavascript('keyring.simulateScan("$id")').then((value) async {
+      //   print("scanQr $value");
+      //   print(value['status']);
+        
+      //   return value;
+      // });
+
+    } catch (e){
+      print("Error registerSELNetwork ${e}");
     }
 
   }
@@ -490,11 +531,28 @@ class ApiProvider with ChangeNotifier {
       return await _sdk.api.service.webView!.evalJavascript('keyring.registerSel11(api, "$email","$password")').then((value) async {
         print("registerSel11 $value");
         print(value['status']);
+
+        // Set Referal code to Email AFter Register
+        await setReferalSel12(email: email);
         return value;
       });
 
     } catch (e){
       print("Error registerSELNetwork ${e}");
+    }
+  }
+
+  Future<dynamic> query({required String? email}) async {
+    try {
+
+      return await _sdk.api.service.webView!.evalJavascript('keyring.queryData(api, "$email", "123456")').then((value) async { // api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV"
+        print("my queryData $value");
+        print(value['accountId']);
+        return value;
+      });
+
+    } catch (e){
+      print("Error queryData ${e}");
     }
   }
 
@@ -513,11 +571,12 @@ class ApiProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> createWeb3linkSel15({required String? email}) async {
+  /// For Referal Code Already Pass Inside The Function
+  Future<dynamic> createWeb3linkSel({required String? email}) async {
     print("createWeb3linkSel15");
     try {
 
-      return await _sdk.api.service.webView!.evalJavascript('keyring.createWeb3linkSel()').then((value) async { // api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV"
+      return await _sdk.api.service.webView!.evalJavascript('keyring.createWeb3linkSel(api, "$email", "${accountM.address}")').then((value) async { // api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV"
         print("registerSel11 $value");
         print(value['status']);
         return value;
