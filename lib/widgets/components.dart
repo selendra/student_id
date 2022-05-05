@@ -949,7 +949,7 @@ class PersonlInfo extends StatelessWidget {
                 alignment: Alignment.center,
                 child: MyText(
                   text: "Submit Edit",
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color2: Colors.white,
                 )
               )
@@ -1018,7 +1018,7 @@ class PersonlInfo extends StatelessWidget {
                   alignment: Alignment.center,
                   child: MyText(
                     text: "Get your digital ID",
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
                     color2: Colors.red,
                   )
                 )

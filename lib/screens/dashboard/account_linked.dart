@@ -6,6 +6,7 @@ import 'package:student_id/components/walletConnect_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/provider/api_provider.dart';
+import 'package:student_id/provider/home_p.dart';
 
 class AccountLinked extends StatelessWidget {
   
@@ -34,20 +35,24 @@ class AccountLinked extends StatelessWidget {
                   bottom: paddingSize+paddingSize
                 ),
 
-                Row(
-                  children: [
-                    MyText(
-                      text: "Connected to"
-                    ),
-                    Expanded(
-                      child: MyText(
-                        textAlign: TextAlign.end,
-                        text: "MPTC",
-                        color2: Colors.grey,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    ),
-                  ]
+                Consumer<HomeProvider>(
+                  builder: (context, provider, widget){
+                    return Row(
+                      children: [
+                        MyText(
+                          text: "MPTC"
+                        ),
+                        Expanded(
+                          child: MyText(
+                            textAlign: TextAlign.end,
+                            text: provider.isConnectedMPTC ? "connecting" : "not connect",
+                            color2: provider.isConnectedMPTC ? Colors.green : Colors.grey,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ),
+                      ]
+                    );
+                  },
                 ),
 
                 Padding(
@@ -86,7 +91,7 @@ class AccountLinked extends StatelessWidget {
                 Consumer<ApiProvider>(
                   builder: (context, provider, widget){
                     return Row(
-                      children: [
+                      children: [ 
                         MyText(
                           text: "Network"
                         ),

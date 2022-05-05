@@ -33,6 +33,8 @@ class DashBoardBody extends StatelessWidget {
     required this.submitEdit 
   }) : super(key: key);
 
+  final double tabBarHeight = 55;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +56,7 @@ class DashBoardBody extends StatelessWidget {
 
                   TabBar(
                     controller: tabController,
+                    indicatorColor: Colors.transparent,
                     onTap: (index){
                       onTab!(index);
                     },
@@ -69,12 +72,15 @@ class DashBoardBody extends StatelessWidget {
                               children: [
 
                                 Container(
-                                  width: 50,
+                                  width: tabBarHeight,
+                                  height: tabBarHeight,
                                   child: Stack(
-                                    alignment: Alignment.center,
                                     children: [
 
-                                      SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: tabController!.index == 0 ? Colors.black : greyColor,),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: tabController!.index == 0 ? Colors.black : greyColor,),
+                                      ),
 
                                       provider.successSubmitToBlockchain
                                       ? Positioned(
@@ -88,8 +94,7 @@ class DashBoardBody extends StatelessWidget {
                                 ),
                                 MyText(
                                   fontSize: 16,
-                                  top: 5,
-                                  text: 'Verify',
+                                  text: provider.successSubmitToBlockchain ? 'Verified' : 'Verify',
                                   color2: tabController!.index == 0 ? Colors.black : greyColor, 
                                   fontWeight: tabController!.index == 0 ? FontWeight.bold : FontWeight.w600
                                 )
@@ -105,7 +110,10 @@ class DashBoardBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.qr_code_2_outlined, size: 40, color: tabController!.index == 1 ? Colors.black : greyColor,),
+                            Container(
+                              height: tabBarHeight,
+                              child: Icon(Icons.qr_code_2_outlined, size: 40, color: tabController!.index == 1 ? Colors.black : greyColor,),
+                            ),
                             MyText(
                               fontSize: 16,
                               text: 'Wallet ID',
@@ -120,12 +128,13 @@ class DashBoardBody extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 18),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.contact_page_outlined, size: 40, color: tabController!.index == 2 ? Colors.black : greyColor,),
+                            Container(
+                              height: tabBarHeight,
+                              child: Icon(Icons.contact_page_outlined, size: 40, color: tabController!.index == 2 ? Colors.black : greyColor,)
+                            ),
                             MyText(
                               fontSize: 16,
-                              top: 5,
                               text: 'Accounts',
                               color2: tabController!.index == 2 ? Colors.black: greyColor, 
                               fontWeight: tabController!.index == 2 ? FontWeight.bold : FontWeight.w600

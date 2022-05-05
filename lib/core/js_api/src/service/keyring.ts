@@ -282,6 +282,14 @@ async function queryData(api: ApiPromise, email: string, password: string){
   })
 }
 
+async function queryDataByAddr(api: ApiPromise, addr: string){
+  console.log("queryDataByAddr");
+  return new Promise( async (resolve, reject) => {
+    let record = await api.query.system.account(addr);
+    resolve(record);
+  })
+}
+
 async function transfer(api: ApiPromise, address: string){
 
   let aliza = keyring.addFromUri('author notable dial assume confirm inner hammer attack daring hair blue join');
@@ -860,7 +868,8 @@ export default {
   setReferalSel12,
   createWeb3linkSel,
   transfer,
-  queryData
+  queryData,
+  queryDataByAddr
   //signTxAsExtension,
   //signBytesAsExtension,
   //verifySignature,

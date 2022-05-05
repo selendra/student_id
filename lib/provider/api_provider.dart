@@ -379,7 +379,7 @@ class ApiProvider with ChangeNotifier {
         // Check If Not Yet Login Not Allow To Auto Gernate Account
         await StorageServices.fetchData(DbKey.login).then((login) async {
           await StorageServices.fetchData(DbKey.sensitive).then((sensitive) async {
-            if (value != null && sensitive != null && _keyring.allAccounts.isEmpty){
+            if (value == null && sensitive == null && _keyring.allAccounts.isEmpty){
               await autoGenerateAcc(context: context);
             }
           });
@@ -550,6 +550,20 @@ class ApiProvider with ChangeNotifier {
     try {
 
       return await _sdk.api.service.webView!.evalJavascript('keyring.queryData(api, "$email", "123456")').then((value) async { // api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV"
+        print("my queryData $value");
+        print(value['accountId']);
+        return value;
+      });
+
+    } catch (e){
+      print("Error queryData ${e}");
+    }
+  }
+
+  Future<dynamic> queryByAddr({required String? addr}) async {
+    try {
+
+      return await _sdk.api.service.webView!.evalJavascript('keyring.queryDataByAddr(api, "$addr")').then((value) async { // api, "$email", "5FLfHZwYbAoJdLmy1KBjMmKNy2fsCQ6858dmpaGXrHn5G2vV"
         print("my queryData $value");
         print(value['accountId']);
         return value;

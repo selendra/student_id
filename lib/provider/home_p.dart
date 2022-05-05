@@ -11,6 +11,8 @@ class HomeProvider with ChangeNotifier{
   bool successSubmitToBlockchain = false;
   bool readyToSubmit = false;
 
+  bool isConnectedMPTC = false;
+
   set setWallet(String value) {
     homeModel.wallet = value;
     // notifyListeners();
@@ -47,6 +49,8 @@ class HomeProvider with ChangeNotifier{
           "pubKey": Provider.of<HomeProvider>(context, listen: false).homeModel.wallet
         };
         socket!.emit("/auth/qr-scan", data);
+
+        isConnectedMPTC = true;
         
         MotionToast.success(
           title:  Text("Success"),

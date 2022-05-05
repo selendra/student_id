@@ -65,8 +65,20 @@ class _MyAppState extends State<MyApp> {
     try {
 
       ApiProvider _apiProvider = Provider.of<ApiProvider>(context, listen: false);
+
+      // await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context, usrName: _registration.usrName ?? '', password: "1234", seed: _seed).then((value) async {
+      //   await encryptData(context: context, seed: _seed);
+      // });
       
-      _apiProvider.initApi(context: context).then((value) async {
+      await _apiProvider.initApi(context: context).then((value) async {
+        print("_apiProvider.getKeyring.keyPairs.isNotEmpty ${_apiProvider.getKeyring.keyPairs.isNotEmpty}");
+        
+        await _apiProvider.query(email: "vayime4593@dmosoft.com").then((value) async {
+
+          Provider.of<HomeProvider>(context, listen: false).setWallet = value['accountId'];
+          _apiProvider.accountM.address = value['accountId'];
+          await _apiProvider.queryByAddr(addr: value['accountId']);
+        });
         if (_apiProvider.getKeyring.keyPairs.isNotEmpty) {
           await _apiProvider.getAddressIcon();
 
