@@ -3,6 +3,8 @@ import 'package:student_id/components/text_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/theme/theme.dart';
 
+import '../digital_id/build_dot_indecator.dart';
+
 class SuccessSubmit extends StatelessWidget{
 
   final Function? method;
@@ -29,7 +31,7 @@ class SuccessSubmit extends StatelessWidget{
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
-
+                  const ReuseDotIndecator(indexPoint: 3),
                   MyText(
                     top: paddingSize,
                     bottom: paddingSize,
@@ -52,7 +54,7 @@ class SuccessSubmit extends StatelessWidget{
                   child: ElevatedButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                       ),
                     ),
                     child: Container(

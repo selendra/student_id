@@ -10,6 +10,8 @@ import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/screens/digital_id/selfie/selfie.dart';
 import 'package:student_id/services/services_s.dart';
 
+import '../build_dot_indecator.dart';
+
 class BackSideBody extends StatelessWidget {
 
   final DigitalIDModel? model;
@@ -166,6 +168,7 @@ class BackSideBody extends StatelessWidget {
               )
             ],
           ),
+          const ReuseDotIndecator(indexPoint: 1),
           Positioned(
             left: paddingSize,
             right: paddingSize,
@@ -174,7 +177,7 @@ class BackSideBody extends StatelessWidget {
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14)),
+                      borderRadius: BorderRadius.circular(50)),
                 ),
               ),
                 onPressed:  model!.backImage == '' ? null : () {

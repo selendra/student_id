@@ -65,7 +65,6 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
 
   void resetEdit(){
     setState(() {
-      
       _dashBoardM.nameController.text = _dashBoardM.name;
       _dashBoardM.emailController.text = _dashBoardM.email;
       _dashBoardM.nationalityController.text = _dashBoardM.nationality;
@@ -80,7 +79,6 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
       } else if (index == 1) {
         String _wallet = Provider.of<HomeProvider>(context, listen: false).homeModel.wallet;
         if (_wallet != ""){
-
           _dashBoardM.titlePage = "Your wallet address";
         }
       } else {

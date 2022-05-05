@@ -36,7 +36,7 @@ class Components {
               Align(
                 alignment: Alignment.topCenter,
                 child: MyText(
-                  top: 17,
+                  top: 8,
                   text: "Add Item",
                   bottom: 20,
                   fontSize: 20,
@@ -49,15 +49,15 @@ class Components {
               // ),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(bottom: 10),
+                  margin: EdgeInsets.only(bottom: 20),
                   child: InkWell(
                     onTap: (){
                       Navigator.pop(context, "gallery");
                     },
                     child: Row(
                       children: [
-                        Icon(Icons.image_sharp, color: Colors.yellow[400], size: 25),
-                        MyText(left: 13, text: "Gallery", color2: Colors.black, fontWeight: FontWeight.w600)
+                        const Icon(Icons.image_sharp, color: Color.fromARGB(255, 238, 218, 39), size: 25),
+                        MyText(left: 16, text: "Gallery", color2: Colors.black,fontSize: 20, fontWeight: FontWeight.w600)
                       ]
                     )
                   )
@@ -74,7 +74,7 @@ class Components {
                     child: Row(
                       children: [
                         Icon(Icons.camera_alt_outlined, color: Colors.green[300], size: 25,),
-                        MyText(left: 13, text: "Camera", color2: Colors.black, fontWeight: FontWeight.w600)
+                        MyText(left: 16, text: "Camera", color2: Colors.black,fontSize: 20, fontWeight: FontWeight.w600)
                       ]
                     )
                   )
