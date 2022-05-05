@@ -1,6 +1,8 @@
+import 'package:motion_toast/resources/arrays.dart';
+import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-
+import 'package:motion_toast/motion_toast.dart';
 class HomeProvider with ChangeNotifier{
 
   DashBoardModel homeModel = DashBoardModel();
@@ -24,9 +26,10 @@ class HomeProvider with ChangeNotifier{
     notifyListeners();
   }
   // 'http://137.184.224.174:4000'
-  Future<void> connectWS(String email, { required BuildContext? context}) async{ 
+  Future<void> connectWS(String id, { required BuildContext? context}) async{ 
     print("connectWS");
     try{
+
       socket = IO.io(
         'https://auth-student.selendra.org/', 
         IO.OptionBuilder()
@@ -37,10 +40,22 @@ class HomeProvider with ChangeNotifier{
 
       socket!.onConnect((data) {
         print('connected');
-        ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
-          content: Text('Connected'),
-        ));
-        socket!.emit("/auth/qr-scan", {"id": email});
+
+        Map<String, dynamic> data = {
+          "id": id,
+          "email": Provider.of<HomeProvider>(context!, listen: false).homeModel.email,
+          "pubKey": Provider.of<HomeProvider>(context, listen: false).homeModel.wallet
+        };
+        socket!.emit("/auth/qr-scan", data);
+        
+        MotionToast.success(
+          title:  Text("Success"),
+          description:  Text("Scan had connected"),
+          layoutOrientation: ORIENTATION.ltr,
+          animationType: ANIMATION.fromLeft, width:  300,
+          position: MOTION_TOAST_POSITION.top,
+        ).show(context);
+
       });
       socket!.onConnectError((data) {
         print("onConnectError $data");

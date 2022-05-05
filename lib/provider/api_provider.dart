@@ -438,21 +438,25 @@ class ApiProvider with ChangeNotifier {
   }
 
   Future<void> scanQr(String id, {BuildContext? context}) async {
-    id = id.replaceAll('"', "");
+    // id = id.replaceAll('"', "");
     print("scanQr $id");
 
     try {
 
       HomeProvider _provider = Provider.of<HomeProvider>(context!, listen: false);
 
-      await query(email: id).then((value) async {
-        print("query value $value");
-        if(value['accountId'] == _provider.homeModel.wallet){
-          await _provider.connectWS(id, context: context);
-        } else {
-          await MyDialog().customDialog(context!, "Oops", "Something went wrong!");
-        }
-      });
+
+      await _provider.connectWS(id, context: context);
+      // await query(email: id).then((value) async {
+      //   print("query value $value");
+      //   if(value['accountId'] == _provider.homeModel.wallet){
+      //   } else {
+      //     await MyDialog().customDialog(context, "Oops", "Something went wrong!");
+      //   }
+      // });
+
+
+      
       // _sdk.api.service.webView!.evalJavascript('keyring.simulateScan("$id")').then((value) async {
       //   print("scanQr $value");
       //   print(value['status']);
