@@ -136,7 +136,7 @@ class CreateKeyBody extends StatelessWidget {
                                           ),
                                           
                                           Container(
-                                            padding: const EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(16),
                                             margin: const EdgeInsets.all(4),
                                             child: CustomButtonIcon(
                                               onPressed: () async => {
@@ -217,7 +217,6 @@ class CreateKeyBody extends StatelessWidget {
                   child: CustomButton(
                     onPressed: () async => {
 
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -256,15 +255,15 @@ class CreateKeyBody extends StatelessWidget {
         ),
         // color: grey,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
+          padding: const EdgeInsets.all(5),
           child: i * 3 + pos + 1 < 10
           ? Text(
             '  ' + (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
-            style: TextStyle(color: blackColor, fontSize: 14),
+            style: TextStyle(color: blackColor, fontSize: 16,fontWeight: FontWeight.w600),
           )
           : Text(
             (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
-            style: TextStyle(color: blackColor, fontSize: 14),
+            style: TextStyle(color: blackColor, fontSize: 16,fontWeight: FontWeight.w600),
           ),
         ),
       ));

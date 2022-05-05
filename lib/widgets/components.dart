@@ -649,8 +649,8 @@ class CustomButtonIcon extends StatelessWidget {
     const double borderRadius = 50;
 
     return SizedBox(
-      width: MediaQuery.of(context).size.width / 2.75,
-      height: btnHeight,
+      width: MediaQuery.of(context).size.width / 4,
+      height: btnHeight - 15,
       child: DecoratedBox(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
@@ -659,8 +659,8 @@ class CustomButtonIcon extends StatelessWidget {
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
                 alignment: Alignment.center,
-                padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(top: 10, bottom: 10)),
+                // padding: MaterialStateProperty.all(
+                //     const EdgeInsets.only(top: 5, bottom: 5)),
                 backgroundColor:
                     MaterialStateProperty.all(Colors.transparent),
               ),
@@ -987,7 +987,6 @@ class PersonlInfo extends StatelessWidget {
 
         Consumer<DigitalIDProvider>(
           builder: (context, provider, widget){
-            
             if (provider.identifierModel!.completedSetpUpID == false && model!.isEditing == false)
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
@@ -1024,7 +1023,6 @@ class PersonlInfo extends StatelessWidget {
                 )
               )
             );
-
             if (provider.identifierModel!.completedSetpUpID == true && model!.isEditing == false)
             return CarouselWidget(
               height: 330,
