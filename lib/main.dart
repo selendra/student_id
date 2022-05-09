@@ -14,7 +14,7 @@ import 'shared/bg_shared.dart';
 void main() {
   // FlutterNativeSplash.removeAfter(initialization);
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MultiProvider(
       providers: [
@@ -62,19 +62,36 @@ class _MyAppState extends State<MyApp> {
   }
   
   initApiProvider() async {
-    
-    ApiProvider _apiProvider = Provider.of<ApiProvider>(context, listen: false);
-    
-    _apiProvider.initApi(context: context).then((value) async {
-      if (_apiProvider.getKeyring.keyPairs.isNotEmpty) {
-        await _apiProvider.getAddressIcon();
+    print("initApiProvider");
+    try {
 
-        await _apiProvider.getCurrentAccount(funcName: "keyring").then((value) {
-          Provider.of<HomeProvider>(context, listen: false).setWallet = _apiProvider.accountM.address!;
+      ApiProvider _apiProvider = Provider.of<ApiProvider>(context, listen: false);
+
+      // await Provider.of<ApiProvider>(context, listen: false).addAcc(context: context, usrName: _registration.usrName ?? '', password: "1234", seed: _seed).then((value) async {
+      //   await encryptData(context: context, seed: _seed);
+      // });
+      
+      await _apiProvider.initApi(context: context).then((value) async {
+        print("_apiProvider.getKeyring.keyPairs.isNotEmpty ${_apiProvider.getKeyring.keyPairs.isNotEmpty}");
+        
+        await _apiProvider.query(email: "vayime4593@dmosoft.com").then((value) async {
+
+          Provider.of<HomeProvider>(context, listen: false).setWallet = value['accountId'];
+          _apiProvider.accountM.address = value['accountId'];
+          await _apiProvider.queryByAddr(addr: value['accountId']);
         });
-      }
-      // await Provider.of<ApiProvider>(context, listen: false).getCurrentAccount();
-    });
+        if (_apiProvider.getKeyring.keyPairs.isNotEmpty) {
+          await _apiProvider.getAddressIcon();
+
+          await _apiProvider.getCurrentAccount(funcName: "keyring").then((value) {
+            Provider.of<HomeProvider>(context, listen: false).setWallet = _apiProvider.accountM.address!;
+          });
+        }
+        // await Provider.of<ApiProvider>(context, listen: false).getCurrentAccount();
+      });
+    } catch (e){
+      print("Error initApiProvider $e");
+    }
   }
 
   // This widget is the root of your application.
@@ -109,7 +126,7 @@ class _MyAppState extends State<MyApp> {
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
       ),
-      home:  const LoginPage(),
+      home: LoginPage(),
       //LoginPage(),//CreateWalletPage(),
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: loginRoute,

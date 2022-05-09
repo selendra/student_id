@@ -65,14 +65,11 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
           // // Encrypt Data
           // Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
           // await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
-          await _api!.autoGenerateAcc(context: context).then((value) async {
-
-            await _api!.getCurrentAccount();
-          });
+          await _api!.autoGenerateAcc(context: context);
 
           Provider.of<HomeProvider>(context, listen: false).setWallet = _api!.accountM.address!;
 
-          await MyDialog().customDialog(context, "Message", "Successfully verify");
+          // await MyDialog().customDialog(context, "Message", "Successfully verify");
           await StorageServices.storeData(true, DbKey.login);
 
           // Auto Generate Account After Verify

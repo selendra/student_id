@@ -120,7 +120,7 @@ class IdentityInfo extends StatelessWidget{
                     } : null, 
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 50,
+                      height: btnHeight,
                       // decoration: BoxDecoration(
                       //   borderRadius: BorderRadius.circular(12),
                       // ),

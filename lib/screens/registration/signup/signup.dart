@@ -55,29 +55,33 @@ class _SignUpPageState extends State<SignUpPage> {
     MyDialog().dialogLoading(context);
     try {
 
+      ApiProvider _api = await Provider.of<ApiProvider>(context, listen: false);
+
       // await Future.delayed(Duration(seconds: 1), (){
       //   Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyPage()));
       // });
 
-      await Provider.of<ApiProvider>(context, listen: false).registerSELNetwork(email: _signUpModel.emailInputController.text, password: _signUpModel.conPasController.text).then((value) async {
+      await _api.registerSELNetwork(email: _signUpModel.emailInputController.text, password: _signUpModel.passwordInputController.text).then((value) async {
         
         // Assign User Data
         _registrationProvider!.usrName = _signUpModel.userNameController.text;
         _registrationProvider!.email = _signUpModel.emailInputController.text;
-        _registrationProvider!.password = _signUpModel.conPasController.text;
-
-        // Close Dialog
-        Navigator.pop(context);
+        _registrationProvider!.password = _signUpModel.passwordInputController.text;
 
         if (value['status'] == true) {
           await Backend().getOtp(_signUpModel.emailInputController.text).then((otpMsg) async {
+        
+            // Close Dialog
+            Navigator.pop(context);
+
             if (otpMsg.statusCode == 201){
-              await MyDialog().customDialog(context, "${value['message']}", "We sent you 4 digit OTP code.\nPlease check your email.");
+              // await MyDialog().customDialog(context, "${value['message']}", "We sent you 4 digit OTP code.\nPlease check your email.");
               Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage()));
             }
           });
 
         } else {
+          Navigator.pop(context);
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }
       });
@@ -104,10 +108,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
-    _signUpModel.userNameController.text = "Rithy THUL";
-    _signUpModel.emailInputController.text = "rithythul@gmail.com";
-    _signUpModel.passwordInputController.text = "123456";
-    _signUpModel.conPasController.text = "123456";
+    // _signUpModel.userNameController.text = "Rithy THUL";
+    // _signUpModel.emailInputController.text = "rithythul@gmail.com";
+    // _signUpModel.passwordInputController.text = "123456";
+    // _signUpModel.conPasController.text = "123456";
     _registrationProvider = Provider.of<RegistrationProvider>(context, listen: false);
     super.initState();
   }

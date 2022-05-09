@@ -10,6 +10,8 @@ import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/screens/setup_wallet/success.dart';
 import 'package:student_id/services/services_s.dart';
 
+import '../build_dot_indecator.dart';
+
 class SelfieSideBody extends StatelessWidget {
 
   final DigitalIDModel? model;
@@ -96,17 +98,18 @@ class SelfieSideBody extends StatelessWidget {
                   padding: EdgeInsets.all(paddingSize),
                   child: TextButton(
                     child: MyText(
+                      fontWeight: FontWeight.bold,
                       text: "Take a selfie"
                     ),
                     onPressed: () async {
                       try {
 
-                        final img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp())) ?? '';
+                        XFile img = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp()));
 
                         // final pickedFile = await ;
                         print("Selfie ${img}");
                         if (img != null){
-                          await pickImage!(img, 'front');
+                          await pickImage!(img.path, 'front');
                         }
                         // if (model!.selfieImage == ''){
                         // } else {
@@ -121,27 +124,35 @@ class SelfieSideBody extends StatelessWidget {
               ],
             ),
           ),
-
+          const ReuseDotIndecator(indexPoint: 2),
           Positioned(
             left: paddingSize,
             right: paddingSize,
             bottom: paddingSize,
-            child: Container(
-              height: 56,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14)
-              ),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14)),
-                  ),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
                 ),
-                onPressed: model!.selfieImage == '' ? null : () async {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SuccessSubmit(method: () async {await submit!();},)));
-                }, 
+              ),
+              onPressed: model!.selfieImage == '' ? null : () async {
+                // MaterialPageRoute(builder: (context) => SuccessSubmit(method: () async {await submit!();},))
+                Navigator.push(
+                  context, 
+                  PageTransition(
+                    type: PageTransitionType.leftToRight,
+                    child: SuccessSubmit(method: () async {await submit!();},)
+                  )
+                );
+              }, 
+              child: Container(
+                height: btnHeight,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14)
+                ),
+                alignment: Alignment.center,
                 child: MyText(
                   text: "Next Step", color2: Colors.white,
                   fontSize: 20,

@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordInputController = TextEditingController();
   bool? isChecked = false;
   bool? checkLogin = true;
+  ApiProvider? _api;
   
   final formKey = GlobalKey<FormState>();
 
@@ -78,23 +79,29 @@ class _LoginPageState extends State<LoginPage> {
       //   Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage()));
       // });
 
-      await Provider.of<ApiProvider>(context, listen: false).loginSELNetwork(email: emailInputController.text, password: passwordInputController.text).then((value) async {
-      
-        // Close Dialog
-        Navigator.pop(context);
+      await _api!.loginSELNetwork(email: emailInputController.text, password: passwordInputController.text).then((value) async {
 
         if (value['status'] == true) {
           
           Provider.of<RegistrationProvider>(context, listen: false).email = emailInputController.text;
           Provider.of<RegistrationProvider>(context, listen: false).password = passwordInputController.text;
+          
+          // await _api!.autoGenerateAcc(context: context).then((value) async {
 
-          // For OTP
-          await Backend().getOtp(emailInputController.text).then((value) async {
-            if (value.statusCode == 201){
-              await MyDialog().customDialog(context, "Message", "We sent you 4 digit OTP code.\nPlease check your email.");
-            }
-          });
-          Navigator.push(context, MaterialPageRoute(builder: (context) => OTPVerifyPage())); 
+          //   await _api!.getCurrentAccount();
+          // });
+
+          Map<String, dynamic> result = await _api!.query(email: emailInputController.text);
+
+          Provider.of<HomeProvider>(context, listen: false).setWallet = result['accountId'];//_api!.accountM.address!;
+          _api!.accountM.address = result['accountId'];//_api!.accountM.address!;
+          print(_api!.accountM.address);
+          Provider.of<HomeProvider>(context, listen: false).homeModel.email = emailInputController.text;//_api!.accountM.address!;
+          await _api!.encryptData(context: context);
+          await StorageServices.storeData(true, DbKey.login);
+
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
+
           // return showModalBottomSheet(
           //     useRootNavigator: true,
           //     isScrollControlled: true,
@@ -118,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
           //   );
           // Navigator.push(context, MaterialPageRoute(builder: (context) => SetupPage())); 
         } else {
+          Navigator.pop(context);
           await MyDialog().customDialog(context, "Message", "${value['message']}");
         }
       });
@@ -132,6 +140,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // initialize();
     isLogin();
+    _api = Provider.of<ApiProvider>(context, listen: false);
     // emailInputController.text = "condaveat@gmail.com";
     // passwordInputController.text = "123456";
     super.initState();

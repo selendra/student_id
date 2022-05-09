@@ -10,6 +10,8 @@ import 'package:student_id/models/digital_id_m.dart';
 import 'package:student_id/screens/digital_id/selfie/selfie.dart';
 import 'package:student_id/services/services_s.dart';
 
+import '../build_dot_indecator.dart';
+
 class BackSideBody extends StatelessWidget {
 
   final DigitalIDModel? model;
@@ -107,15 +109,16 @@ class BackSideBody extends StatelessWidget {
                           try {
                             // ImagePicker _picker = ImagePicker();
                             // await _picker.pickImage(source: ImageSource.camera);
-                            final img = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CameraApp())) ??
-                                '';
+                            XFile img = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CameraApp()
+                              )
+                            );
                             if (model!.backImage == '') {
-                              await pickImage!(img, 'front');
+                              await pickImage!(img.path, 'front');
                             } else {
-                              await pickImage!(img, 'back');
+                              await pickImage!(img.path, 'back');
                             }
                           } catch (e) {
                             print("Error CameraApp $e");
@@ -165,36 +168,47 @@ class BackSideBody extends StatelessWidget {
               )
             ],
           ),
+          const ReuseDotIndecator(indexPoint: 1),
           Positioned(
             left: paddingSize,
             right: paddingSize,
             bottom: paddingSize,
-            child: Container(
-                height: 56,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                ),
+              ),
+                onPressed:  model!.backImage == '' ? null : () {
+                  Navigator.push(
+                    context, 
+                    PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      child: SelfieSide()
+                    )
+                  );
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => SelfieSide())
+                  //           );
+                },
+                child: Container(
+                height: btnHeight,
                 width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14)
                 ),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                    ),
-                  ),
-                    onPressed:  model!.backImage == '' ? null : () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SelfieSide())
-                                );
-                    },
-                    child: MyText(
-                      text: "Next Step",
-                      color2: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ))),
+                child: MyText(
+                  text: "Next Step",
+                  color2: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )
+              )
+            ),
           )
         ],
       ),

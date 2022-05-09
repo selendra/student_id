@@ -1,4 +1,5 @@
 export 'package:flutter/material.dart';
+export 'package:page_transition/page_transition.dart';
 
 export 'package:student_id/screens/registration/login/login_page.dart';
 export 'package:student_id/screens/registration/login/body_login_page.dart';
@@ -44,3 +45,4 @@ export 'package:student_id/theme/theme.dart';
 /// 
 export 'package:student_id/models/dashboard_m.dart';
 double paddingSize = 20;
+double btnHeight = 60;

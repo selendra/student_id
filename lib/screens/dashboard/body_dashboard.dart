@@ -33,6 +33,8 @@ class DashBoardBody extends StatelessWidget {
     required this.submitEdit 
   }) : super(key: key);
 
+  final double tabBarHeight = 55;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,69 +49,99 @@ class DashBoardBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   
-                  profileWidget(context, model: dashModel, pickImage: pickImage),
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(25), bottomLeft: Radius.circular(25)),
+                    child: profileWidget(context, model: dashModel, pickImage: pickImage)
+                  ),
 
                   TabBar(
                     controller: tabController,
+                    indicatorColor: Colors.transparent,
                     onTap: (index){
                       onTab!(index);
                     },
                     tabs: [
                       
-                      Consumer<HomeProvider>(
-                        builder: (context, provider, widget){
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18),
+                        child: Consumer<HomeProvider>(
+                          builder: (context, provider, widget){
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
 
-                              Stack(
-                                alignment: Alignment.center,
-                                children: [
+                                Container(
+                                  width: tabBarHeight,
+                                  height: tabBarHeight,
+                                  child: Stack(
+                                    children: [
 
-                                  Icon(Icons.people_alt_outlined, size: 40, color: greyColor,),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: SvgPicture.asset(AppConfig.iconPath+"profile3.svg", width: 40, height: 34, color: tabController!.index == 0 ? Colors.black : greyColor,),
+                                      ),
 
-                                  provider.successSubmitToBlockchain
-                                  ? Positioned(
-                                    child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
-                                    right: 0,
-                                    bottom: 0
-                                  ) 
-                                  : Container()
-                                ],
-                              ),
-                              Text(
-                                'Verify',
-                                style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          );
-                        },
+                                      provider.successSubmitToBlockchain
+                                      ? Positioned(
+                                        child: Image.asset(AppConfig.iconPath+"check.png", width: 20),
+                                        right: 0,
+                                        bottom: 0
+                                      ) 
+                                      : Container()
+                                    ],
+                                  ),
+                                ),
+                                MyText(
+                                  fontSize: 16,
+                                  text: provider.successSubmitToBlockchain ? 'Verified' : 'Verify',
+                                  color2: tabController!.index == 0 ? Colors.black : greyColor, 
+                                  fontWeight: tabController!.index == 0 ? FontWeight.bold : FontWeight.w600
+                                )
+                              ],
+                            );
+                          },
+                        ),
                       ),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.qr_code_2_outlined, size: 40, color: greyColor,),
-                          Text(
-                            'Wallet ID',
-                            style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-                          )
-                        ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: tabBarHeight,
+                              child: Icon(Icons.qr_code_2_outlined, size: 40, color: tabController!.index == 1 ? Colors.black : greyColor,),
+                            ),
+                            MyText(
+                              fontSize: 16,
+                              text: 'Wallet ID',
+                              color2: tabController!.index == 1 ? Colors.black : greyColor, 
+                              fontWeight: tabController!.index == 1 ? FontWeight.bold : FontWeight.w600
+                            )
+                          ],
+                        )
                       ),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.contact_page_outlined, size: 40, color: greyColor,),
-                          Text(
-                            'Accounts',
-                            style: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
-                          )
-                        ],
-                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: tabBarHeight,
+                              child: Icon(Icons.contact_page_outlined, size: 40, color: tabController!.index == 2 ? Colors.black : greyColor,)
+                            ),
+                            MyText(
+                              fontSize: 16,
+                              text: 'Accounts',
+                              color2: tabController!.index == 2 ? Colors.black: greyColor, 
+                              fontWeight: tabController!.index == 2 ? FontWeight.bold : FontWeight.w600
+                            )
+                          ],
+                        ),
+                      )
 
                     ]
                   ),
@@ -127,7 +159,7 @@ class DashBoardBody extends StatelessWidget {
 
                   Container(
                     color: Colors.white,
-                    height: MediaQuery.of(context).size.height / 1.2,
+                    height: MediaQuery.of(context).size.height / 1.1,
                     child: TabBarView(
                       controller: tabController,
                       children: [
@@ -137,7 +169,6 @@ class DashBoardBody extends StatelessWidget {
                       ]
                     ),
                   )
-
                 ],
               )
             )

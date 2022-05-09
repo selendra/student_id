@@ -3,6 +3,8 @@ import 'package:student_id/components/text_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/theme/theme.dart';
 
+import '../digital_id/build_dot_indecator.dart';
+
 class SuccessSubmit extends StatelessWidget{
 
   final Function? method;
@@ -15,11 +17,11 @@ class SuccessSubmit extends StatelessWidget{
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.only(top: 63),
           child: Stack(
             children: [
 
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 
                   MyText(
@@ -29,7 +31,7 @@ class SuccessSubmit extends StatelessWidget{
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
-
+                  const ReuseDotIndecator(indexPoint: 3),
                   MyText(
                     top: paddingSize,
                     bottom: paddingSize,
@@ -51,14 +53,18 @@ class SuccessSubmit extends StatelessWidget{
                   padding: EdgeInsets.all(paddingSize),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(HexColor(AppColors.primary))
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                      ),
                     ),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
-                      width: MediaQuery.of(context).size.width,
-                      child: MyText(
+                    height: btnHeight,
+                    padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
+                    width: MediaQuery.of(context).size.width,
+                    child: MyText(
                         text: 'Finish',
                         color2: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     onPressed: () async {

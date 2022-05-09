@@ -4,4 +4,5 @@ class AppColors{
   static String secondary = "#5BCE00";
   static String txtLabel = "#ADADAD";
   static String bgColor = "#F8F8F8";
+  static String btnColor = "#00AAFF";
 }

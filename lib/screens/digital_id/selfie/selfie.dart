@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
 import 'package:student_id/components/alert_dialog_c.dart';
@@ -20,6 +21,9 @@ class _IdentifierState extends State<SelfieSide> {
   DigitalIDProvider? provider;
 
   Future pickImage(String? img, String? label) async {
+    print("pickImage");
+    print("img $img");
+    print("label $label");
     try {
       // if (label == 'back'){
       //   widget.model!.backFaceImage = img;
@@ -60,6 +64,7 @@ class _IdentifierState extends State<SelfieSide> {
 
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     provider = Provider.of<DigitalIDProvider>(context, listen: false);
     super.initState();
   }

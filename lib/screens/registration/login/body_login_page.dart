@@ -52,12 +52,14 @@ class LoginPageBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 const Text(
-                    'One account. One place to manage it all.\n Welcome to you account dashboard.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey)),
+                  'One account. One place to manage it all.\n Welcome to you account dashboard.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey
+                  )
+                ),
                 const SizedBox(height: 20),
                 const GoogleBtn(
                   title: 'Login with Google',
@@ -76,12 +78,12 @@ class LoginPageBody extends StatelessWidget {
                 PassInput(
                   label: 'Password',
                   textEditingController: passwordInputController, 
-                  onFieldSubmitted: (){
-                    // validator!();
+                  onFieldSubmitted: () async {
+                    await submitLogin!();
                   },
                 ),
                 SubmitButton(
-                  text: 'Login',
+                  text: 'Submit',
                   onPressed: () async {
                     // validator!();
                     await submitLogin!();

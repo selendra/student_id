@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/camera_c.dart';
 import 'package:student_id/components/text_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
@@ -34,19 +35,25 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
   DigitalIDProvider? _digitalIDProvider;
 
   Future pickImage(ImageSource source, String? label) async {
+    print("pickImage");
+    XFile? pickedFile;
+    if (source == ImageSource.camera){
+      pickedFile = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraApp()));
+    } else {
+      pickedFile = await Services.pickImage(source);
+    }
 
-    final pickedFile = await Services.pickImage(source);
-    
     if (pickedFile != null){
       setState(() {
         if (label == 'cover'){
-          _dashBoardM.cover = pickedFile.path;
+          _dashBoardM.cover = pickedFile!.path;
         } else {
 
-          _dashBoardM.profile = pickedFile.path;
+          _dashBoardM.profile = pickedFile!.path;
         }
       });
     }
+    
   }
   
   void edit(){
@@ -58,7 +65,6 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
 
   void resetEdit(){
     setState(() {
-      
       _dashBoardM.nameController.text = _dashBoardM.name;
       _dashBoardM.emailController.text = _dashBoardM.email;
       _dashBoardM.nationalityController.text = _dashBoardM.nationality;
@@ -73,7 +79,6 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
       } else if (index == 1) {
         String _wallet = Provider.of<HomeProvider>(context, listen: false).homeModel.wallet;
         if (_wallet != ""){
-
           _dashBoardM.titlePage = "Your wallet address";
         }
       } else {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:student_id/all_export.dart';
+import 'package:student_id/components/text_c.dart';
 import 'package:student_id/services/storage.dart';
 
 class VerifyPassphraseBody extends StatelessWidget {
+  
   final TextEditingController phraseKey;
   final String? rd1, rd2, rd3;
   final Function? verify;
@@ -55,14 +57,30 @@ class VerifyPassphraseBody extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                child: Text(
-                                  'Enter the following word from your recovery phrase to complete the set up process.',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(Icons.warning, color: Colors.yellow[600]),
+                                  MyText(
+                                    text: "Warning"
+                                  )
+                                ],
+                              ),
+
+                              MyText(
+                                textAlign: TextAlign.start,
+                                text: 'Backup Recovery Key Phrase Before logout or uninstall app',
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                                color2: blackColor,
+                                bottom: 5,
+                              ),
+
+                              Text(
+                                'Enter the following word from your recovery phrase to complete the set up process.',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 20),
