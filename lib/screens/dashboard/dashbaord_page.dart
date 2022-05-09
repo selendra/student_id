@@ -19,6 +19,7 @@ import 'package:student_id/screens/dashboard/body_dashboard.dart';
 import 'package:student_id/services/services_s.dart';
 import 'package:student_id/services/storage.dart';
 import 'package:encrypt/encrypt.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 class DashboardPage extends StatefulWidget {
 
@@ -144,7 +145,6 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
         _dashBoardM.countryController.text = data['country'] == "" || data['country'] == null ? "" : data['country'];
 
         _digitalIDProvider!.isAbleSubmitToBlockchain(context: context);
-        print( Provider.of<DigitalIDProvider>(context, listen: false).blochainData);
       }
       
     });
@@ -170,15 +170,22 @@ class _DashboardPageState extends State<DashboardPage> with TickerProviderStateM
     print(_dashBoardM.isEditing);
 
     Provider.of<DigitalIDProvider>(context, listen: false).isAbleSubmitToBlockchain(context: context);
-    print("Encode ${json.encode(_digitalIDProvider!.toJson(_dashBoardM))}");
     _digitalIDProvider!.setBlockChainData = _digitalIDProvider!.toJson(_dashBoardM);
-    print("_digitalIDProvider!.setBlockChainData ${_digitalIDProvider!.blochainData}");
     Encrypted _encrypted = Encryption().encryptAES(json.encode(_digitalIDProvider!.toJson(_dashBoardM)));
     await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
 
     setState(() {
       _dashBoardM.isEditing = false;
     });
+  }
+
+  void prepareEncryption() async {
+    ApiProvider _apiProvider = Provider.of<ApiProvider>(context, listen: false);
+
+    EncryptionRSA encryptionRSA = EncryptionRSA();
+
+    encryptionRSA.encryptRSA(txt);
+    
   }
 
   @override

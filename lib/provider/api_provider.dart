@@ -419,19 +419,21 @@ class ApiProvider with ChangeNotifier {
   Future<void> encryptData({required BuildContext? context, String? seed = ''}) async {
 
     RegistrationProvider _registration = Provider.of<RegistrationProvider>(context!, listen: false);
-    // Encode Data
-    Map<String, dynamic>? map = {
-      'name': _registration.usrName ?? '',
-      'email': _registration.email,
-      'password': _registration.password,
-      'seed': seed
-    };
-    
-    // Encrypt Data
-    Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
-    await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
 
     await getCurrentAccount().then((value) async {
+      
+      // Encode Data
+      Map<String, dynamic>? map = {
+        'name': _registration.usrName ?? '',
+        'email': _registration.email,
+        'password': _registration.password,
+        'seed': seed,
+        'pr_key': accountM.pubKey
+      };
+      
+      // Encrypt Data
+      Encrypted _encrypted = Encryption().encryptAES(json.encode(map));
+      await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
       // Make Web3 account Link with Email Address
       await createWeb3linkSel(email: _registration.email);
     });
