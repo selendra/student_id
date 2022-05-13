@@ -1,4 +1,5 @@
 export 'package:flutter/material.dart';
+export 'package:page_transition/page_transition.dart';
 
 export 'package:student_id/screens/registration/login/login_page.dart';
 export 'package:student_id/screens/registration/login/body_login_page.dart';

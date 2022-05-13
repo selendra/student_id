@@ -159,7 +159,7 @@ class DashBoardBody extends StatelessWidget {
 
                   Container(
                     color: Colors.white,
-                    height: MediaQuery.of(context).size.height / 1.2,
+                    height: MediaQuery.of(context).size.height / 1.1,
                     child: TabBarView(
                       controller: tabController,
                       children: [
@@ -169,7 +169,6 @@ class DashBoardBody extends StatelessWidget {
                       ]
                     ),
                   )
-
                 ],
               )
             )

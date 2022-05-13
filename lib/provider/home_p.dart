@@ -1,6 +1,6 @@
-import 'package:motion_toast/resources/arrays.dart';
 import 'package:provider/provider.dart';
 import 'package:student_id/all_export.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:motion_toast/motion_toast.dart';
 class HomeProvider with ChangeNotifier{
@@ -52,13 +52,13 @@ class HomeProvider with ChangeNotifier{
 
         isConnectedMPTC = true;
         
-        MotionToast.success(
-          title:  Text("Success"),
-          description:  Text("Scan had connected"),
-          layoutOrientation: ORIENTATION.ltr,
-          animationType: ANIMATION.fromLeft, width:  300,
-          position: MOTION_TOAST_POSITION.top,
-        ).show(context);
+        // MotionToast.success(
+        //   title:  Text("Success"),
+        //   description:  Text("Scan had connected"),
+        //   layoutOrientation: ORIENTATION.ltr,
+        //   animationType: ANIMATION.fromLeft, width:  300,
+        //   position: MOTION_TOAST_POSITION.top,
+        // ).show(context);
 
       });
       socket!.onConnectError((data) {

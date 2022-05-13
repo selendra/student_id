@@ -63,12 +63,12 @@ class AccountBody extends StatelessWidget {
                     builder: (context, provider, widget){
                       print("provider.homeModel.profile ${provider.homeModel.profile}");
                       return Padding(
-                        padding: EdgeInsets.only(left: paddingSize, top: paddingSize, bottom: paddingSize),
+                        padding: EdgeInsets.only(left: paddingSize - 5, top: paddingSize, bottom: paddingSize),
                         child: Row(
                           children: [
 
                             Container(
-                              height: 48, width: 48,
+                              height: 65, width: 65,
                               margin: EdgeInsets.only(right: 10),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
@@ -90,6 +90,7 @@ class AccountBody extends StatelessWidget {
                                   text: provider.homeModel.email,
                                   color: "#535763",
                                   fontSize: 14,
+                                  fontWeight: FontWeight.w600,
                                 )
                               ],
                             ),
@@ -97,14 +98,13 @@ class AccountBody extends StatelessWidget {
                             Expanded(child: Container()),
                             
                             Container(
-                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                              padding: EdgeInsets.symmetric(vertical: 13, horizontal: 13),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
                                 color: provider.successSubmitToBlockchain ? HexColor("#3DDAB4").withOpacity(0.28) : Colors.red.withOpacity(0.28),
                               ),
                               child: Row(
                                 children: [
-                                  
                                   if (provider.successSubmitToBlockchain)
                                   SvgPicture.asset(AppConfig.iconPath+"check.svg", width: 20, color: HexColor("#3DDAB4"),),
 
@@ -112,7 +112,7 @@ class AccountBody extends StatelessWidget {
                                     left: 10,
                                     text: provider.successSubmitToBlockchain ? "Verified" : "Not verify",
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14,
+                                    fontSize: 16,
                                     color2: provider.successSubmitToBlockchain ? HexColor("#3DDAB4") : Colors.red,
                                   ),
                                 ],
@@ -133,7 +133,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"profile2.svg", width: iconSize, height: iconSize,),
-                        MyText(text: "Profile", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Profile", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -146,7 +147,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"wallet2.svg", width: iconSize, height: iconSize),
-                        MyText(text: "Wallet", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Wallet", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -159,7 +161,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"auction.svg", width: iconSize, height: iconSize),
-                        MyText(text: "Auction", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Auction", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -172,7 +175,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"bridge.svg", width: iconSize, height: iconSize),
-                        MyText(text: "Bridge", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Bridge", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -185,7 +189,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"exchange.svg", width: iconSize, height: iconSize),
-                        MyText(text: "Exchange", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Exchange", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -198,7 +203,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"borrow.svg", width: iconSize, height: iconSize),
-                        MyText(text: "Borrow", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Borrow", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -211,7 +217,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"earn.svg", width: iconSize, height: iconSize),
-                        MyText(text: "Earn", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Earn", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -224,7 +231,8 @@ class AccountBody extends StatelessWidget {
                     title: Row(
                       children: [
                         SvgPicture.asset(AppConfig.iconPath+"import seed.svg", width: iconSize, height: iconSize),
-                        MyText(text: "Import seed", textAlign: TextAlign.left, left: 10,)
+                        const SizedBox(width: 8,),
+                        MyText(text: "Import seed", textAlign: TextAlign.left, left: 10,fontSize: 20, fontWeight: FontWeight.w600,)
                       ],
                     )
                   ),
@@ -304,6 +312,7 @@ class AccountBody extends StatelessWidget {
                           text: "Log Out",
                           fontWeight: FontWeight.bold,
                           color2: Colors.black,
+                          fontSize: 20,
                         )
                       )
                     )

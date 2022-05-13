@@ -114,29 +114,25 @@ class CreateKeyBody extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: getColumn(seed, 0),
                                               ),
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: getColumn(seed, 1),
                                               ),
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: getColumn(seed, 2),
                                               ),
                                             ],
                                           ),
                                           
                                           Container(
-                                            padding: const EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(16),
                                             margin: const EdgeInsets.all(4),
                                             child: CustomButtonIcon(
                                               onPressed: () async => {
@@ -156,26 +152,7 @@ class CreateKeyBody extends StatelessWidget {
                                               colorText: primaryColor,
                                               icon: Icon(Icons.copy_all_outlined, color: primaryColor),
                                             )
-                                            // Padding(
-                                            //   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                            //   child: Row(
-                                            //     crossAxisAlignment: CrossAxisAlignment.center,
-                                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            //     children: [
-                                                  
-                                            //       ,
-                                            //       // CustomButtonIcon(
-                                            //       //   onPressed: () async => {
-                                            //       //     generateKey(),
-                                            //       //   },
-                                            //       //   text: 'Generate New',
-                                            //       //   colorBtn: primaryColor.withOpacity(0.17),
-                                            //       //   colorText: primaryColor,
-                                            //       //   icon: Icon(Icons.refresh_outlined, color: primaryColor),
-                                            //       // ),
-                                            //     ],
-                                            //   ),
-                                            // ),
+
                                           ),
                                         ],
                                       ),
@@ -190,33 +167,11 @@ class CreateKeyBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                
-                // Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: paddingSize),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       const Icon(Icons.error_outline_outlined, color: Colors.blue,),
-                //       Expanded(
-                //         child: MyText(
-                //           text: """Do not take screenshots, someone will have fully access to your assets, if it gets your mnemonic!\nPlease copy the mnemonic, then store it at a safe place.
-                //           """,
-                //           left: 5,
-                //           fontSize: 14,
-                //           textAlign: TextAlign.left,
-                //           fontWeight: FontWeight.bold,
-                //           color2: blackColor
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // ),
-
+              
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: paddingSize),
                   child: CustomButton(
                     onPressed: () async => {
-
 
                       Navigator.push(
                         context,
@@ -247,27 +202,29 @@ class CreateKeyBody extends StatelessWidget {
     var colSize = se.length ~/ 3;
 
     for (var i = 0; i < colSize; i++) {
-      list.add(Container(
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: grey,
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-        ),
-        // color: grey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: i * 3 + pos + 1 < 10
-          ? Text(
-            '  ' + (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
-            style: TextStyle(color: blackColor, fontSize: 14),
-          )
-          : Text(
-            (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
-            style: TextStyle(color: blackColor, fontSize: 14),
+      list.add(
+        Container(
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: grey,
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
           ),
-        ),
-      ));
+          // color: grey,
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: i * 3 + pos + 1 < 10
+            ? Text(
+              '  ' + (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
+              style: TextStyle(color: blackColor, fontSize: 16,fontWeight: FontWeight.w600),
+            )
+            : Text(
+              (i * 3 + pos + 1).toString() + '.  ' + se[i * 3 + pos],
+              style: TextStyle(color: blackColor, fontSize: 16,fontWeight: FontWeight.w600),
+            ),
+          ),
+        )
+      );
     }
     return list;
   }

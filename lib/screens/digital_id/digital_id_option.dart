@@ -5,6 +5,8 @@ import 'package:student_id/screens/digital_id/front_side/body_front_side.dart';
 import 'package:student_id/screens/digital_id/front_side/front_side.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'lading.dart';
+
 class DigitalIDOption extends StatelessWidget {
   const DigitalIDOption({ Key? key }) : super(key: key);
 
@@ -22,7 +24,7 @@ class DigitalIDOption extends StatelessWidget {
             // Hint To upload Card
             MyText(
               text: "Your document photo helps us prove your identity.It should match the information you have provided in the previous steps.",
-              fontSize: 16,
+              fontSize: 20,
               bottom: 30,
             ),
 
@@ -34,7 +36,7 @@ class DigitalIDOption extends StatelessWidget {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: 15),
-                height: btnHeight,
+                height: btnHeight + 15.0,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
@@ -47,11 +49,12 @@ class DigitalIDOption extends StatelessWidget {
                     SvgPicture.asset(AppConfig.iconPath+"id_card.svg"),
                     MyText(
                       left: 10,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                       text: "National ID"
                     ),
                     Expanded(child: Container()),
-
-                    Icon(Icons.arrow_forward_outlined, size: 24,)
+                    const Icon(Icons.arrow_forward_outlined, size: 24,)
                   ],
                 ),
               ),
@@ -65,7 +68,7 @@ class DigitalIDOption extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: 15),
-                height: btnHeight,
+                height: btnHeight + 15,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   color: HexColor("#F3F3F3")
@@ -77,6 +80,8 @@ class DigitalIDOption extends StatelessWidget {
                     SvgPicture.asset(AppConfig.iconPath+"id_card.svg"),
                     MyText(
                       left: 10,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                       text: "Student ID"
                     ),
                     Expanded(child: Container()),
@@ -95,7 +100,7 @@ class DigitalIDOption extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: 15),
-                height: btnHeight,
+                height: btnHeight+ 15,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   color: HexColor("#F3F3F3")
@@ -107,6 +112,8 @@ class DigitalIDOption extends StatelessWidget {
                     SvgPicture.asset(AppConfig.iconPath+"car.svg"),
                     MyText(
                       left: 10,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                       text: "Driver’s Licence"
                     ),
 

@@ -8,7 +8,7 @@ import 'package:student_id/provider/api_provider.dart';
 import 'package:student_id/provider/digital_id_p.dart';
 import 'package:student_id/provider/home_p.dart';
 import 'package:student_id/provider/registration_p.dart';
-import 'package:student_id/screens/setup_wallet/success.dart';
+import 'package:student_id/components/success.dart';
 import 'package:student_id/services/storage.dart';
 import 'package:encrypt/encrypt.dart';
 
@@ -95,7 +95,7 @@ class _VerifyPassphraseState extends State<VerifyPassphrase> {
         await StorageServices.storeData(_encrypted.bytes, DbKey.sensitive);
         await StorageServices.storeData(true, DbKey.blochchainData);
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SuccessSubmit()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SuccessSubmit(isIndicator: false,)));
         
         // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DashboardPage()), (route) => false);
       // });

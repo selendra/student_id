@@ -7,8 +7,10 @@ import 'package:student_id/components/text_c.dart';
 import 'package:student_id/core/config/app_config.dart';
 import 'package:student_id/main.dart';
 import 'package:student_id/models/digital_id_m.dart';
-import 'package:student_id/screens/setup_wallet/success.dart';
+import 'package:student_id/components/success.dart';
 import 'package:student_id/services/services_s.dart';
+
+import '../build_dot_indecator.dart';
 
 class SelfieSideBody extends StatelessWidget {
 
@@ -122,7 +124,7 @@ class SelfieSideBody extends StatelessWidget {
               ],
             ),
           ),
-
+          const ReuseDotIndecator(indexPoint: 2),
           Positioned(
             left: paddingSize,
             right: paddingSize,
@@ -131,11 +133,18 @@ class SelfieSideBody extends StatelessWidget {
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14)),
+                      borderRadius: BorderRadius.circular(50)),
                 ),
               ),
               onPressed: model!.selfieImage == '' ? null : () async {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SuccessSubmit(method: () async {await submit!();},)));
+                // MaterialPageRoute(builder: (context) => SuccessSubmit(method: () async {await submit!();},))
+                Navigator.push(
+                  context, 
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: SuccessSubmit(method: () async {await submit!();},)
+                  )
+                );
               }, 
               child: Container(
                 height: btnHeight,

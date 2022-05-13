@@ -22,10 +22,26 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     initCamera();
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
   }
+
+  // @override
+  // void dispose() {
+  //   SystemChrome.setPreferredOrientations([
+  //     DeviceOrientation.landscapeRight,
+  //     DeviceOrientation.landscapeLeft,
+  //     DeviceOrientation.portraitUp,
+  //     DeviceOrientation.portraitDown,
+  //   ]);
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
 
   initCamera() async {
     cameras = await availableCameras();
@@ -57,6 +73,16 @@ class _CameraAppState extends State<CameraApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+SystemChrome.setPreferredOrientations(orientation == Orientation.portrait
+    ? [
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.portraitUp,
+      ]
+    : [
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
     return FutureBuilder<void>(
       future: _initializeControllerFuture,
       builder: (context, snapshot) {

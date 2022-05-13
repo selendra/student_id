@@ -147,24 +147,24 @@ class EncryptionRSA {
   //   // prKey = key; 
   // }
 
-  Encrypted encryptRSA(txt) {
+  // Encrypted encryptRSA(txt) {
 
-    RSAAsymmetricKey serverPubKeyParser = _keyParser.parse("-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCeK3soe4K8UCbc2m6famiLMzQi+DbOmgiWri31GnuIS3WpKfDaigbybhQ5uVPBKEFrMH4jvhuK5sK4zbshgbk8UO0LaTNRQTDLthpU8aUHnVeL9KBr9MzvhFgUYzPlje8oLGIOHHrhwWf+BBDIj1FfCloTULyCh29x8iS1rTh89wIDAQAB\n-----END PUBLIC KEY-----");
+  //   RSAAsymmetricKey serverPubKeyParser = _keyParser.parse("-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCeK3soe4K8UCbc2m6famiLMzQi+DbOmgiWri31GnuIS3WpKfDaigbybhQ5uVPBKEFrMH4jvhuK5sK4zbshgbk8UO0LaTNRQTDLthpU8aUHnVeL9KBr9MzvhFgUYzPlje8oLGIOHHrhwWf+BBDIj1FfCloTULyCh29x8iS1rTh89wIDAQAB\n-----END PUBLIC KEY-----");
     
-    // This serVerprivateKeyParser is missing 
-    RSAAsymmetricKey serVerprivateKeyParser = _keyParser.parse("-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCeK3soe4K8UCbc2m6famiLMzQi+DbOmgiWri31GnuIS3WpKfDaigbybhQ5uVPBKEFrMH4jvhuK5sK4zbshgbk8UO0LaTNRQTDLthpU8aUHnVeL9KBr9MzvhFgUYzPlje8oLGIOHHrhwWf+BBDIj1FfCloTULyCh29x8iS1rTh89wIDAQAB\n-----END PUBLIC KEY-----");;
+  //   // This serVerprivateKeyParser is missing 
+  //   RSAAsymmetricKey serVerprivateKeyParser = _keyParser.parse("-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCeK3soe4K8UCbc2m6famiLMzQi+DbOmgiWri31GnuIS3WpKfDaigbybhQ5uVPBKEFrMH4jvhuK5sK4zbshgbk8UO0LaTNRQTDLthpU8aUHnVeL9KBr9MzvhFgUYzPlje8oLGIOHHrhwWf+BBDIj1FfCloTULyCh29x8iS1rTh89wIDAQAB\n-----END PUBLIC KEY-----");;
     
-    final publicKey = RSAPublicKey(serverPubKeyParser.modulus!, serverPubKeyParser.exponent!);
-    final privKey;
+  //   final publicKey = RSAPublicKey(serverPubKeyParser.modulus!, serverPubKeyParser.exponent!);
+  //   final privKey;
 
-    privKey = RSAPrivateKey(serVerprivateKeyParser.modulus!, serVerprivateKeyParser.exponent!, serVerprivateKeyParser.p, serVerprivateKeyParser.q);
+  //   privKey = RSAPrivateKey(serVerprivateKeyParser.modulus!, serVerprivateKeyParser.exponent!, serVerprivateKeyParser.p, serVerprivateKeyParser.q);
 
-    final encrypter = Encrypter(RSA(publicKey: publicKey, privateKey:privKey));
+  //   final encrypter = Encrypter(RSA(publicKey: publicKey, privateKey:privKey));
 
-    // Account 
-    encrypted = encrypter.encrypt("0xc0571cca404abae232c6d2f376047910f2c2f4730d5c80e0e04ce091adad7a2c");
-    return encrypted!;
-  } 
+  //   // Account 
+  //   encrypted = encrypter.encrypt("0xc0571cca404abae232c6d2f376047910f2c2f4730d5c80e0e04ce091adad7a2c");
+  //   return encrypted!;
+  // } 
 
   // String decryptRSA(txt){
 
@@ -175,7 +175,8 @@ class EncryptionRSA {
     // return _encrypter!.decrypt(Encrypted(Uint8List.fromList(lsInt)), iv: _iv);
   // }
   
-  final bytes = hex.decode(cert.publicKeyData.bytes!);
+  // final bytes = hex.decode(cert.publicKeyData.bytes!);
+
   // final key = CryptoUtils.rsaPublicKeyFromDERBytes(Uint8List.fromList(bytes));
   // final pem = CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
 }

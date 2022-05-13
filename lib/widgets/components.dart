@@ -649,8 +649,8 @@ class CustomButtonIcon extends StatelessWidget {
     const double borderRadius = 50;
 
     return SizedBox(
-      width: MediaQuery.of(context).size.width / 2.75,
-      height: btnHeight,
+      width: MediaQuery.of(context).size.width / 4,
+      height: btnHeight - 15,
       child: DecoratedBox(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
@@ -659,8 +659,8 @@ class CustomButtonIcon extends StatelessWidget {
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
                 alignment: Alignment.center,
-                padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(top: 10, bottom: 10)),
+                // padding: MaterialStateProperty.all(
+                //     const EdgeInsets.only(top: 5, bottom: 5)),
                 backgroundColor:
                     MaterialStateProperty.all(Colors.transparent),
               ),
@@ -936,7 +936,7 @@ class PersonlInfo extends StatelessWidget {
                 ),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(13)
+                    borderRadius: BorderRadius.circular(64)
                   )
                 ),
               ),
@@ -944,7 +944,7 @@ class PersonlInfo extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: btnHeight,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14)
+                  borderRadius: BorderRadius.circular(54)
                 ),
                 alignment: Alignment.center,
                 child: MyText(
@@ -987,7 +987,6 @@ class PersonlInfo extends StatelessWidget {
 
         Consumer<DigitalIDProvider>(
           builder: (context, provider, widget){
-            
             if (provider.identifierModel!.completedSetpUpID == false && model!.isEditing == false)
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: paddingSize, vertical: paddingSize),
@@ -1002,7 +1001,7 @@ class PersonlInfo extends StatelessWidget {
                   padding: MaterialStateProperty.all(EdgeInsets.zero),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13)
+                      borderRadius: BorderRadius.circular(54)
                     )
                   ),
                 ),
@@ -1026,26 +1025,48 @@ class PersonlInfo extends StatelessWidget {
             );
 
             if (provider.identifierModel!.completedSetpUpID == true && model!.isEditing == false)
-            return CarouselSlider.builder(
-              options: CarouselOptions(height: 200.0),
-              itemCount: provider.identifierModel!.lsIDCard!.length,
-              itemBuilder: (context, i, j) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    color: Colors.grey.withOpacity(0.5),
-                    image: DecorationImage(
-                      image: FileImage(File(provider.identifierModel!.lsIDCard![i]))
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    // color: Colors.amber
-                  ),
+            return CarouselWidget(
+              height: 330,
+              items: List.generate( provider.identifierModel!.lsIDCard!.length,(i) {
+                return Column(
+                  children: [
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          color: Colors.grey.withOpacity(0.5),
+                          image: DecorationImage(
+                            image: FileImage(File(provider.identifierModel!.lsIDCard![i]))
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          // color: Colors.amber
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List<Widget>.generate(provider.identifierModel!.lsIDCard!.length, (int index) {
+                          return AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              height: 10,
+                              width: (index == i) ? 30 : 10,
+                              margin:
+                                  EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: (index == i)
+                                      ? Colors.blue
+                                      : Colors.blue.withOpacity(0.5)));
+                        }
+                        )
+                      )
+                  ],
                 );
-              }
-            );
+              }),
+                     
+                    );
             
             return Container();
             
@@ -1305,6 +1326,41 @@ class PeerProgress extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
       child: SetupProgressIndicator(num),
+    );
+  }
+}
+
+
+class CarouselWidget extends StatelessWidget {
+  final double? height;
+  const CarouselWidget({
+    Key? key,
+    this.onPageChanged,
+    this.items,
+    required this.height
+  }) : super(key: key);
+  final Function(int index, CarouselPageChangedReason reason)? onPageChanged;
+  final List<Widget>? items;
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: height,
+        aspectRatio: 16/9,
+        viewportFraction: 0.9,
+        initialPage: 0,
+        enableInfiniteScroll: true,
+        reverse: false,
+        autoPlay: false,
+        enlargeStrategy: CenterPageEnlargeStrategy.height,
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        enlargeCenterPage: true,
+        onPageChanged: onPageChanged,
+        scrollDirection: Axis.horizontal,
+      ),
+      items: items,
     );
   }
 }
