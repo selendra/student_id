@@ -1,1 +1,167 @@
-<mxfile host="app.diagrams.net" modified="2022-05-13T08:25:18.650Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36" etag="B8tedK-oOffWwtBNzs62" version="18.0.3" type="github" pages="2"><diagram id="L8e0pqVhwaGxmal6kiHk" name="Registration">5Vldb9owFP01kbYHqiQmIX0shXbVqNQJTV33MpnEBK9OnDmmwH79rolDCKY0XQtU7RP28fe55/peBwudJ/NLgbPJNY8Is1w7mluoZ7luJ/Bt+FHIokDaKyQWNCowpwKG9C/RYNltSiOS1zpKzpmkWR0MeZqSUNYwLASf1buNOauvmuGYGMAwxMxEb2kkJwUaeHaFfyE0npQrO7ZuSXDZWQP5BEd8tgahvoXOBeeyKCXzc8IUeyUvxbiLR1pXGxMklU0GnLbmyeXs6vbnQIanX7+Nfvnen1Zb700uygOTCM6vq1zICY95ilm/QruCT9OIqFltqFV9BpxnADoA/iZSLrQx8VRygCYyYboVNiwWP/T4ZeVOVU68stqbrzf2FrpW7FVt8FEKNJTzqQjJjnOXUsIiJnJHP7QyFEic8ITAfmCcIAxL+lDfB9ZSi1f9KmtAQRvkGcbR8z5gNtUrDWmcAvI9M83GGLiEMs9sQiUZZnh5/hm4ZZ18PScRksx302geuxyA9JDSqW2vqM8qD3FK2U/WvCOw98RU54PKGDWUsXdMGSNDxjdY4MRCZ5brM9h2dySgFKtSSzGTYMq2N2U4z2dcRIa5nxA9zrMiOIzpXJn8NbwANfCC4JBOUIbMD+cFXkMvCI7pBZ7hBbu0LsiYCMyWiU1E4OdTTFJApCqPFhr//Bb8oO2/MT/wzbAJslB21pxucAZHl3Wacin4PTnnjAtAUp4qTxlTxjYgzFQ8Rr0QqCKAdxWRFJLHM92Q0ChijwXluuu9hiU6dUsgz7SEv8USaF+WCN6r5r3TN6b5U4PpAU3vAekXZMPGYF+ufUtGSK0fRYLkOVCPE0VXOsqzFTPv0TW8Bq6xNWXdm2846INGa6fp28txjxmvHfP1NeAxTU2rHfTlZddk7LWP/fJyzLzmaqwWxw/q2sZhCJJV0de88HEaLe90IdT9vCO5/yB+4Tb1i/YL/WI59EwIvFjrkHGaynxt5hsFrN2gG88dL/DWxfPc/lAodlBJb3WUF6jRP654Kr3c1eTyhsTTeQ3xGNZGG/HVD/z6FMXG9KiNO+c1DG8mQBeQ+JDtl8kAjwjbyBIb5yuQONG/eLScT1lROw5M7nUtr7frotcfqfVga/VpeN3iO3T9aFho2SdOgFDNAnrJ/7Vr2YWPxznZj8lcw2Tv5LvQ0zH6sN+F2gbR1yRX/3u49nAahsuHwAZv1Z3oHCSx8e2NaNE0P/f3xlpnG2uatvH2u+XQrCGnLjU/2B9rUK3+qyrugOovP9T/Bw==</diagram><diagram id="HRFAmHWYue0PKXw_82Kg" name="Home Page">5VdNc9owEP01PsL4AzvkSIC0nSYztBzaHIUlbHVky5XkgPvru7JkjDHQNIW0M72A9KRdrXbfrtZOMM227wQq0keOCXN8F2+dYOb4fjjy4VcDlQGCIDRAIig2kNcCS/qDWNC1aEkxkZ2NinOmaNEFY57nJFYdDAnBN91ta866pxYoIT1gGSPWR79QrFKDjkO3xd8TmqTNyZ5rVzLUbLaATBHmmz0omDvBVHCuzCjbTgnTvmv8YuTuT6zuDBMkVy8RCLe4wgt3unp8niThBi+E7w6sFqmq5sIEw/3tlAuV8oTniM1b9E7wMsdEa3Vh1u554LwA0APwG1GqssFEpeIApSpjdhUMFtVXK19PnvRkGDbT2XZ/cVbZmbFVG3jSBc19eClicubelpUKiYSoM/uiXaCA4IRnBOwBOUEYUvS5aweyVEt2+9powMAG5DeCY418Rqy0JwExc0A+fXb8CGXg7bt8JYuda/bDyBikiA7XJqWKLAtU+2MDSdoNhj2DCEW2593ad0Mj0FDc5rh3MxraLN+0ObPble7ly9i9ku+Cnu8+rPXZCIIGx8UxkFg52qSIgS13KwGjRI9Qjut6IoSuJ9oPUm64wP9ppkQvzJSbP8yUWnQiBKr2NhSc5kruaV5ooGVe2Gi0zPO9hnn3r5WAgbGi5d7uOq+n4+jvsqclzFOHL/8Me8aXYE8v2EHUDXbghU1hapQYy6zcQc25QNzDXhm6R5SR48XkAa2geeqEEDGa5DCOwfNEAKALNYX2ZGIXMoqxYQuR9Ada1fp0EG3qgPLwzgln5yq97Z2scNux7Af8NKtPPgsDd+iNg6D7NJjZa+PabOHrtSRXCVjUC5jjg+fcSUGdYKJfEKV06znRJ0MwS5UOpCoxOGooCSM5FmjIRVIvHz4tRtU8x3VwjD6rBP6+i4Gs3/dDsQUSKKt3H64MzHWO4iQDph1fKsrVR1L1OPiLTgHJwnTYa7rVZWlHTkbW6jKdhD+OmgRtCDNy+53E6LbfSezAi7cSNz1KPBKpPxt8d1nGMZGy58m2dHtv0oGFt91C541f3IFF1+rAxsfcZv22Pl4E39ptgdttXAPvmm6Dafu1Z+pV+8kczH8C</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-05-18T12:52:03.199Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36" etag="jaX2R3sVk30sZA9pvcD_" version="18.0.7" type="github" pages="3">
+  <diagram id="QzjZwZWA6k2g2hxa9Z9o" name="New Flow">
+    <mxGraphModel dx="866" dy="486" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-1" value="To Verify &lt;br&gt;phone numer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hnIYzhW1CXsdD_KqWwHf-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-2" value="Get Web3 account&lt;br&gt;(Seed or mnemonic)" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="210" y="35" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hnIYzhW1CXsdD_KqWwHf-5" target="hnIYzhW1CXsdD_KqWwHf-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-4" value="Sign Up" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hnIYzhW1CXsdD_KqWwHf-3">
+          <mxGeometry x="-0.2222" y="2" relative="1" as="geometry">
+            <mxPoint x="5" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-5" value="Student" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#00FF00;" edge="1" parent="1" source="hnIYzhW1CXsdD_KqWwHf-7" target="hnIYzhW1CXsdD_KqWwHf-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-7" value="&lt;font color=&quot;#00ff00&quot;&gt;If data&lt;/font&gt;&lt;br&gt;&lt;br&gt;Query= (userN, email, id, stID, etc)&lt;br&gt;and display on Screen" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="450" y="35" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#00FF00;" edge="1" parent="1" source="hnIYzhW1CXsdD_KqWwHf-9" target="hnIYzhW1CXsdD_KqWwHf-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-9" value="Blockchain&lt;br&gt;&lt;br&gt;Ex: (kilt.io)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="730" y="130" width="100" height="133.33" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontColor=#00FF00;" edge="1" parent="1" source="hnIYzhW1CXsdD_KqWwHf-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="780" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-11" value="Meant or Upload Data to Blockchian" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#FFFFFF;labelBackgroundColor=#99CCFF;fillColor=#99CCFF;" vertex="1" parent="1">
+          <mxGeometry x="620" y="40" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontColor=#000000;" edge="1" parent="1" source="hnIYzhW1CXsdD_KqWwHf-13" target="hnIYzhW1CXsdD_KqWwHf-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-13" value="1. Explore kilt.io .&lt;br&gt;2. Come up to Team with Flow chart and Wireframe." style="whiteSpace=wrap;html=1;aspect=fixed;align=left;" vertex="1" parent="1">
+          <mxGeometry x="715" y="320" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="hnIYzhW1CXsdD_KqWwHf-14" value="&lt;font color=&quot;#000000&quot;&gt;Start design UIs to fit with Blockchain function&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#00FF00;" vertex="1" parent="1">
+          <mxGeometry x="510" y="200" width="160" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="L8e0pqVhwaGxmal6kiHk" name="Registration">
+    <mxGraphModel dx="866" dy="486" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="9-xmGwIWZLtc9KQb_65q-1" target="9-xmGwIWZLtc9KQb_65q-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-1" value="Sign Up" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="131" y="405" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="9-xmGwIWZLtc9KQb_65q-3" target="9-xmGwIWZLtc9KQb_65q-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-3" value="Param:&lt;br&gt;- email&lt;br&gt;- password" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="331" y="405" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="9-xmGwIWZLtc9KQb_65q-5" target="9-xmGwIWZLtc9KQb_65q-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-5" value="- email&lt;br&gt;-referal code (generate by code)" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="461" y="405" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-6" value="Set referal" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="471" y="355" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-8" value="- email&lt;br&gt;-referal code (generate by code)" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="591" y="405" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-9" value="Link Email with Web3 address&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="571" y="355" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="9-xmGwIWZLtc9KQb_65q-11" target="9-xmGwIWZLtc9KQb_65q-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-11" value="Login" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="130" y="545" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-15" value="If have account &lt;br&gt;and correct password" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="9-xmGwIWZLtc9KQb_65q-12" target="9-xmGwIWZLtc9KQb_65q-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="531" y="585" />
+              <mxPoint x="531" y="585" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="9-xmGwIWZLtc9KQb_65q-12" target="9-xmGwIWZLtc9KQb_65q-17" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="371" y="686" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-19" value="Failed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="9-xmGwIWZLtc9KQb_65q-16" vertex="1" connectable="0">
+          <mxGeometry x="-0.1833" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-12" value="Param:&lt;br&gt;- email&lt;br&gt;- password" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="330" y="545" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-14" value="Mesage Success" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="601" y="555" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9-xmGwIWZLtc9KQb_65q-17" value="Message failed" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="310" y="685" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HRFAmHWYue0PKXw_82Kg" name="Home Page">
+    <mxGraphModel dx="542" dy="335" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5xdydP0CbMvAg5wdPr20-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5xdydP0CbMvAg5wdPr20-2" target="5xdydP0CbMvAg5wdPr20-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5xdydP0CbMvAg5wdPr20-2" value="Scan QR&amp;nbsp;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="174.5" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5xdydP0CbMvAg5wdPr20-3" value="If have account &lt;br&gt;and correct password" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5xdydP0CbMvAg5wdPr20-6" target="5xdydP0CbMvAg5wdPr20-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="521" y="214.5" />
+              <mxPoint x="521" y="214.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5xdydP0CbMvAg5wdPr20-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5xdydP0CbMvAg5wdPr20-6" target="5xdydP0CbMvAg5wdPr20-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="361" y="315.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5xdydP0CbMvAg5wdPr20-5" value="Failed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5xdydP0CbMvAg5wdPr20-4">
+          <mxGeometry x="-0.1833" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5xdydP0CbMvAg5wdPr20-6" value="+ Api: https://auth-student.selendra.org/&lt;br&gt;+ Endpoint: /auth/qr-scan&lt;br&gt;Param:&lt;br&gt;- id&lt;br&gt;- email&lt;br&gt;- pubKey" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;" vertex="1" parent="1">
+          <mxGeometry x="286.5" y="140" width="149" height="149" as="geometry" />
+        </mxCell>
+        <mxCell id="5xdydP0CbMvAg5wdPr20-7" value="Mesage Success" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="591" y="184.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5xdydP0CbMvAg5wdPr20-8" value="Message failed" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="314.5" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
